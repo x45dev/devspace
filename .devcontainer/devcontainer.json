@@ -1,0 +1,47 @@
+
+{
+  "name": "Secure Devcontainer Bootstrap (Final)",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "trixie",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.eol": "\n"
+      },
+      "extensions": ["ms-azuretools.vscode-docker", "timonwong.shellcheck"]
+    }
+  },
+	// Use official Devcontainer Features for installing common tools.
+	// This is the industry best practice for creating modular and maintainable environments.
+  // See https://containers.dev/features
+  "features": {
+		// Installs the Docker CLI and configures access to the host's Docker daemon via the mounted socket.
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    // Installs the GitHub CLI for interacting with GitHub. It will inherit the host's auth token.
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+    // Installs the Mise CLI
+    "ghcr.io/devcontainers-extra/features/mise:1": {}
+    // Untested:
+    //ghcr.io/larsnieuwenhuizen/features/zellij:0
+    //ghcr.io/devcontainers-extra/features/age:1
+    //ghcr.io/devcontainers-extra/features/lefthook-asdf:1
+    //ghcr.io/devcontainers-extra/features/pass-apt-get:1
+    //ghcr.io/devcontainers-extra/features/sops:1
+  },
+  // --- LIFECYCLE HOOKS ---
+
+	// Runs ON THE HOST *before* the container is created.
+  "initializeCommand": ".devcontainer/scripts/initialize.sh",
+  // This is the critical step to fetch the bootstrap secret using the host's authenticated gh CLI.
+  // "initializeCommand": "gh secret view AGE_PRIVATE_KEY --repo ${localWorkspaceFolderBasename} >.devcontainer/age.key",
+
+  // Runs INSIDE THE CONTAINER *after* it is created and the workspace is mounted.
+  "postCreateCommand": ".devcontainer/scripts/post-create.sh",
+  "postStartCommand": ".devcontainer/scripts/post-start.sh",
+  "postAttachCommand": ".devcontainer/scripts/post-attach.sh",
+
+  // The user the VS Code server will run as inside the container. Must match the user created in the Dockerfile.
+  "remoteUser": "${localEnv:USERNAME:-vscode}"
+}

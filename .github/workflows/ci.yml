@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  devcontainer-build:
+    name: Build Devcontainer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build devcontainer image
+        run: |
+          docker compose -f .devcontainer/docker-compose.yml build
+
+  lint-scripts:
+    name: Lint Shell Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck + shfmt
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck shfmt
+
+      - name: Run shellcheck
+        run: shellcheck $(find . -type f -name "*.sh")
+
+      - name: Run shfmt
+        run: shfmt -d -i 2 -ci -sr .
+
+  sops-check:
+    name: Validate SOPS setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install sops
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sops
+
+      - name: Check for .sops.yaml
+        run: |
+          test -f .sops.yaml || (echo "Missing .sops.yaml" && exit 1)
+
+      - name: Validate encrypted files (if any)
+        run: |
+          for f in $(find . -type f -name "*.enc.*" || true); do
+            echo "Checking $f"
+            sops -d "$f" >/dev/null || exit 1
+          done
+
+  env-docs-check:
+    name: Verify Env Files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure .env.example files documented
+        run: |
+          for f in $(find . -type f -name "*.env.example"); do
+            echo "Checking $f"
+            grep -q "#" "$f" || (echo "$f has no comments" && exit 1)
+          done

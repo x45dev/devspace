@@ -1,0 +1,26 @@
+name: devspace
+services:
+  trixie:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USERNAME: ${USERNAME:-vscode}
+        USER_UID: ${UID:-1000}
+        USER_GID: ${GID:-1000}
+    command: sleep infinity
+    environment:
+      # - SOPS_AGE_KEY_FILE=/workspaces/${localWorkspaceFolderBasename:-workspace}/.devcontainer/runtime/age.key
+      # - PROJECT_ROOT=/workspaces/${localWorkspaceFolderBasename:-workspace}
+      # - AGE_KEY_PROVIDER=${AGE_KEY_PROVIDER:-file}
+      # - VAULT_KV_PATH=${VAULT_KV_PATH:-secret/data/dev/age_key}
+      # - VAULT_KV_FIELD=${VAULT_KV_FIELD:-private_key}
+      - USER_UID=${UID:-1000}
+      - USER_GID=${GID:-1000}
+      # - AGE_PRIVATE_KEY=${AGE_PRIVATE_KEY:-}
+    env_file: devcontainer.env
+    volumes:
+      - ..:/workspaces/${localWorkspaceFolderBasename:-workspace}:cached
+      - /var/run/docker.sock:/var/run/docker.sock
+      # OPTIONAL: mount host GnuPG directory (UNCOMMENT to enable)
+      # - ${LOCAL_GNUPG_DIR}:/home/${USERNAME}/.gnupg:ro

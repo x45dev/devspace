@@ -1,0 +1,5 @@
+
+.vscode/
+.devcontainer/runtime/
+.devcontainer/bootstrap/
+.env.sops.yaml
