@@ -1,5 +1,20 @@
-
+# Version: 2025-09-11 22:45:00 AEST
 .vscode/
 .devcontainer/runtime/
 .devcontainer/bootstrap/
-.env.sops.yaml
+
+#
+# WHY: Ignore plaintext environment files. The `.config/env` file is for local, non-sensitive
+# overrides and should not be in source control. The `.env.yaml` is the temporary plaintext
+# version of secrets before encryption.
+#
+.config/env
+.config/.env.yaml
+
+#
+# WHY: The encrypted secrets file should generally NOT be ignored, as it's designed to be
+# safely committed to the repository. However, in a public template, we ignore it to
+# prevent accidental commits of placeholder secrets. You may want to remove this line
+# in your own private projects.
+#
+.config/.env.sops.yaml
