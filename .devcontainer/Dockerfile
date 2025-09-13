@@ -1,3 +1,6 @@
+# syntax=docker/dockerfile:1.9
+# cspell:ignore
+
 #
 # DOCKERFILE: devcontainer/Dockerfile
 #
@@ -10,8 +13,6 @@
 #
 # Version: 2025-09-12 16:30:00 AEST -> Updated 2025-09-11 23:38:00 AEST
 #
-# syntax=docker/dockerfile:1.9
-# cspell:ignore
 
 #
 # WHY: Using a specific version of a devcontainer base image ensures a reproducible
@@ -24,9 +25,9 @@ FROM mcr.microsoft.com/devcontainers/base:2.0-trixie
 # the image build process. This is how we dynamically set the user's UID/GID.
 #
 ARG USERNAME=vscode
+ARG GROUPNAME=$USERNAME
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-
 #
 # WHY: Running as root is necessary for system-level package installation.
 # We switch to the non-root user as soon as possible for security.
@@ -64,30 +65,28 @@ EOT
 #   3. No user with the target UID exists.
 #
 RUN <<EOT
-# Find the existing user with the target UID, if any
+# Find existing user/group with the target IDs
 EXISTING_USER=$(getent passwd "${USER_UID}" | cut -d: -f1)
 EXISTING_GROUP=$(getent group "${USER_GID}" | cut -d: -f1)
 
 # --- Group Management ---
-if [ -z "${EXISTING_GROUP}" ]; then 
-    # If no group with GID exists, create a new one.
-    groupadd --gid "${USER_GID}" "${USERNAME}";
-elif [ "${EXISTING_GROUP}" != "${USERNAME}" ]; then
-    # If group with GID exists but has the wrong name, rename it.
-    groupmod --new-name "${USERNAME}" "${EXISTING_GROUP}";
+if [ -z "${EXISTING_GROUP}" ]; then
+  groupadd --gid "${USER_GID}" "${GROUPNAME}";
+elif [ "${EXISTING_GROUP}" != "${GROUPNAME}" ]; then
+  groupmod --new-name "${GROUPNAME}" "${EXISTING_GROUP}";
 fi
 
 # --- User Management ---
 if [ -z "${EXISTING_USER}" ]; then
-    # If no user with UID exists, create a new one.
-    useradd --shell /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" --create-home "${USERNAME}";
+  useradd --shell /bin/bash --uid "${USER_UID}" --gid "${USER_GID}" --create-home "${USERNAME}";
 elif [ "${EXISTING_USER}" != "${USERNAME}" ]; then
-    # If user with UID exists but has the wrong name, rename it and its home dir.
-    usermod --login "${USERNAME}" --move-home --home "/home/${USERNAME}" "${EXISTING_USER}";
+  usermod --login "${USERNAME}" --move-home --home "/home/${USERNAME}" "${EXISTING_USER}";
 fi
 
+# Ensure the user is part of their primary group after any modifications
+usermod -g "${GROUPNAME}" "${USERNAME}"
+
 # --- Final Configuration ---
-# Add the user to the sudo group and set up passwordless sudo.
 echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" > "/etc/sudoers.d/${USERNAME}"
 chmod 0440 "/etc/sudoers.d/${USERNAME}"
 EOT

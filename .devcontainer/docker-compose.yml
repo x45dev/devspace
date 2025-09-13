@@ -11,20 +11,23 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      # Build-time arguments are passed from the environment file.
       args:
+        #
+        # WHY: These variables are read from `devcontainer.env` and passed into the
+        # Dockerfile build process. This is the core mechanism for dynamic user mapping.
+        #
         USERNAME: ${USERNAME:-vscode}
+        GROUPNAME: ${GROUPNAME:-vscode}
         USER_UID: ${UID:-1000}
         USER_GID: ${GID:-1000}
     command: sleep infinity
     #
-    # WHY: env_file provides a single, authoritative source for environment variables,
-    # making configuration cleaner and less error-prone than a mixed environment: block.
-    # All container-wide environment variables should be defined in `devcontainer.env`.
+    # WHY: The `env_file` is the single source of truth for variables needed by
+    # Docker Compose at runtime or during the build.
     #
     env_file: devcontainer.env
     volumes:
-      - ..:/workspaces/${localWorkspaceFolderBasename:-workspace}:cached
+      - ..:/workspaces/${localWorkspaceFolderBasename:-devspace}:cached
       - /var/run/docker.sock:/var/run/docker.sock
       #
       # OPTIONAL: To use GPG keys from your host machine for things like Git commit signing,

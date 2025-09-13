@@ -1,0 +1,75 @@
+#
+# LEFTHOOK CONFIGURATION: lefthook.yml
+#
+# DESCRIPTION:
+# This file defines the Git hooks that Lefthook will manage. These hooks run
+# automatically during Git operations (like commit and push) to enforce code
+# quality, run linters, and prevent secrets from being committed.
+#
+# USAGE: Lefthook is installed via Mise, and the hooks are installed into your
+# local .git directory by the `post-create.sh` script.
+#
+# Version: 2025-09-11 23:47:00 AEST
+#
+
+#
+# WHY: This setting ensures that if one hook command fails, the subsequent
+# commands in that hook are not run. This provides a fail-fast mechanism.
+#
+assert_lefthook_installed: true
+colors: true
+fail_on_error: true
+
+#
+# HOOK: pre-commit
+#
+# DESCRIPTION:
+# These commands run automatically whenever you run `git commit`. They are designed
+# to be fast checks that validate the code you are about to commit.
+#
+pre-commit:
+  parallel: true
+  commands:
+    #
+    # WHY: Runs Hadolint to check the Dockerfile for common errors and best
+    # practice violations.
+    #
+    hadolint:
+      glob: ".devcontainer/Dockerfile"
+      run: hadolint {files}
+    #
+    # WHY: Runs ShellCheck to perform static analysis on all shell scripts,
+    # catching common bugs and syntax errors.
+    #
+    shellcheck:
+      glob: "**/*.sh"
+      run: shellcheck {files}
+    #
+    # WHY: Runs shfmt to ensure all shell scripts are formatted consistently.
+    # The `-d` flag will show a diff and fail if not formatted correctly.
+    #
+    shfmt:
+      glob: "**/*.sh"
+      run: shfmt -d -i 2 -ci -sr {files}
+
+#
+# HOOK: pre-push
+#
+# DESCRIPTION:
+# These commands run automatically whenever you run `git push`. They are designed
+# for more comprehensive checks that validate the entire state of the branch
+# before it is shared with others.
+#
+pre-push:
+  parallel: true
+  commands:
+    #
+    # WHY: This is the ultimate validation step. It performs a full build of the
+    # devcontainer image, ensuring that no changes have been pushed that would
+    # break the development environment for other developers.
+    #
+    devcontainer-build:
+      run: |
+        echo "Performing pre-push devcontainer build check..."
+        cp .devcontainer/devcontainer.env.example .devcontainer/devcontainer.env
+        docker compose -f .devcontainer/docker-compose.yml build

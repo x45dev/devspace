@@ -3,64 +3,65 @@
 # SCRIPT: entrypoint.sh
 #
 # DESCRIPTION:
-# This is the container's entrypoint script. Its primary responsibilities are:
-# 1. Ensure the runtime directory for secrets exists.
-# 2. Set up a trap to securely shred the AGE key on container exit, preventing secrets from
-#    being left on disk.
-# 3. Execute the container's main command or an infinite sleep loop as the specified non-root user.
+# This script is the container's entrypoint (PID 1). Its primary jobs are:
+#   1. Set up a trap to securely shred the AGE key on container shutdown.
+#   2. Hand off execution to the container's final command (e.g., sleep infinity)
+#      as the correct non-root user.
 #
-# USAGE:
-# This script is executed automatically by the Docker runtime as the container's ENTRYPOINT.
+# NOTE: It explicitly does NOT handle filesystem setup (like creating the
+# runtime directory), as that is the responsibility of the host-side
+# `initialize.sh` script which runs before the container starts.
 #
-# Version: 2025-09-11 22:23:00 AEST
+# Version: 2025-09-12 14:29:00 AEST -> Updated 2025-09-12 14:40:00 AEST
+#
+set -euxo pipefail
 
-set -Eeuo pipefail
+# --- Configuration ---
+#
+# WHY: These variables are read from the environment (`devcontainer.env`) to ensure
+# we are operating as the correct user and know where the sensitive key file is.
+# The `:?` syntax provides a fail-fast mechanism if a variable is not set.
+#
+readonly USER_TO_RUN="${USERNAME:?Error: USERNAME not set.}"
+readonly SOPS_AGE_KEY_FILE="${SOPS_AGE_KEY_FILE:?Error: SOPS_AGE_KEY_FILE not set.}"
 
-#
-# WHY: Using `"${VAR:?Error message}"` provides a defensive check to ensure critical
-# environment variables are set. This prevents silent failures and makes debugging easier
-# by causing the script to fail fast with a clear error message.
-#
-USER_TO_RUN="${USERNAME:?USERNAME environment variable is not set}"
-USER_UID="${UID:?UID environment variable is not set}"
-USER_GID="${GID:?GID environment variable is not set}"
-# Default to a standard path if not provided, which is common in dev containers.
-WORKSPACE_ROOT="/workspaces/${localWorkspaceFolderBasename:-devspace}"
-SOPS_AGE_KEY_FILE="${WORKSPACE_ROOT}/.devcontainer/runtime/age.key"
-RUNTIME_DIR=$(dirname "${SOPS_AGE_KEY_FILE}")
+# --- Main Logic ---
+main() {
+  #
+  # WHY: This trap is a critical security feature. It registers a function to
+  # run when the container receives a termination signal (TERM, INT) or exits.
+  # This ensures the plaintext AGE key file is securely deleted and does not
+  # remain on the filesystem after the container stops.
+  #
+  trap 'cleanup' TERM INT EXIT
 
-#
-# DESCRIPTION:
-# This function is called on container exit to securely delete the AGE key.
-# `shred` is used to overwrite the file, making it significantly harder to recover.
-#
+  #
+  # WHY: `exec sudo -E -u "${USER_TO_RUN}" -- "$@"` is the final and most
+  # important step. `exec` replaces the current process (the script itself)
+  # with the new one, which is best practice for entrypoints. `sudo -E -u ...`
+  # runs the provided command (`$@`, e.g., "sleep infinity") as the specified
+  # non-root user, ensuring the container runs with least privilege. The `-E`
+  # flag preserves the environment variables.
+  #
+  exec sudo -E -u "${USER_TO_RUN}" -- "$@"
+}
+
+# --- Helper Functions ---
 cleanup() {
-  if [ -f "${SOPS_AGE_KEY_FILE}" ]; then
+  if [[ -f "${SOPS_AGE_KEY_FILE}" ]]; then
+    #
+    # WHY: We attempt to use `shred` for a more secure deletion if it's
+    # available, falling back to a simple `rm`. The `|| true` ensures that
+    # if the cleanup fails for some reason, it doesn't cause the container
+    # exit to fail.
+    #
     shred -u "${SOPS_AGE_KEY_FILE}" 2>/dev/null || rm -f "${SOPS_AGE_KEY_FILE}" || true
   fi
 }
 
 #
-# WHY: The runtime directory must exist before any lifecycle scripts attempt to write to it.
-# This ensures that host-side initialization scripts can correctly place the AGE key.
-# The chown ensures the non-root user can read/write within this directory if needed.
+# WHY: Pass all script arguments (`$@`) to the main function. This is standard
+# bash practice.
 #
-mkdir -p "${RUNTIME_DIR}" || true
-chown -R "${USER_UID}:${USER_GID}" "${RUNTIME_DIR}" || true
+main "$@"
 
-#
-# WHY: The trap ensures that our cleanup function is called regardless of how the container
-# exits (normally or via a signal), guaranteeing that the sensitive AGE key is removed.
-#
-trap 'cleanup' TERM INT EXIT
-
-#
-# WHY: The container should run as a non-root user for security. `sudo -E` preserves the
-# environment variables when switching to the user. If no command is provided, `sleep infinity`
-# keeps the container running for the devcontainer to attach to.
-#
-if [ "$#" -eq 0 ]; then
-  exec sudo -E -u "${USER_TO_RUN}" -- bash -lc "exec sleep infinity"
-else
-  exec sudo -E -u "${USER_TO_RUN}" -- "$@"
-fi

@@ -30,8 +30,8 @@
     //ghcr.io/devcontainers-extra/features/pass-apt-get:1
     //ghcr.io/devcontainers-extra/features/sops:1
   },
+  
   // --- LIFECYCLE HOOKS ---
-
 	// Runs ON THE HOST *before* the container is created.
   "initializeCommand": ".devcontainer/scripts/initialize.sh",
   // This is the critical step to fetch the bootstrap secret using the host's authenticated gh CLI.
@@ -41,6 +41,11 @@
   "postCreateCommand": ".devcontainer/scripts/post-create.sh",
   "postStartCommand": ".devcontainer/scripts/post-start.sh",
   "postAttachCommand": ".devcontainer/scripts/post-attach.sh",
+
+  // --- MOUNTS --
+  // "mounts": [
+  //   "source=${localEnv:HOME}/.config/sops/age/keys.txt,target=${localEnv:HOME}/.config/sops/age/keys.txt,type=bind,consistency=cached"
+  // ],
 
   // The user the VS Code server will run as inside the container. Must match the user created in the Dockerfile.
   "remoteUser": "${localEnv:USERNAME:-vscode}"

@@ -1,50 +1,45 @@
-# Architectural Decision Record (ADR)
-<!-- Version: 2025-09-11 23:33:00 AEST -->
+# **Architectural Decision Record (ADR)**
+
+\<\!-- Version: 2025-09-13 22:37:00 AEST \--\>
 
 This document records the key architectural decisions made during the development of this devcontainer template.
 
----
+### **1\. Dynamic & Sanitized User Mapping via Host-Side Script**
 
-### 1. Dynamic UID/GID Mapping via Host-Side Script
+* **Context**: Devcontainers frequently suffer from file permission errors when the in-container user's UID/GID does not match the host's. Furthermore, corporate environments often have user and group names with non-POSIX characters (@, ) which cause container build failures.  
+* **Decision**: The initializeCommand hook runs a host-side script (initialize.sh) *before* the container build. This script performs two critical actions:  
+  1. It detects the host's real UID and GID using id.  
+  2. It detects the host's username and primary group name, then **sanitizes** them into a POSIX-compliant format (e.g., "domain users" becomes "domainusers").  
+  3. It idempotently writes these four values (UID, GID, USERNAME, GROUPNAME) to .devcontainer/devcontainer.env.  
+* **Consequences**:  
+  * **Pro**: Completely eliminates file permission errors across different developer machines.  
+  * **Pro**: Makes the template robust and portable, allowing it to function correctly in restrictive corporate environments.  
+  * **Con**: Creates a dependency on standard Unix commands (id, tr) being available on the host.
 
-* **Context**: When a workspace is mounted from the host into a container, file permission errors are a common and severe problem if the container user's UID/GID do not match the host user's. Hardcoding a user like `vscode (1000:1000)` is not portable.
-* **Decision**: The `initializeCommand` hook in `devcontainer.json` is used to run a script (`initialize.sh`) on the **host machine** *before* Docker Compose is invoked. This script uses `id -u` and `id -g` to detect the host user's IDs and idempotently writes them to `.devcontainer/devcontainer.env`. Docker Compose then reads this file and passes the values as build arguments to the `Dockerfile`, creating an in-container user that perfectly mirrors the host user.
-* **Consequences**:
-    * **Pro**: Completely eliminates file permission errors.
-    * **Pro**: Makes the template truly portable across different developer machines.
-    * **Con**: Creates a dependency on the `id` command and a Unix-like environment on the host.
+### **2\. Declarative Secrets Management via Mise and SOPS**
 
----
+* **Context**: Secrets must be available in the development environment but must never be committed to Git in plaintext. The process of loading them should be automatic and transparent.  
+* **Decision**: We leverage Mise's native support for SOPS. The .mise.toml file is configured to read from .config/.env.sops.yaml. When Mise activates, it automatically invokes sops to decrypt this file in-memory and export the secrets as environment variables.  
+* **Consequences**:  
+  * **Pro**: Extremely robust and simple. Removes the need for custom, brittle shell profile scripts.  
+  * **Pro**: The .mise.toml file becomes the single source of truth for application environment setup.
 
-### 2. Declarative Secrets Management via Mise and SOPS
+### **3\. Flexible, Fallback-Based AGE Key Provisioning**
 
-* **Context**: Secrets (API keys, credentials) must be available in the development environment but must never be committed to Git in plaintext. The process of loading them should be automatic and transparent to the developer.
-* **Decision**: We adopted a declarative, tool-native approach. Instead of using custom shell scripts to load secrets (`profile-secrets.sh`), we leverage Mise's built-in support for SOPS. The `.mise.toml` file is configured to read from `.config/.env.sops.yaml`. When Mise activates in a shell, it automatically invokes `sops` to decrypt this file in-memory and export the secrets as environment variables.
-* **Consequences**:
-    * **Pro**: Extremely robust and simple. Removes a custom, brittle shell script.
-    * **Pro**: The `.mise.toml` file becomes the single source of truth for environment setup.
-    * **Pro**: The process is completely transparent to the user.
-    * **Con**: Tightly couples the secrets workflow to Mise.
+* **Context**: A single, global AGE key is insecure and inflexible. A robust template must support per-project keys in a way that is compatible with both automated (CI/CD) and interactive workflows.  
+* **Decision**: The initialize.sh script implements a three-stage fallback strategy for provisioning the AGE key:  
+  1. **GitHub Secret**: It first attempts a non-interactive fetch from a repository secret named SOPS\_AGE\_KEY using the gh CLI. This is the recommended, CI/CD-friendly approach.  
+  2. **Encrypted Local Key**: If that fails, it looks for a password-protected .config/age/keys.txt.age file and interactively prompts the user for a password to decrypt it, but only if the script is running in an interactive terminal.  
+  3. **Global sops Key**: If both above methods fail, it falls back to the legacy behavior of copying the key from \~/.config/sops/age/keys.txt.  
+* **Consequences**:  
+  * **Pro**: The system is highly flexible and suits multiple developer workflows (automated, interactive, local-only).  
+  * **Pro**: It is "secure by default," prioritizing the fully automated and non-interactive GitHub secrets method.  
+  * **Con**: It introduces a dependency on the gh CLI for the primary workflow.
 
----
+### **4\. Use of Lefthook for Pre-Commit Quality Gates**
 
-### 3. Strict Separation of Devcontainer vs. Application Configuration
-
-* **Context**: A project has two distinct types of environment variables: those needed to configure the *development environment itself* (e.g., `UID`), and those needed by the *application* being developed (e.g., `API_KEY`). Mixing them leads to confusion and misconfiguration.
-* **Decision**: A strict separation was enforced.
-    * `.devcontainer/devcontainer.env` is exclusively for variables related to building and running the devcontainer.
-    * `.config/env` and `.config/.env.sops.yaml` are exclusively for application-level configuration and secrets.
-* **Consequences**:
-    * **Pro**: Dramatically improves clarity and maintainability.
-    * **Pro**: Prevents accidental exposure of application secrets in the container build process.
-
----
-
-### 4. Use of Devcontainer Features for Tool Installation
-
-* **Context**: Common tools like the Docker CLI, GitHub CLI, and Mise need to be installed in the container. Managing this via `apt-get` or `curl` commands in the `Dockerfile` is verbose, brittle, and not easily reusable.
-* **Decision**: We use the official Devcontainer Features mechanism. The `devcontainer.json` file specifies the features to install. This is the industry best practice for creating modular and maintainable devcontainer environments. The `post-create.sh` script is then used to validate that these features were installed successfully.
-* **Consequences**:
-    * **Pro**: `devcontainer.json` becomes a clear manifest of the container's capabilities.
-    * **Pro**: The `Dockerfile` remains minimal and focused on the base system.
-    * **Pro**: Feature installation is standardized, tested, and maintained by the community.
+* **Context**: To maintain high code quality, linting and other checks should be performed automatically before code is committed, not just later in the CI pipeline.  
+* **Decision**: We use lefthook to manage pre-commit Git hooks. The configuration in lefthook.yml is version-controlled and specifies which linters (shellcheck, hadolint) to run. lefthook is installed via mise and activated automatically in the post-create.sh script. The CI pipeline also runs lefthook to ensure hooks cannot be bypassed.  
+* **Consequences**:  
+  * **Pro**: Creates an immediate, local feedback loop for developers, catching errors early.  
+  * **Pro**: Enforces consistent quality standards across the entire team.
