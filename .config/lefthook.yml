@@ -71,5 +71,4 @@ pre-push:
     devcontainer-build:
       run: |
         echo "Performing pre-push devcontainer build check..."
-        cp .devcontainer/devcontainer.env.example .devcontainer/devcontainer.env
         docker compose -f .devcontainer/docker-compose.yml build

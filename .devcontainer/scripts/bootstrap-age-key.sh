@@ -15,7 +15,7 @@ set -Eeuo pipefail
 # container. It is set in `devcontainer.env` and must point to the key file that
 # the host-side `initialize.sh` script prepares.
 #
-if [ -z "${SOPS_AGE_KEY_FILE:-}" ]; then
+if [[ -z "${SOPS_AGE_KEY_FILE:-}" ]]; then
   echo "Error: SOPS_AGE_KEY_FILE is not set. Cannot locate AGE key." >&2
   exit 1
 fi
@@ -27,7 +27,7 @@ echo "Validating AGE key at ${SOPS_AGE_KEY_FILE}..."
 # secret decryption process will fail, so we exit with an error to make the
 # problem immediately obvious.
 #
-if [ ! -s "${SOPS_AGE_KEY_FILE}" ]; then
+if [[ ! -s "${SOPS_AGE_KEY_FILE}" ]]; then
   echo "Error: AGE key not found or is empty at ${SOPS_AGE_KEY_FILE}." >&2
   echo "Please ensure your key is available on the host machine." >&2
   exit 1

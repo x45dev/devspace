@@ -18,7 +18,7 @@
   // See https://containers.dev/features
   "features": {
 		// Installs the Docker CLI and configures access to the host's Docker daemon via the mounted socket.
-    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {"moby":false},
     // Installs the GitHub CLI for interacting with GitHub. It will inherit the host's auth token.
 		"ghcr.io/devcontainers/features/github-cli:1": {},
     // Installs the Mise CLI

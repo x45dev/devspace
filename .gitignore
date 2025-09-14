@@ -8,8 +8,7 @@
 # overrides and should not be in source control. The `.env.yaml` is the temporary plaintext
 # version of secrets before encryption.
 #
-.config/env
-.config/.env.yaml
+.config/env/.env.yaml
 
 #
 # WHY: The encrypted secrets file should generally NOT be ignored, as it's designed to be
@@ -17,4 +16,4 @@
 # prevent accidental commits of placeholder secrets. You may want to remove this line
 # in your own private projects.
 #
-.config/.env.sops.yaml
+.config/env/.env.sops.yaml

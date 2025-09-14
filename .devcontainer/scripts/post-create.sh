@@ -21,7 +21,7 @@ set -Eeuo pipefail
 #
 check_command() {
   local cmd="$1"
-  if ! command -v "${cmd}" >/dev/null 2>&1; then
+  if ! command -v "${cmd}" > /dev/null 2>&1; then
     echo "Error: Command '${cmd}' not found. Devcontainer feature may have failed to install." >&2
     exit 1
   fi
@@ -39,9 +39,7 @@ check_user() {
   fi
 }
 
-
 # --- Main Script ---
-
 echo "--- Running post-create validation and setup ---"
 
 #

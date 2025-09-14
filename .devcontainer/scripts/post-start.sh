@@ -25,8 +25,8 @@ bash "${SCRIPT_DIR}/bootstrap-age-key.sh"
 # feature is working correctly and the container can communicate with the host's
 # Docker daemon.
 #
-if command -v docker >/dev/null 2>&1; then
-  if ! docker ps >/dev/null 2>&1; then
+if command -v docker > /dev/null 2>&1; then
+  if ! docker ps > /dev/null 2>&1; then
     echo "Warning: Docker CLI is installed but cannot communicate with the host daemon." >&2
   else
     echo "Docker daemon communication check: OK"

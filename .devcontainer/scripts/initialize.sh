@@ -12,7 +12,7 @@
 #
 # Version: 2025-09-13 22:37:00 AEST
 #
-set -euxo pipefail
+set -Eeuo pipefail
 
 # --- Main Logic ---
 
@@ -22,9 +22,9 @@ main() {
   #
   local repo_root
   repo_root="$(pwd)"
+  echo "DEBUG: repo_root=${repo_root}"
   local -r env_file="${repo_root}/.devcontainer/devcontainer.env"
   local -r runtime_dir="${repo_root}/.devcontainer/runtime"
-
   #
   # WHY: This is a critical pre-flight check. If the configuration file is
   # missing, the entire devcontainer startup will fail in unpredictable ways.
@@ -34,7 +34,6 @@ main() {
     echo "Error: ${env_file} not found. Please copy the example file first." >&2
     exit 1
   fi
-
   #
   # WHY: The script is broken into two distinct subroutines for clarity.
   # This follows the Single Responsibility Principle.
@@ -74,7 +73,6 @@ provision_age_key() {
   local -r repo_root="$1"
   local -r runtime_dir="$2"
   local -r key_dest="${runtime_dir}/age.key"
-  
   echo "--- Provisioning AGE Key ---"
   mkdir -p "${runtime_dir}"
 
@@ -84,7 +82,7 @@ provision_age_key() {
   #
 
   # Strategy 1: GitHub Secret (non-interactive, CI/CD-friendly)
-  if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
+  if command -v gh > /dev/null 2>&1 && gh auth status > /dev/null 2>&1; then
     echo "Attempting to fetch key from GitHub secret 'SOPS_AGE_KEY'..."
     if gh secret view SOPS_AGE_KEY --repo "$(git remote get-url origin)" > "${key_dest}"; then
       chmod 600 "${key_dest}"
@@ -103,17 +101,21 @@ provision_age_key() {
     # WHY: We must check if the current shell is interactive before prompting.
     # This prevents the script from hanging in an automated CI environment.
     #
-    if [[ -t 0 ]]; then
-      if age --decrypt -o "${key_dest}" "${encrypted_key_path}"; then
-        chmod 600 "${key_dest}"
-        echo "Successfully decrypted local AGE key."
-        return 0
+    if command -v age > /dev/null 2>&1; then
+      if [[ -t 0 ]]; then
+        if age --decrypt -o "${key_dest}" "${encrypted_key_path}"; then
+          chmod 600 "${key_dest}"
+          echo "Successfully decrypted local AGE key."
+          return 0
+        else
+          echo "Failed to decrypt local key. Please check your password. Trying next provider."
+          rm -f "${key_dest}" # Clean up failed attempt
+        fi
       else
-        echo "Failed to decrypt local key. Please check your password. Trying next provider."
-        rm -f "${key_dest}" # Clean up failed attempt
+        echo "Failed to decrypt local key - running in non-interactive shell. Trying next provider."
       fi
     else
-      echo "Found encrypted key file but running in non-interactive shell. Skipping."
+      echo "Failed to decrypt local key - the \`age\` CLI is unavailable. Trying next provider."
     fi
   fi
 
@@ -162,10 +164,8 @@ sanitize_name() {
   echo "$1" | tr -dc '[:alnum:]_-' | tr '[:upper:]' '[:lower:]'
 }
 
-
 #
 # WHY: This is the standard pattern to execute the main function of the script,
 # passing along any arguments it might have received.
 #
 main "$@"
-

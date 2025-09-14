@@ -1,6 +1,4 @@
-# syntax=docker/dockerfile:1.9
-# cspell:ignore
-
+# syntax=docker/dockerfile:1
 #
 # DOCKERFILE: devcontainer/Dockerfile
 #
@@ -28,18 +26,21 @@ ARG USERNAME=vscode
 ARG GROUPNAME=$USERNAME
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
+
 #
 # WHY: Running as root is necessary for system-level package installation.
 # We switch to the non-root user as soon as possible for security.
 #
+# hadolint ignore=DL3002
 USER root
-SHELL ["sh", "-euxc"]
+SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
 
 #
 # WHY: Combining package installation and cleanup into a single RUN layer
 # significantly reduces the final image size. We install minimal, stable
 # dependencies needed for the container and features to operate correctly.
 #
+# hadolint ignore=DL3008
 RUN <<EOT
 apt-get update -qy
 apt-get install -qyy \
