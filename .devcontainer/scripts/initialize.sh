@@ -3,169 +3,168 @@
 # SCRIPT: initialize.sh
 #
 # DESCRIPTION:
-# Runs ON THE HOST before the container is created. Its primary jobs are:
-#   1. Detect and sanitize host user/group info and write it to devcontainer.env.
-#   2. Provision the SOPS/AGE private key for the container using a fallback strategy:
-#      a. (Default) Fetch from GitHub repo secret via `gh` CLI.
-#      b. (Interactive) Decrypt a local, password-protected key file.
-#      c. (Legacy) Copy from the user's global sops directory.
+# This script runs on the HOST machine before the container is created.
+# It has two primary responsibilities:
+#   1. User Mapping: Detects the host's UID/GID and sanitizes the username
+#      and group name into a POSIX-compliant format, writing them to
+#      `devcontainer.env` to prevent file permission issues.
+#   2. AGE Key Provisioning: Uses a fallback strategy to find and provision
+#      the AGE key for sops, making it available to the container.
 #
-# Version: 2025-09-13 22:37:00 AEST
+# USAGE:
+# Called automatically by the `initializeCommand` in devcontainer.json.
 #
-set -Eeuo pipefail
+# Version: 2025-09-14 16:16:00 AEST -> Updated 2025-09-14 16:30:00 AEST
+#
+set -euxo pipefail
 
 # --- Main Logic ---
 
 main() {
   #
-  # WHY: Define script-level constants for clarity and maintainability.
+  # WHY: Correctly declare and assign the readonly variable on a single line.
+  # The repo_root is calculated relative to the script's location to ensure it
+  # works regardless of where the script is invoked from.
   #
-  local repo_root
-  repo_root="$(pwd)"
-  echo "DEBUG: repo_root=${repo_root}"
+  local -r repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
   local -r env_file="${repo_root}/.devcontainer/devcontainer.env"
   local -r runtime_dir="${repo_root}/.devcontainer/runtime"
+  local -r key_dest="${runtime_dir}/age.key"
+
   #
-  # WHY: This is a critical pre-flight check. If the configuration file is
-  # missing, the entire devcontainer startup will fail in unpredictable ways.
-  # Failing fast with a clear error message is essential for a good user experience.
+  # WHY: Create the runtime directory here, on the host. This is the correct
+  # place for this action, as this script is the first one that needs to write
+  # to this directory.
   #
-  if [[ ! -f "${env_file}" ]]; then
-    echo "Error: ${env_file} not found. Please copy the example file first." >&2
-    exit 1
-  fi
+  mkdir -p "${runtime_dir}"
+
   #
-  # WHY: The script is broken into two distinct subroutines for clarity.
-  # This follows the Single Responsibility Principle.
+  # WHY: These two core functions are separated for clarity and maintainability.
   #
-  configure_user "${env_file}"
-  provision_age_key "${repo_root}" "${runtime_dir}"
+  configure_user_mapping "${env_file}"
+  provision_age_key "${repo_root}" "${key_dest}"
 }
 
 # --- Subroutines ---
 
-configure_user() {
+configure_user_mapping() {
   local -r env_file="$1"
-  echo "--- Configuring User Info ---"
+  echo "--- Configuring User Mapping ---"
 
   #
-  # WHY: We detect the host's UID, GID, username, and group name. These are then
-  # sanitized to be POSIX-compliant, preventing build failures in corporate
-  # environments with special characters in user/group names (e.g., 'domain users').
+  # WHY: We detect the real UID/GID and the sanitized user/group names from the
+  # host to ensure the container user will have the correct identity.
   #
-  local -r host_uid=$(id -u)
-  local -r host_gid=$(id -g)
-  local -r host_username=$(sanitize_name "$(id -un)")
-  local -r host_groupname=$(sanitize_name "$(id -gn)")
+  local -r uid="$(id -u)"
+  local -r gid="$(id -g)"
+  local -r username=$(sanitize_name "$(id -un)")
+  local -r groupname=$(sanitize_name "$(getent group "$(id -g)" | cut -d: -f1)")
 
   #
-  # WHY: Idempotently write the detected and sanitized values to the .env file.
-  # This file is the single source of truth for Docker Compose during the build.
+  # WHY: The `update_or_add_env` helper ensures that we can run this script
+  # multiple times without creating duplicate entries in the .env file.
   #
-  update_or_add_env "UID" "${host_uid}" "${env_file}"
-  update_or_add_env "GID" "${host_gid}" "${env_file}"
-  update_or_add_env "USERNAME" "${host_username}" "${env_file}"
-  update_or_add_env "GROUPNAME" "${host_groupname}" "${env_file}"
-  echo "User configured as: ${host_username} (${host_uid}:${host_gid})"
+  update_or_add_env "${env_file}" "UID" "${uid}"
+  update_or_add_env "${env_file}" "GID" "${gid}"
+  update_or_add_env "${env_file}" "USERNAME" "${username}"
+  update_or_add_env "${env_file}" "GROUPNAME" "${groupname}"
+
+  echo "Successfully configured UID=${uid}, GID=${gid}, USERNAME=${username}, GROUPNAME=${groupname}."
 }
 
 provision_age_key() {
   local -r repo_root="$1"
-  local -r runtime_dir="$2"
-  local -r key_dest="${runtime_dir}/age.key"
+  local -r key_dest="$2"
   echo "--- Provisioning AGE Key ---"
-  mkdir -p "${runtime_dir}"
 
   #
-  # WHY: This multi-stage fallback logic provides maximum flexibility for the user
-  # while prioritizing the most secure, automated method (GitHub Secrets).
+  # WHY: This implements our flexible fallback strategy. It tries the most secure,
+  # per-project method first before falling back to the less-secure global key.
+  # A return code of 0 means a key was successfully provisioned.
   #
-
-  # Strategy 1: GitHub Secret (non-interactive, CI/CD-friendly)
-  if command -v gh > /dev/null 2>&1 && gh auth status > /dev/null 2>&1; then
-    echo "Attempting to fetch key from GitHub secret 'SOPS_AGE_KEY'..."
-    if gh secret view SOPS_AGE_KEY --repo "$(git remote get-url origin)" > "${key_dest}"; then
-      chmod 600 "${key_dest}"
-      echo "Successfully provisioned AGE key from GitHub Secret."
-      return 0
-    else
-      echo "GitHub secret not found or accessible. Trying next provider."
-    fi
+  if provision_from_encrypted_file "${repo_root}" "${key_dest}"; then
+    echo "Successfully provisioned AGE key from local encrypted file."
+  elif provision_from_global_file "${key_dest}"; then
+    echo "Successfully provisioned AGE key from global sops directory."
+  else
+    echo "Warning: No AGE key was provisioned. Secrets will be unavailable." >&2
   fi
-
-  # Strategy 2: Local Encrypted File (interactive)
-  local encrypted_key_path="${repo_root}/.config/age/keys.txt.age"
-  if [[ -f "${encrypted_key_path}" ]]; then
-    echo "Found encrypted key file at ${encrypted_key_path}."
-    #
-    # WHY: We must check if the current shell is interactive before prompting.
-    # This prevents the script from hanging in an automated CI environment.
-    #
-    if command -v age > /dev/null 2>&1; then
-      if [[ -t 0 ]]; then
-        if age --decrypt -o "${key_dest}" "${encrypted_key_path}"; then
-          chmod 600 "${key_dest}"
-          echo "Successfully decrypted local AGE key."
-          return 0
-        else
-          echo "Failed to decrypt local key. Please check your password. Trying next provider."
-          rm -f "${key_dest}" # Clean up failed attempt
-        fi
-      else
-        echo "Failed to decrypt local key - running in non-interactive shell. Trying next provider."
-      fi
-    else
-      echo "Failed to decrypt local key - the \`age\` CLI is unavailable. Trying next provider."
-    fi
-  fi
-
-  # Strategy 3: Global sops Key (legacy)
-  local global_key_path="${HOME}/.config/sops/age/keys.txt"
-  if [[ -f "${global_key_path}" ]]; then
-    echo "Falling back to global key at ${global_key_path}."
-    cp "${global_key_path}" "${key_dest}" && chmod 600 "${key_dest}"
-    echo "Successfully copied global AGE key."
-    return 0
-  fi
-
-  echo "Warning: No AGE key could be provisioned. sops will not be able to decrypt secrets." >&2
-  #
-  # WHY: We return a success code here (0) to prevent the entire devcontainer
-  # build from failing if no key is found. This allows a developer to still
-  # build the environment and add the key later.
-  #
-  return 0
 }
 
 # --- Helper Functions ---
 
-update_or_add_env() {
-  local -r key="$1"
-  local -r value="$2"
-  local -r file="$3"
+provision_from_encrypted_file() {
+  local -r repo_root="$1"
+  local -r key_dest="$2"
+  local -r encrypted_key_source="${repo_root}/.config/age/keys.txt.age"
+
   #
-  # WHY: This function ensures that we can run the script multiple times without
-  # creating duplicate entries in the .env file. It checks if a key exists
-  # and updates it, otherwise it appends it.
+  # WHY: Add a defensive check to ensure the `age` command is available on the
+  # host before attempting to use it.
+  #
+  if ! command -v "age" > /dev/null 2>&1; then
+    echo "Info: 'age' command not found on host. Skipping encrypted key check."
+    return 1 # Return failure
+  fi
+
+  if [[ -f "${encrypted_key_source}" ]]; then
+    #
+    # WHY: Check if we are in an interactive terminal. We cannot prompt for a
+    # password in a non-interactive CI/CD environment.
+    #
+    if [[ -t 0 ]]; then
+      echo "Found encrypted AGE key. Please enter the password to decrypt it."
+      if age --decrypt -o "${key_dest}" "${encrypted_key_source}"; then
+        chmod 600 "${key_dest}"
+        return 0 # Return success
+      else
+        echo "Error: Failed to decrypt AGE key. Please check your password." >&2
+        return 1 # Return failure
+      fi
+    else
+      echo "Info: Found encrypted AGE key but running in non-interactive mode. Skipping."
+    fi
+  fi
+  return 1 # Return failure (no key found or non-interactive)
+}
+
+provision_from_global_file() {
+  local -r key_dest="$1"
+  local -r global_key_source="${HOME}/.config/sops/age/keys.txt"
+
+  if [[ -f "${global_key_source}" ]]; then
+    cp "${global_key_source}" "${key_dest}"
+    chmod 600 "${key_dest}"
+    return 0 # Return success
+  fi
+  return 1 # Return failure (no key found)
+}
+
+update_or_add_env() {
+  local -r file="$1"
+  local -r key="$2"
+  local -r value="$3"
+  #
+  # WHY: This uses `grep` to check if the key already exists. If it does, `sed`
+  # is used to replace the value on that line. If not, the key-value pair is
+  # appended to the file. This makes the operation idempotent.
   #
   if grep -q "^${key}=" "${file}"; then
     sed -i.bak "s|^${key}=.*|${key}=${value}|" "${file}" && rm "${file}.bak"
   else
-    echo "${key}=${value}" >> "${file}"
+    echo "${key}=${value}" >>"${file}"
   fi
 }
 
 sanitize_name() {
   #
-  # WHY: This function strips any characters that are not compliant with POSIX
-  # username/groupname standards. This is critical for compatibility with
-  # corporate environments where names may contain '@', '\', or spaces.
+  # WHY: This function strips out any characters that are not POSIX-compliant
+  # for usernames/group names. This is critical for compatibility with corporate
+  # naming schemes (e.g., "Domain Users" or "name.surname@company.com").
   #
-  echo "$1" | tr -dc '[:alnum:]_-' | tr '[:upper:]' '[:lower:]'
+  echo "$1" | tr -cd '[:alnum:]'
 }
 
-#
-# WHY: This is the standard pattern to execute the main function of the script,
-# passing along any arguments it might have received.
-#
-main "$@"
+# --- Script Execution ---
+
+main

@@ -55,7 +55,7 @@ cleanup() {
     # if the cleanup fails for some reason, it doesn't cause the container
     # exit to fail.
     #
-    shred -u "${SOPS_AGE_KEY_FILE}" 2>/dev/null || rm -f "${SOPS_AGE_KEY_FILE}" || true
+    shred -u "${SOPS_AGE_KEY_FILE}" 2> /dev/null || rm -f "${SOPS_AGE_KEY_FILE}" || true
   fi
 }
 
@@ -64,4 +64,3 @@ cleanup() {
 # bash practice.
 #
 main "$@"
-

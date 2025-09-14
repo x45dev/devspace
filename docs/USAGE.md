@@ -1,44 +1,36 @@
 # **Developer Guide**
 
-\<\!-- Version: 2025-09-13 22:30:00 AEST \--\>
+\<\!-- Version: 2025-09-14 16:16:00 AEST \--\>
 
 This document provides detailed instructions for the day-to-day developer workflow, including managing the toolchain, handling application secrets, and understanding the automated quality control systems.
 
 ## **Managing the AGE Encryption Key**
 
-This template provides a flexible, secure system for managing the AGE key used by sops for encryption. It uses a fallback strategy to find the key, allowing for per-project keys.
+This template provides a flexible, secure system for managing the AGE key used by sops for encryption. It uses a fallback strategy to find the key, allowing for per-project keys. The initialize.sh script will check for keys in the following order on startup:
 
-### **Method 1: GitHub Repository Secret (Recommended)**
+### **Method 1: Password-Protected Local Key (Recommended)**
 
-This is the most secure and automated method, and it is **required for CI/CD**.
+This is the most secure and portable method for managing a unique key for each project. It is useful for projects not on GitHub or for offline work.
 
-1. **Create a Secret**: In your GitHub repository, go to Settings \> Secrets and variables \> Actions. Create a new repository secret named SOPS\_AGE\_KEY.  
-2. **Set the Value**: Paste the entire contents of your AGE private key file (e.g., keys.txt) as the value of the secret.  
-3. **Bootstrap**: When the devcontainer starts, initialize.sh will automatically use the authenticated gh CLI on your host to fetch this secret and provision it for the container.
-
-### **Method 2: Password-Protected Local Key (Interactive)**
-
-This method is useful for projects not on GitHub or for offline work.
-
-1. **Create an Encrypted Key**: Use the age CLI to create a password-protected key:  
-   \# Make a directory for it  
+1. **Create an Encrypted Key**: Use the age CLI on your host machine to create a password-protected key:  
+   \# Make a directory for the key within the project  
    mkdir \-p .config/age
 
    \# Generate a new key pair  
    age-keygen \-o .config/age/keys.txt
 
-   \# Encrypt the private key with a password  
+   \# Encrypt the private key with a password (you will be prompted to create one)  
    age \--encrypt \--passphrase \-o .config/age/keys.txt.age .config/age/keys.txt
 
    \# Securely delete the plaintext private key  
    rm .config/age/keys.txt
 
-2. **Commit the Encrypted Key**: Add .config/age/keys.txt.age to Git.  
-3. **Bootstrap**: When the devcontainer starts, initialize.sh will detect this file and prompt you in the terminal for the password to decrypt it.
+2. **Commit the Encrypted Key**: Add .config/age/keys.txt.age to Git. It is safe to commit this file as it is strongly encrypted.  
+3. **Bootstrap**: When the devcontainer starts for the first time, initialize.sh will detect this file and prompt you in the terminal for the password to decrypt it into the container's runtime environment.
 
-### **Method 3: Global Key (Legacy Fallback)**
+### **Method 2: Global Key (Legacy Fallback)**
 
-If neither of the above methods is configured, the system will fall back to looking for a key at the standard global path: \~/.config/sops/age/keys.txt.
+If the password-protected key is not found, the system will fall back to looking for a key at the standard global path used by sops: \~/.config/sops/age/keys.txt. This is convenient but less secure as the key is shared across all projects.
 
 ## **Managing the Toolchain with Mise**
 
@@ -55,8 +47,6 @@ This project uses **Mise** to declaratively manage the toolchain. All tools and 
 3. **Install the Tool**: From within the devcontainer terminal, run:  
    mise install
 
-   Mise will download, install, and configure the tool, making it immediately available in your shell.
-
 ### **Updating Tools**
 
 To update all tools defined in .mise.toml to their latest available versions, run:
@@ -70,36 +60,21 @@ A critical design principle of this template is the strict separation between **
 * **Devcontainer Configuration (.devcontainer/devcontainer.env)**: These variables are used *only* to build and configure the devcontainer itself (e.g., UID, GID). **You should rarely need to touch this file.**  
 * **Application Configuration (.config/)**: This is where you manage variables and secrets for your application (e.g., API keys, database URLs).
 
-Mise automatically loads variables from two files in the .config/ directory:
-
-1. .config/env: For non-sensitive, plaintext variables.  
-2. .config/.env.sops.yaml: For sensitive, encrypted secrets.
-
 ### **Adding a New Secret**
 
-The scripts/encrypt-secrets.sh script provides a guided workflow for securely adding new secrets.
+The scripts/encrypt-secrets.sh script provides a guided, state-aware workflow for securely adding or updating secrets.
 
 1. **Run the Script**:  
    ./scripts/encrypt-secrets.sh
 
-2. **Edit the Plaintext File**: The script will create a temporary .config/env.yaml file and open it in your default editor. Add or update your secrets here:  
-   API\_KEY: "your-new-secret-value"  
-   DATABASE\_URL: "..."
-
-3. **Save and Close**: Save the file and close the editor.  
-4. **Encryption**: The script will automatically encrypt this file into .config/.env.sops.yaml and then securely delete the temporary plaintext version.
-
-The new secret is now stored securely in the repository. The next time you open a terminal in the devcontainer, Mise will automatically decrypt it and load it into your environment. You can verify this by running echo $API\_KEY.
+2. **Follow the Prompts**: The script will detect if you are creating a new secrets file or editing an existing one and will open the file in your default editor.  
+3. **Save and Close**: Save the file and close the editor. The script will automatically handle the encryption and cleanup of any plaintext files.
 
 ## **Automated Quality Checks with Lefthook**
 
-This project uses **Lefthook** to automatically run linters and other checks before you commit your code. This is configured in lefthook.yml and is automatically installed and activated by the post-create.sh script.
-
-You do not need to do anything to enable this. When you run git commit, Lefthook will automatically intercept the process and run the configured checks (e.g., shellcheck, hadolint). If any check fails, the commit will be aborted, allowing you to fix the issue before it enters the codebase.
+This project uses **Lefthook** to automatically run linters and other checks before you commit your code. This is configured in lefthok.yml and is automatically installed and activated. When you run git commit, Lefthook will intercept the process and run the configured checks. If any check fails, the commit will be aborted.
 
 ## **The Devcontainer Lifecycle**
-
-The environment's setup is automated by a series of lifecycle scripts. Understanding their roles can be helpful for debugging or customization.
 
 | Script | Context | Purpose |
 | :---- | :---- | :---- |

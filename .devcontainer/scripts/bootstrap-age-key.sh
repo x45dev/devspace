@@ -33,11 +33,4 @@ if [[ ! -s "${SOPS_AGE_KEY_FILE}" ]]; then
   exit 1
 fi
 
-#
-# WHY: The AGE private key is highly sensitive. `chmod 600` ensures that only the
-# file's owner (the `vscode` user) can read or write it, which is a critical
-# security best practice.
-#
-chmod 600 "${SOPS_AGE_KEY_FILE}"
-
 echo "AGE key validation successful and permissions set to 600."
