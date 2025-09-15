@@ -1,0 +1,40 @@
+#
+# FILE: .config/lefthook.yml
+#
+# DESCRIPTION:
+# This file defines the Git hooks that Lefthook manages. It now calls the
+# centralized `mise` tasks to ensure consistency with the CI pipeline.
+#
+# Version: 2025-09-11 23:47:00 AEST -> Updated 2025-09-15 16:30:00 AEST
+#
+assert_lefthook_installed: true
+colors: true
+fail_on_error: true
+
+#
+# HOOK: pre-commit
+#
+# DESCRIPTION:
+# This hook now runs the main `lint` task from our Mise configuration. This
+# ensures that all linters are run against staged files before a commit is made.
+#
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      run: mise run lint
+
+#
+# HOOK: pre-push
+#
+# DESCRIPTION:
+# This hook runs a full build of the devcontainer image to ensure no breaking
+# changes are pushed to the repository.
+#
+pre-push:
+  parallel: true
+  commands:
+    devcontainer-build:
+      run: |
+        echo "Performing pre-push devcontainer build check..."
+        docker compose -f .devcontainer/docker-compose.yml build

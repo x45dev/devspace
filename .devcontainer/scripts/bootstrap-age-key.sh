@@ -4,33 +4,30 @@
 #
 # DESCRIPTION:
 # This script runs inside the container to ensure the AGE private key is present
-# and has the correct, secure permissions before `sops` or `mise` attempt to use it.
+# before `sops` or `mise` attempt to use it.
 #
-# Version: 2025-09-11 23:03:00 AEST
-
-set -Eeuo pipefail
-
+# NOTE: It does NOT set permissions, as this is handled by the host-side
+# `initialize.sh` script, and chmod would fail on a mounted file anyway.
 #
-# WHY: This variable is the single source of truth for the key's location inside the
-# container. It is set in `devcontainer.env` and must point to the key file that
-# the host-side `initialize.sh` script prepares.
+# Version: 2025-09-11 23:03:00 AEST -> Updated 2025-09-15 14:10:00 AEST
 #
-if [[ -z "${SOPS_AGE_KEY_FILE:-}" ]]; then
-  echo "Error: SOPS_AGE_KEY_FILE is not set. Cannot locate AGE key." >&2
-  exit 1
-fi
+set -euxo pipefail
 
-echo "Validating AGE key at ${SOPS_AGE_KEY_FILE}..."
+main() {
+  if [[ -z "${SOPS_AGE_KEY_FILE:-}" ]]; then
+    echo "Error: SOPS_AGE_KEY_FILE is not set. Cannot locate AGE key." >&2
+    exit 1
+  fi
 
-#
-# WHY: We check if the file exists and is not empty (`-s`). If it's missing, the
-# secret decryption process will fail, so we exit with an error to make the
-# problem immediately obvious.
-#
-if [[ ! -s "${SOPS_AGE_KEY_FILE}" ]]; then
-  echo "Error: AGE key not found or is empty at ${SOPS_AGE_KEY_FILE}." >&2
-  echo "Please ensure your key is available on the host machine." >&2
-  exit 1
-fi
+  echo "Validating AGE key at ${SOPS_AGE_KEY_FILE}..."
 
-echo "AGE key validation successful and permissions set to 600."
+  if [[ ! -s "${SOPS_AGE_KEY_FILE}" ]]; then
+    echo "Error: AGE key not found or is empty at ${SOPS_AGE_KEY_FILE}." >&2
+    echo "Please ensure your key is available on the host machine." >&2
+    exit 1
+  fi
+
+  echo "AGE key validation successful."
+}
+
+main

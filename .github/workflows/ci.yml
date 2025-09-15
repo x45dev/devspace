@@ -2,13 +2,10 @@
 # GITHUB WORKFLOW: ci.yml
 #
 # DESCRIPTION:
-# This workflow defines the Continuous Integration (CI) pipeline for the project.
-# It runs automatically on every push and pull request to the `main` branch.
+# This CI pipeline now calls the centralized `mise` lint task, ensuring it runs
+# the exact same checks as the local pre-commit hooks.
 #
-# GOAL: To ensure the devcontainer image is always buildable and that all
-# project scripts and configurations adhere to our defined quality standards.
-#
-# Version: 2025-09-12 16:45:00 AEST -> Updated 2025-09-11 23:45:00 AEST
+# Version: 2025-09-12 16:45:00 AEST -> Updated 2025-09-15 16:30:00 AEST
 #
 name: "Continuous Integration"
 
@@ -23,59 +20,30 @@ jobs:
     name: "Validate Project Integrity"
     runs-on: ubuntu-latest
     steps:
-      #
-      # WHY: The first step is always to check out the repository's code
-      # so the workflow can access it.
-      #
       - name: "Checkout Code"
         uses: actions/checkout@v4
 
-      #
-      # WHY: This single step installs all required static analysis tools (linters)
-      # in one go. This is more efficient than having separate installation steps.
-      #
-      - name: "Install Linters (ShellCheck, shfmt, Hadolint)"
+      - name: "Install Mise"
         run: |
-          sudo apt-get update -qy
-          sudo apt-get install -qyy --no-install-recommends shellcheck
-          sudo snap install shfmt
-          sudo wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
-          sudo chmod +x /usr/local/bin/hadolint
+          curl -fsSL https://mise.run | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-      #
-      # WHY: This job lints all shell scripts in the project to enforce code style
-      # and catch potential bugs before they are merged.
-      #
-      - name: "Lint Shell Scripts"
-        run: |
-          # shfmt checks for formatting consistency.
-          shfmt -d -i 2 -ci -sr .
-          # shellcheck performs static analysis to find common errors.
-          shellcheck $(find . -type f -name "*.sh")
+      - name: "Install Project Tools"
+        run: mise install
 
-      #
-      # WHY: Hadolint is the industry-standard linter for Dockerfiles. It enforces
-      # best practices, helping to create smaller, more secure, and more efficient images.
-      #
-      - name: "Lint Dockerfile"
-        run: |
-          hadolint .devcontainer/Dockerfile
+      - name: "Run Linters via Mise"
+        #
+        # WHY: This is now the single source of truth for linting. It executes the
+        # `lint` task defined in `.config/mise/tasks.toml`, which runs all sub-tasks
+        # for shellcheck, shfmt, and hadolint.
+        #
+        run: mise run lint
 
-      #
-      # WHY: This step sets up Docker Buildx, which provides more advanced
-      # features for building images. It's a best practice for modern Docker builds.
-      #
       - name: "Set up Docker Buildx"
         uses: docker/setup-buildx-action@v3
 
-      #
-      # WHY: This is the ultimate integration test. Building the devcontainer image
-      # via `docker compose` validates the Dockerfile, the docker-compose.yml syntax,
-      # and the entire build argument chain. If this passes, we have high confidence
-      # that the devcontainer is functional.
-      #
       - name: "Build Devcontainer Image"
         run: |
-          # We must create a dummy .env file because docker-compose expects it to exist.
+          echo "--- Building Devcontainer Image ---"
           cp .devcontainer/devcontainer.env.example .devcontainer/devcontainer.env
           docker compose -f .devcontainer/docker-compose.yml build

@@ -1,0 +1,59 @@
+# FILE: .config/mise/tasks.toml
+#
+# DESCRIPTION:
+# This file defines custom project tasks that can be run with `mise run <task_name>`.
+# It is the single source of truth for all linting and validation commands.
+#
+# Version: 2025-09-15 16:30:00 AEST -> Updated 2025-09-15 16:50:00 AEST
+#
+
+# --- LINTING TASKS ---
+
+[lint-shfmt]
+description = "Linter: Check shell script formatting with shfmt."
+run = "shfmt -d -i 2 -ci -sr ."
+sources = ["**/*.sh"]
+
+[lint-shellcheck]
+description = "Linter: Statically analyze shell scripts with shellcheck."
+run = "shellcheck $(find . -type f -name \"*.sh\")"
+sources = ["**/*.sh"]
+
+[lint-hadolint]
+description = "Linter: Check Dockerfile for best practices with hadolint."
+run = "hadolint .devcontainer/Dockerfile"
+sources = [".devcontainer/Dockerfile"]
+
+[lint]
+description = "Run all project linters in parallel."
+alias = "l"
+depends = ["lint-shfmt", "lint-shellcheck", "lint-hadolint"]
+
+
+# --- TESTING & UTILITY TASKS ---
+[sops-test-config]
+description = "SOPS/AGE: Test configuration."
+env = { SOPS_AGE_KEY_FILE="{{env.MISE_SOPS_AGE_KEY_FILE}}" }
+run = """
+#!/usr/bin/env -S bash -euo pipefail
+export SOPS_AGE_RECIPIENTS=$(age-keygen -y "$SOPS_AGE_KEY_FILE")
+echo '{"test":"json-input"}' |\
+  sops --encrypt --input-type=json --output-type=json /dev/stdin |\
+  sops --decrypt --input-type=json --output-type=yaml /dev/stdin |\
+  yq '.test = "yaml-output (success!)"'
+"""
+
+[python-test-uv]
+description = "Python/UV: test script with PEP 723 metadata."
+run = """
+#!/usr/bin/env -S uv run --script --python=313
+# /// script
+# dependencies = ["cowsay", "emoji", "loguru"]
+# requires-python = ">=3.13,<3.14"
+# ///
+import cowsay, emoji, loguru, sys
+from loguru import logger
+logger.info(f"Venv path:  \t {sys.prefix}")
+logger.info(f"Python info:\t ")
+logger.info(cowsay.fox(emoji.emojize(f"Python {":snake:"*3}")))
+"""
