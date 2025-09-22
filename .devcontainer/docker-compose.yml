@@ -1,37 +1,67 @@
-# Version: 2025-09-11 22:23:00 AEST
+# Version: 2025-09-21 14:42:18 AEST
 #
 # DESCRIPTION:
-# This Docker Compose file defines the services for the development container.
-# It centralizes environment configuration by using `env_file` to load
-# variables from `.devcontainer/devcontainer.env`, ensuring a single source of truth.
+# This Docker Compose file defines the development environment service. It is
+# designed to be context-aware, reading user and project details from the
+# `.env` file to build and configure the container dynamically.
 #
-name: devspace
+name: devspace  # COMPOSE_PROJECT_NAME
 services:
   trixie:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
       args:
         #
-        # WHY: These variables are read from `devcontainer.env` and passed into the
-        # Dockerfile build process. This is the core mechanism for dynamic user mapping.
-        #
+        # These variables are automatically read from `.env` and passed into the
+        # Dockerfile build process. An alternative env file can be specified via:
+        #   `docker compose --env-file=foo.env build`
         USERNAME: ${USERNAME:-vscode}
         GROUPNAME: ${GROUPNAME:-vscode}
-        USER_UID: ${UID:-1000}
-        USER_GID: ${GID:-1000}
-    command: sleep infinity
-    #
-    # WHY: The `env_file` is the single source of truth for variables needed by
-    # Docker Compose at runtime or during the build.
-    #
-    env_file: devcontainer.env
+        PUID: ${UID:-1000}
+        PGID: ${GID:-1000}
+
+    container_name: '${COMPOSE_PROJECT_NAME}'
+
+    # Specify the runtime .env file. Does NOT affect build.args substitution.
+    env_file: .env
+
+    # WHY: This instructs Docker to disable user namespace remapping for this
+    # container. It makes the container's user namespace the same as the host's,
+    # which is the definitive solution to the permission errors caused by
+    # a userns-remap-enabled Docker daemon on a native Linux host.
+    # userns_mode: host
+    # userns_mode: keep-id
+
+    # networks:
+    #   - my_project-net
+
+    # The `user` directive is intentionally commented out. While it can set the
+    # runtime user, it can conflict with the `remoteUser` setting in
+    # `devcontainer.json`. The standard practice is to define the default user in
+    # the Dockerfile and let `devcontainer.json` specify the user for the VS Code
+    # session, ensuring a single source of truth for the remote session's user.
+    # user: ${UID:-1000}
+
     volumes:
-      - ..:/workspaces/${localWorkspaceFolderBasename:-devspace}:cached
+      # WHY: This is the primary bind mount for the project workspace. It maps the
+      # parent directory on the host (`..`) to `/workspaces/<folder-name>` inside
+      # the container. This provides seamless access to all project files for
+      # editing and execution. The `:cached` suffix (optional) can improve
+      # performance on macOS and Windows by allowing the host and container to
+      # have slightly out-of-sync views of the filesystem.
+      - ..:/workspaces/${localWorkspaceFolderBasename:-devspace}
+
+      # WHY: This mounts the Docker daemon's socket from the host into the
+      # container. It's the standard, secure method for enabling
+      # "Docker-out-of-Docker", allowing you to run Docker commands (build, run,
+      # etc.) from within the devcontainer to manage sibling containers on the
+      # same host daemon.
       - /var/run/docker.sock:/var/run/docker.sock
-      #
-      # OPTIONAL: To use GPG keys from your host machine for things like Git commit signing,
-      # uncomment the following volume mount and set LOCAL_GNUPG_DIR in `.devcontainer/devcontainer.env`.
-      # e.g., LOCAL_GNUPG_DIR=${HOME}/.gnupg
-      #
-      # - ${LOCAL_GNUPG_DIR}:/home/${USERNAME}/.gnupg:ro
+      # - my_project-data:/data
+
+# networks:
+#   my_project-net:
+
+# volumes:
+#   my_project-data:

@@ -20,7 +20,7 @@ This document is the comprehensive, day-to-day manual for developers using this 
 This template is built on four key technologies that work together to create a seamless experience:
 
 * **Dev Containers**: The core technology that uses Docker to create a consistent, isolated, and fully-provisioned Linux development environment.  
-* **Mise**: A powerful tool manager that declaratively manages the project's toolchain (Python, Node, etc.) and application-level environment variables via the .config/mise/config.toml file.  
+* **Mise**: A powerful tool manager that declaratively manages the project's toolchain (Python, Node, etc.) and application-level environment variables via `.config/mise/config.toml`.  
 * **SOPS + AGE**: The security layer - Secrets Operator (SOPS) and Actually Good Encryption (AGE). SOPS is used to encrypt secret files using an age key pair, allowing you to safely commit sensitive information (like API keys) to your Git repository.  
 * **Lefthook**: The quality gate. It automatically runs linters and other checks before you commit your code, preventing errors from ever reaching the main branch.
 
@@ -101,7 +101,8 @@ For advanced users and debugging, it's helpful to understand the automated scrip
 
 | Script | Context | Purpose |
 | :---- | :---- | :---- |
-| `.devcontainer/scripts/initialize.sh` | Host | **Before Build**: Configures user mapping and provisions the AGE key. |
 | `.devcontainer/Dockerfile` | Build | Defines the base image and creates the non-root user. |
+| `.devcontainer/docker-compose.yml` | Build | Defines the build and runtime environment for the devcontainer. |
+| `.devcontainer/scripts/initialize.sh` | Host | **Before Build**: Configures user mapping and provisions the AGE key. |
 | `.devcontainer/scripts/post-create.sh` | One-Time | **After Build**: Validates the environment, installs Mise tools, and activates Lefthook. |
 | `.devcontainer/scripts/post-start.sh` | Start | **Every Start**: Performs lightweight checks like AGE key validation. |

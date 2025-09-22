@@ -13,9 +13,12 @@ references:
 
 ### Variables
 
-- **Quoting**: Quote all variable expansions (e.g., `"$my_variable"`).
-- **Braces**: Use braces to delimit variable names (e.g., `${my_variable}`).
+- **Quoting**: Quote all variable expansions when used independently of other strings (e.g., `"$my_variable"`).
+- **Braces**: Use braces to delimit variable names when concatenated with strongs (e.g., `"/path/to/${directory_name}`).
 - **Local variables**: Use `local` to declare variables in functions.
+
+### Tests
+- **Double brackets**: Use double-brackets for all tests (eg. `[[ -z "$my_variable" ]]`).
 
 ### Error Handling
 

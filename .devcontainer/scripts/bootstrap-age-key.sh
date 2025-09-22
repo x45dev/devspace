@@ -11,7 +11,7 @@
 #
 # Version: 2025-09-11 23:03:00 AEST -> Updated 2025-09-15 14:10:00 AEST
 #
-set -euxo pipefail
+set -Eeuo pipefail
 
 main() {
   if [[ -z "${SOPS_AGE_KEY_FILE:-}" ]]; then
