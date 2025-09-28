@@ -7,8 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `.devcontainer/scripts/bootstrap.sh` to provide a robust, manual setup script for key generation.
+- `ADR-003` to document the decision for a manual, script-first bootstrap process.
+
+### Changed
+- Refactored the initial bootstrap process to use a manual script (`bootstrap.sh`) instead of a fully automated hook, resolving a critical setup sequencing issue.
+- Updated `README.md` with the new, correct Quick Start instructions.
+- Clarified the scope of `ADR-001` to cover only non-interactive, pre-build setup.
+
+### Added
+- `PROJECT_CONSTITUTION.md` to establish a formal documentation hierarchy and set of standards.
+- `PRD.md` for high-level product requirements.
+- `SPEC`, `PLAN`, and `ADR` document types with associated templates and writing guides to formalize feature specification and architectural decisions.
+- Initial PRD, SPEC, PLAN, and ADR documents for the core devcontainer functionality.
+
+### Changed
+- Deprecated `docs/DECISIONS.md` in favor of the new ADR process in the `docs/adr/` directory.
+
 ### Fixed
-- **Definitively solved the root ownership of the mounted project directory.** The `Dockerfile` now adds the non-root user to the `root` group. This is a safe, container-only change that grants the necessary write permissions without the dangerous side effects of using `chown` on a mounted volume.
 - Simplified `entrypoint.sh` and `post-create.sh` by removing all previous, incorrect ownership workarounds.
 - Corrected all pathing issues in `docker-compose.yml` and `Dockerfile` to ensure a reliable build process.
 - Corrected the user-creation script in the `Dockerfile` to be fully compatible with `set -u` (nounset).

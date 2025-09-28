@@ -7,6 +7,12 @@
 # Version: 2025-09-15 16:30:00 AEST -> Updated 2025-09-15 16:50:00 AEST
 #
 
+# --- TOOLS ---
+[x-gemini]
+alias = "gemini"
+description = "Tool: Execute the Gemini CLI via NPX"
+run = "npx https://github.com/google-gemini/gemini-cli --checkpointing"
+
 # --- LINTING TASKS ---
 
 [lint-shfmt]
@@ -36,11 +42,11 @@ description = "SOPS/AGE: Test configuration."
 env = { SOPS_AGE_KEY_FILE="{{env.MISE_SOPS_AGE_KEY_FILE}}" }
 run = """
 #!/usr/bin/env -S bash -euo pipefail
-export SOPS_AGE_RECIPIENTS=$(age-keygen -y "$SOPS_AGE_KEY_FILE")
+export SOPS_AGE_RECIPIENTS=$(age-keygen -y \"$SOPS_AGE_KEY_FILE\")
 echo '{"test":"json-input"}' |\
   sops --encrypt --input-type=json --output-type=json /dev/stdin |\
   sops --decrypt --input-type=json --output-type=yaml /dev/stdin |\
-  yq '.test = "yaml-output (success!)"'
+  yq '.test = \"yaml-output (success!)\"'
 """
 
 [python-test-uv]
@@ -55,5 +61,11 @@ import cowsay, emoji, loguru, sys
 from loguru import logger
 logger.info(f"Venv path:  \t {sys.prefix}")
 logger.info(f"Python info:\t ")
-logger.info(cowsay.fox(emoji.emojize(f"Python {":snake:"*3}")))
+logger.info(cowsay.fox(emoji.emojize(f"Python {':snake:'*3}")))
 """
+
+# --- BOOTSTRAP TASKS ---
+
+[setup-project]
+description = "Run the initial interactive setup for key generation. Should be run on the host."
+file = ".devcontainer/scripts/bootstrap.sh"

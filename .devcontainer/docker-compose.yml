@@ -16,10 +16,10 @@ services:
         # These variables are automatically read from `.env` and passed into the
         # Dockerfile build process. An alternative env file can be specified via:
         #   `docker compose --env-file=foo.env build`
-        USERNAME: ${USERNAME:-vscode}
-        GROUPNAME: ${GROUPNAME:-vscode}
-        PUID: ${UID:-1000}
-        PGID: ${GID:-1000}
+        DOCKER_USER: ${DOCKER_USER:-vscode}
+        DOCKER_GROUP: ${DOCKER_GROUP:-vscode}
+        PUID: ${PUID:-1000}
+        PGID: ${PGID:-1000}
 
     container_name: '${COMPOSE_PROJECT_NAME}'
 
@@ -41,7 +41,7 @@ services:
     # `devcontainer.json`. The standard practice is to define the default user in
     # the Dockerfile and let `devcontainer.json` specify the user for the VS Code
     # session, ensuring a single source of truth for the remote session's user.
-    # user: ${UID:-1000}
+    user: ${PUID:-1000}:${PGID:-1000}
 
     volumes:
       # WHY: This is the primary bind mount for the project workspace. It maps the
@@ -51,6 +51,7 @@ services:
       # performance on macOS and Windows by allowing the host and container to
       # have slightly out-of-sync views of the filesystem.
       - ..:/workspaces/${localWorkspaceFolderBasename:-devspace}
+      # - ..:/workspaces #:delegated
 
       # WHY: This mounts the Docker daemon's socket from the host into the
       # container. It's the standard, secure method for enabling
