@@ -103,9 +103,5 @@
   //   }
   // },
 
-  "initializeCommand": ".devcontainer/scripts/initialize.sh",
-  "postCreateCommand": "/workspaces/${localWorkspaceFolderBasename}/.devcontainer/scripts/post-create.sh",
-  "postStartCommand": "/workspaces/${localWorkspaceFolderBasename}/.devcontainer/scripts/post-start.sh",
-  "postAttachCommand": "/workspaces/${localWorkspaceFolderBasename}/.devcontainer/scripts/post-attach.sh",
   "shutdownAction": "stopCompose"
 }
