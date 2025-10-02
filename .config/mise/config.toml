@@ -63,6 +63,7 @@ includes = [
 #
 [tools]
 age = "latest"
+bats = "latest"
 hadolint = "latest"
 jq = "latest"
 lefthook = "latest"

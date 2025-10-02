@@ -38,6 +38,20 @@ depends = ["lint-shfmt", "lint-shellcheck", "lint-hadolint"]
 
 
 # --- TESTING & UTILITY TASKS ---
+
+
+
+
+
+[test]
+description = "Run automated test suite (BATS)."
+run = "bats .devcontainer/tests/"
+alias = "t"
+
+
+
+
+
 [sops-test-config]
 description = "SOPS/AGE: Test configuration."
 env = { SOPS_AGE_KEY_FILE="{{env.MISE_SOPS_AGE_KEY_FILE}}" }
