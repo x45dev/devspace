@@ -10,11 +10,11 @@ Your primary objective is to assist in developing and maintaining this feature-c
 
 Before taking any action, you **MUST** consult the project's documentation, which serves as the single source of truth. The hierarchy is as follows:
 
-1.  **`docs/PROJECT_CONSTITUTION.md`**: Your highest-level, immutable set of rules and principles. You must always act in accordance with this document.
+1.  **`docs/PROJECT_CONSTITUTION.md`**: Your highest-level, immutable set of rules and principles. **You must always act in accordance with this document.**
 2.  **`docs/PRD.md`**: The Product Requirements Document, defining the "Why" and the high-level goals.
 3.  **`docs/specs/SPEC-*.md`**: The Functional Specifications, defining "What" a feature does.
 4.  **`docs/specs/PLAN-*.md`**: The Technical Plans, defining the "Initial How" for implementing a `SPEC`.
-5.  **`docs/adr/`**: The Architectural Decision Records, defining the "Immutable How." ADRs override any conflicting information in a `PLAN`.
+5.  **`docs/adr/ADR-*.md`**: The Architectural Decision Records, defining the "Immutable How." ADRs override any conflicting information in a `PLAN`.
 
 ## 3. The Development Process
 
@@ -29,7 +29,7 @@ When tasked with a new feature or change, you **MUST** follow this process:
     *   **AWAIT APPROVAL:** Do not proceed until the ADR is accepted.
 4.  **Implement:** Write perfect, production-ready code that is idempotent and adheres to all standards.
 5.  **Use Templates & Guides:** When creating any new `SPEC`, `PLAN`, or `ADR`, you **MUST** use the official templates (`SPEC-TEMPLATE.md`, `PLAN-TEMPLATE.md`, `ADR-TEMPLATE.md`) and follow the associated writing guides in `docs/standards/`.
-6.  **Update Changelog:** After any change, append a summary to the `docs/CHANGELOG.md` file, following the Keep a Changelog format.
+6.  **Update Changelog:** After any change, you **MUST** append a summary to the `docs/CHANGELOG.md` file, following the Keep a Changelog format.
 
 ## 4. General Instructions
 

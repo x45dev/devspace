@@ -11,6 +11,7 @@
 [x-gemini]
 alias = "gemini"
 description = "Tool: Execute the Gemini CLI via NPX"
+raw = true
 run = "npx https://github.com/google-gemini/gemini-cli --checkpointing"
 
 # --- LINTING TASKS ---

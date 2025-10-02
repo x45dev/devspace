@@ -48,44 +48,44 @@
   // linting rules), ensuring that every developer has the same standardized
   // environment without manual setup.
   
-  // "customizations": {
-  //   "vscode": {
-  //     "extensions": [
-  //       "charliermarsh.ruff",
-  //       "EditorConfig.EditorConfig",
-  //       "ms-azuretools.vscode-docker", 
-  //       "timonwong.shellcheck"
-  //     ],
-  //     "settings": {
-  //       "editor.tabSize": 4,
-  //       "editor.autoIndent": "advanced",
-  //       "editor.formatOnPaste": true,
-  //       "editor.formatOnSave": true,
-  //       "files.eol": "\n",
-  //       "[python]": {
-  //           "editor.codeActionsOnSave": {
-  //               "source.fixAll": "always",
-  //               "source.organizeImports": "always"
-  //           },
-  //           "editor.defaultFormatter": "charliermarsh.ruff"
-  //       },
-  //       "python.terminal.activateEnvInCurrentTerminal": true,
-  //       "python.terminal.activateEnvironment": true,
-  //       "pythonTestExplorer.testFramework": "pytest",
-  //       "python.analysis.extraPaths": [
-  //           "${workspaceFolder}"
-  //       ],
-  //       "ruff.enable": true,
-  //       "ruff.lint.enable": true,
-  //       "terminal.integrated.defaultProfile.linux": "bash"
-  //     }
-  //   }
-  // },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "charliermarsh.ruff",
+        "EditorConfig.EditorConfig",
+        "ms-azuretools.vscode-docker", 
+        "timonwong.shellcheck"
+      ],
+      "settings": {
+        "editor.tabSize": 4,
+        "editor.autoIndent": "advanced",
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+        "files.eol": "\n",
+        "[python]": {
+            "editor.codeActionsOnSave": {
+                "source.fixAll": "always",
+                "source.organizeImports": "always"
+            },
+            "editor.defaultFormatter": "charliermarsh.ruff"
+        },
+        "python.terminal.activateEnvInCurrentTerminal": true,
+        "python.terminal.activateEnvironment": true,
+        "pythonTestExplorer.testFramework": "pytest",
+        "python.analysis.extraPaths": [
+            "${workspaceFolder}"
+        ],
+        "ruff.enable": true,
+        "ruff.lint.enable": true,
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
 
   "features": {
-    // "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {"moby":false},
-    // "ghcr.io/devcontainers/features/github-cli:1": {},
-    // "ghcr.io/devcontainers-extra/features/mise:1": {}
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {"moby":false},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-extra/features/mise:1": {}
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -103,5 +103,6 @@
   //   }
   // },
 
+  "postCreateCommand": "/workspaces/${localWorkspaceFolderBasename}/.devcontainer/scripts/post-create.sh",
   "shutdownAction": "stopCompose"
 }

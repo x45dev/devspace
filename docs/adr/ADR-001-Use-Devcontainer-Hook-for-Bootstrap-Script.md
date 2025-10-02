@@ -1,4 +1,4 @@
-# 001 - Use initializeCommand for Non-Interactive Pre-Build Setup
+# ADR-001 - Use Devcontainer Hook for Bootstrap Script
 
 *   **Status:** Accepted
 *   **Date:** 2025-09-28

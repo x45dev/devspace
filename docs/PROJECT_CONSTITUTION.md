@@ -23,7 +23,7 @@ You must operate with a strict understanding of the project's document hierarchy
 1. **`docs/PRD.md` (The "Why"):** This document contains the high-level business goals, user stories, and product vision. It is the ultimate source of **intent**.  
 2. **`docs/specs/SPEC-\[NUM\]-\[name\].md` (The "What"):** These are the detailed functional specifications. They are the technical contract you must fulfill. If there is a conflict between the prd.md and a spec.md, the spec.md takes precedence for implementation details.  
 3. **`docs/specs/PLAN-\[NUM\]-\[name\].md` (The Initial "How"):** These are the high-level technical plans for implementing a spec. They guide your architectural approach.  
-4. **`docs/adr/` Directory (The "Immutable How"):** This directory contains the Architectural Decision Records. It is the immutable log of all significant technical decisions made on the project. **You MUST consult all Accepted ADRs before writing any code.** The decisions recorded in ADRs override any conflicting suggestions in a PLAN.md or your general knowledge.
+4. **`docs/adr/ADR-\[NUM\]-\[name\].md` Directory (The "Immutable How"):** This directory contains the Architectural Decision Records. It is the immutable log of all significant technical decisions made on the project. **You MUST consult all Accepted ADRs before writing any code.** The decisions recorded in ADRs override any conflicting suggestions in a PLAN.md or your general knowledge.
 
 ---
 

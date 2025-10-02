@@ -23,7 +23,7 @@ Do **not** write an ADR for small, easily reversible decisions.
 
 1.  **Identify the Need:** While working on a task, you identify a necessary architectural decision.
 2.  **PAUSE EXECUTION:** Stop implementation work.
-3.  **Draft ADR:** Create a new ADR file in the `docs/adr/` directory. Use the `ADR-TEMPLATE.md` and name the file `NNN-short-description.md`, where `NNN` is the next sequential number.
+3.  **Draft ADR:** Create a new ADR file in the `docs/adr/` directory. Use the `ADR-TEMPLATE.md` and name the file `ADR-NNN-short-description.md`, where `NNN` is the next sequential number.
 4.  **Fill out the ADR:** Complete the Title, Context, Decision, and Consequences sections.
 5.  **Propose ADR:** Submit the ADR for review by the team (e.g., via a Pull Request).
 6.  **Await Approval:** Do not resume implementation until the ADR is approved and merged.

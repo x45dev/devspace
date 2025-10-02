@@ -1,4 +1,4 @@
-# ADR-004: Lean Docker Image with Devcontainer Features
+# ADR-004 - Lean Docker Image with Devcontainer Features
 
 *   **Status:** Proposed
 *   **Date:** 2025-09-30

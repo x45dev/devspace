@@ -1,4 +1,4 @@
-# 002 - Prioritize Project-Local Age Key Over Global Key
+# ADR-002 - Project-Local Key Priority
 
 *   **Status:** Accepted
 *   **Date:** 2025-09-28

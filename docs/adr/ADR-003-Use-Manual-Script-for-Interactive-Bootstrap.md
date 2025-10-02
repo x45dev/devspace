@@ -1,4 +1,4 @@
-# 003 - Use Manual Script for Interactive Bootstrap
+# ADR-003 - Use Manual Script for Interactive Bootstrap
 
 *   **Status:** Accepted
 *   **Date:** 2025-09-28
