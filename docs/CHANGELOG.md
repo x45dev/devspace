@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Improved robustness of `post-create.sh` script by adding a retry mechanism with exponential backoff for the `mise install` command.
+- Updated `PLAN-006-Devcontainer-Provisioning.md` to reflect the new retry logic.
+
 ### Added
+- Automatic configuration of Git user details and GitHub CLI authentication from environment variables in `post-create.sh`.
 - `.devcontainer/scripts/bootstrap.sh` to provide a robust, manual setup script for key generation.
 - `ADR-003` to document the decision for a manual, script-first bootstrap process.
 
