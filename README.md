@@ -53,7 +53,10 @@ Before you begin, ensure you have the following installed on your host machine:
 
 That's it. The devcontainer will now build and start with your keys and secrets correctly configured.
 
-## **Next Steps**
+## **How to Use and Contribute**
 
-- **For users:** This README is just a starting point. To effectively use this template, please read the comprehensive [**Developer Guide (docs/USAGE.md)**](docs/USAGE.md).
-- **For LLMs/Agents:** To understand and correctly interact with this project, you **MUST** read the `GEMINI.md` file in the root of this repository. It contains your master instructions.
+This repository serves two purposes: it is a template to be used for new projects, and it is an open-source project in its own right.
+
+*   **To use this template** for your own project, please read the comprehensive [**`docs/USAGE.md`**](docs/USAGE.md) file.
+
+*   **To contribute to the development of this template**, you **MUST** start by reading the [**`docs/CONTRIBUTING.md`**](docs/CONTRIBUTING.md) file, which outlines the mandatory development workflow.
