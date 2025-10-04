@@ -41,7 +41,7 @@ Every change begins with a GitHub Issue and follows a flexible, multi-phase life
 gh issue create --title "Implement User Authentication" --body-file docs/templates/FEATURE_REQUEST_TEMPLATE.md
 ```
 
-**Checkpoint:** Has a clear and detailed GitHub Issue been created?
+**Checkpoint:** Has a clear and detailed GitHub Issue been created using the correct template, and does it link to the PRD section it implements?
 
 ---
 
@@ -53,19 +53,12 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 2.  **Assess Complexity:**
     *   For **large or complex features**, you **MUST** create a `SPEC.md` (using the [new template](templates/SPEC-TEMPLATE.md)) and a `PLAN.md`.
     *   For **small, self-explanatory tasks** (e.g., fixing a typo, minor refactoring), you may skip the `SPEC.md` and `PLAN.md` and proceed directly to Phase 4.
-    *   **ADR Consideration:** If the feature requires project-wide technical decisions, you **MUST** follow the architectural decision-making process in [PROJECT_CONSTITUTION.md Section 5](PROJECT_CONSTITUTION.md#section-5-architectural-decision-making-protocol) before creating the SPEC.
+    *   **ADR Consideration:** If the feature requires project-wide technical decisions, follow [PROJECT_CONSTITUTION Section 5](PROJECT_CONSTITUTION.md#section-5-architectural-decision-making-protocol) before creating the SPEC.
 
-3.  **Follow ADR Process:** If a significant architectural decision is required, follow the [**Decision Making and Management Workflow**](workflows/decision-making.md) and the process defined in [PROJECT_CONSTITUTION.md Section 5.1](PROJECT_CONSTITUTION.md#51-adr-creation-process).
-
-4.  **Create SPEC with ADR References:** When creating a `SPEC.md`, you **MUST** reference all applicable ADRs in the technical approach section. Use the following format:
-
-    ```markdown
-    ## Architectural Decisions
-
-    This SPEC adheres to the following ADRs:
-    - [ADR-001](../docs/adr/ADR-001-Example.md) - Decision description
-    - [ADR-002](../docs/adr/ADR-002-Example.md) - Decision description
-    ```
+**Gates:**
+- SPEC includes Architectural Decisions section referencing applicable ADRs
+- PLAN outlines verification strategy and testing approach
+- Issue links back to PRD section(s)
 4.  **Update GitHub Issue:** Post a comment on the issue with links to the design documents (if created).
 
 **Checkpoint:** Have all necessary design documents (`SPEC`, `PLAN`, `ADR`) been created and linked in the issue?
@@ -73,6 +66,10 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 ---
 
 ### **Phase 3: Task Decomposition**
+
+**Gates:**
+- TASK_DECOMPOSITION.md covers all tasks with dependencies, context packages, and verification steps
+- Each atomic task cites SPEC sections and PLAN steps it implements
 
 **Goal:** To translate the `PLAN.md` into a granular, step-by-step execution plan.
 
@@ -83,6 +80,11 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 ---
 
 ### **Phase 4: Implement & Verify**
+
+**Gates:**
+- Code matches SPEC acceptance criteria
+- Tests written for all new behavior; all tests and linters pass (`mise run lint`, `mise run test`)
+- No undocumented decisions; any cross-cutting decisions are backed by ADRs
 
 **Goal:** To write and verify high-quality code.
 
@@ -96,6 +98,11 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 
 ### **Phase 5: Commit & PR**
 
+**Gates:**
+- PR links to Issue and references SPEC/PLAN/TASK_DECOMPOSITION
+- CHANGELOG.md updated
+- PR uses centralized template in docs/templates/
+
 **Goal:** To integrate the changes into the main branch after a formal review.
 
 1.  **Commit:** Commit your changes with a clear message referencing the issue number (e.g., `feat: Implement user auth (#123)`).
@@ -107,6 +114,10 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 ---
 
 ### **Phase 6: Release**
+
+**Gates:**
+- Version tag pushed and recorded
+- Documentation synthesis completed (create `ISSUE_SUMMARY.md` per workflow)
 
 **Goal:** To create a new, versioned release of the project.
 

@@ -72,7 +72,7 @@ This project operates on a strict hierarchy of documentation. Understanding this
 ### 3.1 The Source of Truth: Git vs. GitHub
 
 *   **The GitHub Issue is the central HUB for a task.** It is the entry point, the discussion forum, and the high-level tracker.
-*   **The version-controlled documents in Git are the canonical SOURCE OF TRUTH.** For any implementation, the detailed documents (`ANALYSIS.md`, `SPEC.md`, `PLAN.md`, etc.) stored in the `work/` directory are the definitive reference. The code itself is the ultimate source of truth for what is currently implemented.
+*   **The version-controlled documents in Git are the canonical SOURCE OF TRUTH.** For any implementation, the detailed documents (`SPEC.md`, `PLAN.md`, etc.) stored in the `work/` directory are the definitive reference. The code itself is the ultimate source of truth for what is currently implemented.
 
 If there is a conflict between a discussion on a GitHub Issue and a version-controlled document, the version-controlled document takes precedence.
 
@@ -86,6 +86,14 @@ If there is a conflict between a discussion on a GitHub Issue and a version-cont
 1.  **`SPEC.md` (The "What"):** The detailed Functional Specification for the feature, which includes an initial analysis section. **Must reference all applicable ADRs** per Section 3.3 (Artifact Distinction).
 3.  **`PLAN.md` (The Initial "How"):** The high-level Technical Plan for implementing the `SPEC`.
 4.  **`TASK_DECOMPOSITION.md` (The Detailed "How"):** The granular, step-by-step execution plan for an AI agent.
+
+### 3.5 Persona Coverage and Responsibilities
+
+- **AI Coding Agent:** Follows TASK_DECOMPOSITION; asks for clarification per Section 4.4; never bypasses PRD-first rule
+- **Human Developer:** Authors/Reviews SPEC/PLAN; ensures gates in CONTRIBUTING.md are met; runs quality checks
+- **Tech Lead/Architect:** Owns ADR proposals and approvals; ensures cross-feature consistency
+- **Product Owner:** Owns PRD; validates that Issues map to PRD sections
+
 
 ### 3.3 Artifact Distinction: ADRs vs SPECs
 
@@ -114,36 +122,6 @@ This project uses two distinct types of design documents, each with clear scope 
   - Documenting API endpoints for a specific service
   - Defining UI/UX requirements for a feature
   - Decision only affects one feature/issue
-
-### 3.4 Artifact Lifecycle and Relationships
-
-**ADR Status Workflow:**
-```
-PROPOSED → AGREED → SUPERSEDED → DEPRECATED
-```
-
-**ADR Lifecycle Rules:**
-- **Never modify** existing ADR content (immutable)
-- **Create new ADR** with status `SUPERSEDES [ADR-number]` to change decisions
-- **Update original ADR** status to `SUPERSEDED`
-- **Reference ADRs** in all affected SPECs
-
-**SPEC Lifecycle:**
-- **Living documents** that can be updated during development
-- **Version controlled** with each feature implementation
-- **Must reference all applicable ADRs** in technical approach sections
-- **Updated** through [Change Management Workflow](workflows/change-management.md) when requirements change
-
-**Hierarchy and Precedence:**
-1. **ADRs** (Project-wide technical decisions) - **HIGHEST PRIORITY**
-2. **SPECs** (Feature-specific requirements)
-3. **PLAN.md** (Implementation approach)
-4. **TASK_DECOMPOSITION.md** (Detailed execution steps)
-
-**Conflict Resolution:**
-- **ADR always overrides SPEC** when conflicts occur
-- **SPEC must be updated** to align with new ADR decisions
-- **Implementation code** must align with both SPEC and ADR requirements
 
 ---
 
