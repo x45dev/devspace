@@ -10,7 +10,7 @@ The Task Decomposition phase occurs after the `PLAN` and any associated `ADR`s h
 
 1.  **Input:** The primary inputs are the `SPEC`, the `PLAN`, and any relevant `ADR` documents.
 2.  **Generation:** Using the prompt below, generate a detailed task decomposition. This can be done by a human, or by another instance of an LLM agent.
-3.  **Output:** The output is a structured markdown file, typically named `TASK_DECOMPOSITION.md` and placed in the relevant directory for the work being done. This file should follow the structure defined in `docs/templates/TASK_DECOMPOSITION_TEMPLATE.md`.
+3.  **Output:** The output is a structured markdown file, typically named `TASK_DECOMPOSITION.md` and placed in the relevant directory for the work being done. This file should follow the structure defined in [../templates/TASK_DECOMPOSITION_TEMPLATE.md](../templates/TASK_DECOMPOSITION_TEMPLATE.md).
 4.  **Review:** The generated task decomposition should be reviewed for completeness, correctness, and clarity before being handed off to the implementing agent.
 
 ## The "Do-It-All" Task Decomposition Prompt
@@ -42,7 +42,7 @@ Your task is to generate a detailed task decomposition in markdown format.
 
 **Output Format:**
 
-Use the following markdown structure for your output. You can find a template for this at `docs/templates/TASK_DECOMPOSITION_TEMPLATE.md`.
+Use the following markdown structure for your output. You can find a template for this at [../templates/TASK_DECOMPOSITION_TEMPLATE.md](../templates/TASK_DECOMPOSITION_TEMPLATE.md).
 
 ```markdown
 # Task Decomposition: [Name of Feature or Epic]

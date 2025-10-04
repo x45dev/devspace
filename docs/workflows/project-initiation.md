@@ -18,14 +18,14 @@ An agent tasked with initiating a project **MUST** follow these steps:
 
 3.  **Decompose the PRD into Features:** Identify the distinct, high-level features, epics, or user stories described in the PRD. Each of these will become a separate unit of work.
 
-3.  **Create an Issue for Each Feature:** For **each** feature identified in the previous step, you **MUST** create a corresponding GitHub Issue. To do this, you will follow **Phase 0: Concept & Issue Creation** from the main [**Contributor Workflow**](../CONTRIBUTING.md).
+4.  **Create an Issue for Each Feature:** For **each** feature identified in the previous step, you **MUST** create a corresponding GitHub Issue. To do this, you will follow **Phase 1: Concept & Issue Creation** from the main [**Contributor Workflow**](../CONTRIBUTING.md#phase-1-concept--issue-creation).
 
     *   Use the `gh issue create` command.
-    *   Use the `FEATURE_REQUEST_TEMPLATE.md` template.
+    *   Use the [FEATURE_REQUEST_TEMPLATE.md](../templates/FEATURE_REQUEST_TEMPLATE.md) template.
     *   The title of the issue should be the name of the feature (e.g., "Implement User Authentication").
     *   The body of the issue should be filled out with the relevant details extracted from the `PRD.md`.
 
-4.  **Verify the Backlog:** Once all features from the PRD have been converted into GitHub Issues, announce that the project initiation is complete. The project now has a fully populated backlog.
+5.  **Verify the Backlog:** Once all features from the PRD have been converted into GitHub Issues, announce that the project initiation is complete. The project now has a fully populated backlog.
 
 ## Next Steps
 

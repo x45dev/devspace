@@ -18,7 +18,7 @@ You **MUST** create an Architectural Decision Record (ADR) when a decision has a
 
 1.  **Identify the Need:** During the **Plan** phase, identify a decision that requires an ADR.
 2.  **Pause Planning:** Do not proceed with planning until the ADR is resolved.
-3.  **Draft the ADR:** Create a new ADR file in the `docs/adr/` directory, using the [**`ADR-TEMPLATE.md`**](../templates/ADR-TEMPLATE.md).
+3.  **Draft the ADR:** Create a new ADR file in the `docs/adr/` directory, using the [**ADR-TEMPLATE.md**](../templates/ADR-TEMPLATE.md).
 4.  **Perform Impact Assessment:** As part of drafting the ADR, you **MUST** complete the "Decision Impact Assessment" section of the template. This is a critical step to ensure the full consequences of the decision are understood.
 5.  **Propose and Discuss:** Open a Pull Request with the new ADR to serve as the forum for discussion.
 6.  **Approve and Merge:** Once consensus is reached, the ADR is approved and merged.
