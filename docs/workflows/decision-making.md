@@ -18,7 +18,7 @@ You **MUST** create an Architectural Decision Record (ADR) when a decision has a
 
 1.  **Identify the Need:** During the **Plan** phase, identify a decision that requires an ADR.
 2.  **Pause Planning:** Do not proceed with planning until the ADR is resolved.
-3.  **Draft the ADR:** Create a new ADR file in the `docs/adr/` directory, using the [**ADR-TEMPLATE.md**](../templates/ADR-TEMPLATE.md).
+3.  **Draft the ADR:** Create a new ADR file in the `docs/adr/` directory, using the [**ADR-TEMPLATE.md**](../templates/ADR-TEMPLATE.md) and author it per the [ADR Writing Standard](../standards/adr-writing-guide.md).
 4.  **Perform Impact Assessment:** As part of drafting the ADR, you **MUST** complete the "Decision Impact Assessment" section of the template. This is a critical step to ensure the full consequences of the decision are understood.
 5.  **Propose and Discuss:** Open a Pull Request with the new ADR to serve as the forum for discussion.
 6.  **Approve and Merge:** Once consensus is reached, the ADR is approved and merged.
@@ -30,3 +30,9 @@ After an ADR is approved and merged, the project's planning documents **MUST** b
 1.  **Update the `SPEC.md`:** Modify the functional and non-functional requirements in the `work/[issue-id]/SPEC.md` to align with the decision.
 2.  **Update the `PLAN.md`:** Modify the implementation approach, architecture, and scope in the `work/[issue-id]/PLAN.md`.
 3.  **Resume Workflow:** With the decision recorded and the planning documents updated, you can now resume the normal development workflow.
+
+## Gates
+
+- Apply the [Standard Checkpoints & Feature Gates](checkpoints-and-gates.md) for this phase
+- Ensure DRY: link to authoritative documents instead of duplicating content
+- Verify SPECs reference applicable ADRs

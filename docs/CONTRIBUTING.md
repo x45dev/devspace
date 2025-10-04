@@ -51,14 +51,19 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 
 1.  **Create Work Directory:** Create a `work/[issue-id]/` directory.
 2.  **Assess Complexity:**
-    *   For **large or complex features**, you **MUST** create a `SPEC.md` (using the [new template](templates/SPEC-TEMPLATE.md)) and a `PLAN.md`.
+    *   For **large or complex features**, you **MUST** create a `SPEC.md` (using the [new template](templates/SPEC-TEMPLATE.md)) and a `PLAN.md`, and you **MUST** follow the [Specification & Planning Documents standard](standards/specification-writing-guide.md).
     *   For **small, self-explanatory tasks** (e.g., fixing a typo, minor refactoring), you may skip the `SPEC.md` and `PLAN.md` and proceed directly to Phase 4.
     *   **ADR Consideration:** If the feature requires project-wide technical decisions, follow [PROJECT_CONSTITUTION Section 5](PROJECT_CONSTITUTION.md#section-5-architectural-decision-making-protocol) before creating the SPEC.
+    *   **Standards:** Review and apply all documents in [docs/standards/](standards/) to this work.
+    *   **Optional Analyses:** Consider running [Code Discovery](workflows/code-discovery.md), [Technical Feasibility Analysis](workflows/technical-feasibility-analysis.md), and [Implementation vs Documentation Gap Analysis](workflows/implementation-vs-documentation-gap-analysis.md).
 
 **Gates:**
-- SPEC includes Architectural Decisions section referencing applicable ADRs
+- SPEC includes Architectural Decisions section referencing applicable ADRs and adheres to the [Specification & Planning Documents standard](standards/specification-writing-guide.md)
 - PLAN outlines verification strategy and testing approach
+- All applicable [docs/standards/](standards/) have been reviewed and applied
+- [Standard Checkpoints & Feature Gates](workflows/checkpoints-and-gates.md) executed for this phase
 - Issue links back to PRD section(s)
+- DRY & Links Gate: no duplication; all links resolve
 4.  **Update GitHub Issue:** Post a comment on the issue with links to the design documents (if created).
 
 **Checkpoint:** Have all necessary design documents (`SPEC`, `PLAN`, `ADR`) been created and linked in the issue?
@@ -102,6 +107,7 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 - PR links to Issue and references SPEC/PLAN/TASK_DECOMPOSITION
 - CHANGELOG.md updated
 - PR uses centralized template in docs/templates/
+- [Standard Checkpoints & Feature Gates](workflows/checkpoints-and-gates.md) checklist included and completed
 
 **Goal:** To integrate the changes into the main branch after a formal review.
 

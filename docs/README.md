@@ -35,18 +35,27 @@ graph TD
 
 These are the core documents that define the project's methodology. They are located in the `docs/` directory.
 
-*   [**`PROJECT_CONSTITUTION.md`**](PROJECT_CONSTITUTION.md): The immutable principles and the hierarchy of truth. **Start here.**
-*   [**`CONTRIBUTING.md`**](CONTRIBUTING.md): The step-by-step, issue-driven development workflow.
-*   [**`adr/`**](adr/): Contains project-wide Architectural Decision Records (ADRs).
-*   [**`workflows/`**](workflows/): Contains detailed guides for specific processes like Decision Making and Task Decomposition.
-*   [**`templates/`**](templates/): Contains all official document templates (`SPEC`, `PLAN`, `ADR`, etc.).
-*   [**`standards/`**](standards/): Defines coding style, naming conventions, and other standards.
-*   [**`examples/`**](examples/): Contains example documents to serve as references.
+- [PROJECT_CONSTITUTION.md](PROJECT_CONSTITUTION.md): The immutable principles and the hierarchy of truth. Start here.
+- [CONTRIBUTING.md](CONTRIBUTING.md): The step-by-step, issue-driven development workflow.
+- [adr/](adr/): Project-wide Architectural Decision Records (ADRs).
+- [workflows/](workflows/): Process guides. Key additions:
+  - [Checkpoints & Gates](workflows/checkpoints-and-gates.md)
+  - [Code Discovery](workflows/code-discovery.md)
+  - [Implementation vs Documentation Gap Analysis](workflows/implementation-vs-documentation-gap-analysis.md)
+  - [Technical Feasibility Analysis](workflows/technical-feasibility-analysis.md)
+  - [PRD Next](workflows/prd-next.md)
+- [templates/](templates/): All document templates (SPEC, PLAN, ADR, PRD, TASK_DECOMPOSITION, ISSUE_SUMMARY, PR template, Issue template)
+- [standards/](standards/): Coding style, naming conventions, commenting, bash, specification writing. These MUST be applied at all times.
+- [examples/](examples/): Example documents.
 
 ## Work Artifacts
 
-These documents are created for each GitHub Issue and are stored in a dedicated directory under `work/[issue-id]/`.
+Created for each GitHub Issue, stored under `work/[issue-id]/`.
 
-*   **`SPEC.md`:** The detailed Functional Specification, including an initial analysis.
-*   **`PLAN.md`:** The high-level Technical Plan.
-*   **`TASK_DECOMPOSITION.md`:** The granular, step-by-step execution plan.
+- SPEC.md: Detailed Functional Specification, including initial analysis
+- PLAN.md: High-level Technical Plan
+- TASK_DECOMPOSITION.md: Granular execution plan for agents
+
+## Universal Gate Checklist
+
+Use the reusable checklist in [workflows/checkpoints-and-gates.md](workflows/checkpoints-and-gates.md) at every phase transition to enforce standards, DRY, ADRs, and verification.

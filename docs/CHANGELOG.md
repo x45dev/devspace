@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Standard Checkpoints and Feature Gates workflow (docs/workflows/checkpoints-and-gates.md)
+- Code Discovery workflow (docs/workflows/code-discovery.md)
+- Implementation vs Documentation Gap Analysis (docs/workflows/implementation-vs-documentation-gap-analysis.md)
+- Technical Feasibility Analysis (docs/workflows/technical-feasibility-analysis.md)
+- PRD Next workflow (docs/workflows/prd-next.md) to optionally recommend the next task from a single PRD
+
+### Changed
+- CONTRIBUTING: reference Specification & Planning Documents standard; enforce universal gates and DRY/link checks; direct contributors to apply all standards at all times
+- Decision-Making: reference ADR writing guide and integrate gates
+- docs/README: index updated to include new workflows and Universal Gate Checklist
+
+
+### Added
 - **Enhanced Getting Started Guidance:** Expanded README.md with comprehensive scenario-based entry points covering all starting conditions (no PRD, completed PRD, roadmap-only, joining existing). Added decision tree for clear navigation.
 - **PRD-First Mandate:** Strengthened PRD foundation emphasis in both PROJECT_CONSTITUTION.md and CONTRIBUTING.md with explicit requirements and cross-references.
 - **Fixed Broken Reference:** Removed lingering reference to deleted adr-vs-spec.md from PROJECT_CONSTITUTION.md.
