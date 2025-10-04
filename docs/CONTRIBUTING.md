@@ -46,7 +46,19 @@ Every change begins with a GitHub Issue and follows a flexible, multi-phase life
 2.  **Assess Complexity:**
     *   For **large or complex features**, you **MUST** create a `SPEC.md` (using the [new template](templates/SPEC-TEMPLATE.md)) and a `PLAN.md`.
     *   For **small, self-explanatory tasks** (e.g., fixing a typo, minor refactoring), you may skip the `SPEC.md` and `PLAN.md` and proceed directly to Phase 4.
-3.  **Follow ADR Process:** If a significant architectural decision is required, follow the [**Decision Making and Management Workflow**](workflows/decision-making.md).
+    *   **ADR Consideration:** If the feature requires project-wide technical decisions, you **MUST** follow the architectural decision-making process in [PROJECT_CONSTITUTION.md Section 5](PROJECT_CONSTITUTION.md#section-5-architectural-decision-making-protocol) before creating the SPEC.
+
+3.  **Follow ADR Process:** If a significant architectural decision is required, follow the [**Decision Making and Management Workflow**](workflows/decision-making.md) and the process defined in [PROJECT_CONSTITUTION.md Section 5.1](PROJECT_CONSTITUTION.md#51-adr-creation-process).
+
+4.  **Create SPEC with ADR References:** When creating a `SPEC.md`, you **MUST** reference all applicable ADRs in the technical approach section. Use the following format:
+
+    ```markdown
+    ## Architectural Decisions
+
+    This SPEC adheres to the following ADRs:
+    - [ADR-001](../docs/adr/ADR-001-Example.md) - Decision description
+    - [ADR-002](../docs/adr/ADR-002-Example.md) - Decision description
+    ```
 4.  **Update GitHub Issue:** Post a comment on the issue with links to the design documents (if created).
 
 **Checkpoint:** Have all necessary design documents (`SPEC`, `PLAN`, `ADR`) been created and linked in the issue?

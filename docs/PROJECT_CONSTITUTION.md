@@ -79,11 +79,67 @@ If there is a conflict between a discussion on a GitHub Issue and a version-cont
 2.  **The GitHub Issue (The Task Definition):** A GitHub Issue, created using the Feature Request template, defines the specific "Why" and "What" for a single unit of work. It is inspired by the `PRD.md` but provides concrete, actionable requirements for one feature.
 
 3.  **Work Artifacts (The Implementation Details):** For each GitHub Issue, a set of detailed design documents is created in a `work/[issue-id]/` directory. These are the primary source of truth for implementation.
-2.  **`SPEC.md` (The "What"):** The detailed Functional Specification for the feature, which includes an initial analysis section.
+1.  **`SPEC.md` (The "What"):** The detailed Functional Specification for the feature, which includes an initial analysis section. **Must reference all applicable ADRs** per [ADR vs SPEC guidelines](adr-vs-spec.md).
 3.  **`PLAN.md` (The Initial "How"):** The high-level Technical Plan for implementing the `SPEC`.
 4.  **`TASK_DECOMPOSITION.md` (The Detailed "How"):** The granular, step-by-step execution plan for an AI agent.
 
-4.  **`ADR-*.md` (The Immutable Decisions):** Located in `docs/adr/`, Architectural Decision Records are the immutable log of project-wide technical decisions that override all other documents.
+### 3.3 Artifact Distinction: ADRs vs SPECs
+
+This project uses two distinct types of design documents, each with clear scope and purpose:
+
+**ADRs (Architectural Decision Records)**
+- **Scope:** Project-wide or cross-cutting technical decisions
+- **Purpose:** Decisions about *how* to build (technology choices, patterns, approaches)
+- **Impact:** Affects multiple features, the entire codebase, or development process
+- **When Required:**
+  - Decision affects multiple features or the entire project
+  - Choosing between competing technologies or approaches
+  - Establishing project-wide patterns (auth, error handling, logging)
+  - Making infrastructure/platform decisions
+  - Setting coding standards or architectural patterns
+  - Decision must be referenced by multiple SPECs
+
+**SPECs (Functional Specifications)**
+- **Scope:** Feature-specific requirements and behavior
+- **Purpose:** Descriptions of *what* to build (features, functionality, user experience)
+- **Impact:** Affects only the specific feature being implemented
+- **When Required:**
+  - Defining specific feature requirements
+  - Describing user workflows and interactions
+  - Specifying business logic for a single feature
+  - Documenting API endpoints for a specific service
+  - Defining UI/UX requirements for a feature
+  - Decision only affects one feature/issue
+
+### 3.4 Artifact Lifecycle and Relationships
+
+**ADR Status Workflow:**
+```
+PROPOSED → AGREED → SUPERSEDED → DEPRECATED
+```
+
+**ADR Lifecycle Rules:**
+- **Never modify** existing ADR content (immutable)
+- **Create new ADR** with status `SUPERSEDES [ADR-number]` to change decisions
+- **Update original ADR** status to `SUPERSEDED`
+- **Reference ADRs** in all affected SPECs
+
+**SPEC Lifecycle:**
+- **Living documents** that can be updated during development
+- **Version controlled** with each feature implementation
+- **Must reference all applicable ADRs** in technical approach sections
+- **Updated** through [Change Management Workflow](workflows/change-management.md) when requirements change
+
+**Hierarchy and Precedence:**
+1. **ADRs** (Project-wide technical decisions) - **HIGHEST PRIORITY**
+2. **SPECs** (Feature-specific requirements)
+3. **PLAN.md** (Implementation approach)
+4. **TASK_DECOMPOSITION.md** (Detailed execution steps)
+
+**Conflict Resolution:**
+- **ADR always overrides SPEC** when conflicts occur
+- **SPEC must be updated** to align with new ADR decisions
+- **Implementation code** must align with both SPEC and ADR requirements
 
 ---
 
@@ -101,6 +157,19 @@ Your work is defined by the tasks within a `TASK_DECOMPOSITION.md` document, whi
 ## **SECTION 5: ARCHITECTURAL DECISION-MAKING PROTOCOL**
 
 This project follows a formal process for making and recording significant architectural decisions. The full, step-by-step process is defined in the [**Decision Making and Management Workflow**](workflows/decision-making.md).
+
+### 5.1 ADR Creation Process
+1. **Identify Need:** During project initiation, SPEC creation, implementation, or planning
+2. **Create ADR:** Use [ADR template](templates/ADR-TEMPLATE.md) with status `PROPOSED`
+3. **Follow Workflow:** Execute [Decision Making Workflow](workflows/decision-making.md)
+4. **Update Status:** Change to `AGREED` after approval
+5. **Reference in SPECs:** Update all affected SPEC documents to reference the new ADR
+
+### 5.2 ADR Modification Process
+1. **Create New ADR:** Draft new ADR with status `SUPERSEDES [ADR-number]`
+2. **Update Original:** Change original ADR status to `SUPERSEDED`
+3. **Update SPECs:** Modify all affected SPECs to reference the new ADR
+4. **Follow Workflow:** Execute [Decision Making Workflow](workflows/decision-making.md) for approval
 
 ---
 

@@ -11,12 +11,13 @@
 # --- Mise metadata
 #MISE alias="secrets"
 #MISE description="SOPS/AGE: Manage encrypted project environment file."
+#MISE raw="true"
 
 set -euxo pipefail
 
 # --- Main Logic ---
 main() {
-  local -r project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+  local -r project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../" && pwd)"
   local -r secrets_template="${project_root}/.config/env/.env.yaml.template"
   local -r plaintext_secrets_file="${project_root}/.config/env/.env.yaml"
   local -r encrypted_secrets_file="${project_root}/.config/env/.env.sops.yaml"

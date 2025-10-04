@@ -124,3 +124,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refined User and Group Mapping in `initialize.sh` for greater reliability.
 - Adopted stricter shell script standards (`set -Eeuo pipefail`) across the project.
 - Replaced `.devcontainer/devcontainer.env.example` with a committed `.devcontainer/devcontainer.env` default.
+
+### Changed
+- **Integrated ADR/SPEC Documentation:** Consolidated ADR vs SPEC distinctions and workflow integration directly into `PROJECT_CONSTITUTION.md`, eliminating documentation forks and providing a single source of truth. Updated `CONTRIBUTING.md` and project initiation workflow to reference the integrated guidance.
+
+### Removed
+- **`docs/adr-vs-spec.md`:** Removed this standalone document to eliminate documentation duplication and ambiguity, with all content integrated into core governance documents.

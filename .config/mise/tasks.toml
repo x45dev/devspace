@@ -8,11 +8,23 @@
 #
 
 # --- TOOLS ---
+[x-codex]
+alias = "codex"
+description = "Tool: Execute the OpenAI Codex CLI via NPX"
+raw = true
+run = "npx @openai/codex"
+
 [x-gemini]
 alias = "gemini"
-description = "Tool: Execute the Gemini CLI via NPX"
+description = "Tool: Execute the Google Gemini CLI via NPX"
 raw = true
 run = "npx https://github.com/google-gemini/gemini-cli --checkpointing"
+
+[x-crush]
+alias = "crush"
+description = "Tool: Execute the Charmbracelet Crush CLI via NPX"
+raw = true
+run = "npx @charmland/crush $@"
 
 # --- LINTING TASKS ---
 
@@ -38,19 +50,10 @@ depends = ["lint-shfmt", "lint-shellcheck", "lint-hadolint"]
 
 
 # --- TESTING & UTILITY TASKS ---
-
-
-
-
-
 [test]
 description = "Run automated test suite (BATS)."
 run = "bats .devcontainer/tests/"
 alias = "t"
-
-
-
-
 
 [sops-test-config]
 description = "SOPS/AGE: Test configuration."

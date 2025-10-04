@@ -14,7 +14,9 @@ An agent tasked with initiating a project **MUST** follow these steps:
 
 1.  **Thoroughly Read the `PRD.md`:** The first step is to read the entire `PRD.md` to gain a complete and holistic understanding of the project's vision, goals, user personas, and required features.
 
-2.  **Decompose the PRD into Features:** Identify the distinct, high-level features, epics, or user stories described in the PRD. Each of these will become a separate unit of work.
+2.  **Create Foundational ADRs:** Before decomposing the PRD into features, identify any project-wide technical decisions that need to be made (e.g., technology stack, architecture patterns, authentication approach). Follow the architectural decision-making process in [PROJECT_CONSTITUTION.md Section 5.1](../PROJECT_CONSTITUTION.md#51-adr-creation-process) to create necessary ADRs.
+
+3.  **Decompose the PRD into Features:** Identify the distinct, high-level features, epics, or user stories described in the PRD. Each of these will become a separate unit of work.
 
 3.  **Create an Issue for Each Feature:** For **each** feature identified in the previous step, you **MUST** create a corresponding GitHub Issue. To do this, you will follow **Phase 0: Concept & Issue Creation** from the main [**Contributor Workflow**](../CONTRIBUTING.md).
 
