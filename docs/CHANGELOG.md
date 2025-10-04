@@ -130,3 +130,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - **`docs/adr-vs-spec.md`:** Removed this standalone document to eliminate documentation duplication and ambiguity, with all content integrated into core governance documents.
+
+### Changed
+- **Centralized Template Management:** Moved GitHub templates from `.github/` directory to `docs/templates/` for consistency with project governance structure. Updated `FEATURE_REQUEST_TEMPLATE.md` and `PULL_REQUEST_TEMPLATE.md` references in `PROJECT_CONSTITUTION.md` and `CONTRIBUTING.md`. Created `.github/ISSUE_TEMPLATE/config.yml` to point to new template locations.

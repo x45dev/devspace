@@ -205,7 +205,7 @@ When creating an issue, use the `feature_request.md` template. You can pre-fill 
 
 **Example:**
 ```sh
-gh issue create --title "Implement User Authentication" --body-file .github/ISSUE_TEMPLATE/feature_request.md
+gh issue create --title "Implement User Authentication" --body-file docs/templates/FEATURE_REQUEST_TEMPLATE.md
 ```
 
 ### 8.2 Commenting on an Issue
@@ -225,5 +225,5 @@ When you create a pull request, you **MUST** link it to the issue it resolves. T
 
 **Example:**
 ```sh
-gh pr create --title "feat: Implement user authentication (#123)" --body-file .github/PULL_REQUEST_TEMPLATE.md --assignee @me
+gh pr create --title "feat: Implement user authentication (#123)" --body-file docs/templates/PULL_REQUEST_TEMPLATE.md --assignee @me
 ```

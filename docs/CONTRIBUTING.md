@@ -32,7 +32,7 @@ Every change begins with a GitHub Issue and follows a flexible, multi-phase life
 **Goal:** To clearly define a new piece of work.
 
 1.  **Discuss the Concept:** Validate the need for the change.
-2.  **Create a GitHub Issue:** Use the `gh` CLI and the [**Feature Request template**](../.github/ISSUE_TEMPLATE/feature_request.md) to create a new issue.
+2.  **Create a GitHub Issue:** Use the `gh` CLI and the [**Feature Request template**](../templates/FEATURE_REQUEST_TEMPLATE.md) to create a new issue.
 
 **Checkpoint:** Has a clear and detailed GitHub Issue been created?
 
@@ -92,7 +92,7 @@ Every change begins with a GitHub Issue and follows a flexible, multi-phase life
 **Goal:** To integrate the changes into the main branch after a formal review.
 
 1.  **Commit:** Commit your changes with a clear message referencing the issue number (e.g., `feat: Implement user auth (#123)`).
-2.  **Open a Pull Request:** Use the `gh` CLI and the [**Pull Request Template**](../.github/PULL_REQUEST_TEMPLATE.md) to open a PR.
+2.  **Open a Pull Request:** Use the `gh` CLI and the [**Pull Request Template**](../templates/PULL_REQUEST_TEMPLATE.md) to open a PR.
 3.  **Update Changelog:** Add a summary of your changes to the `CHANGELOG.md`.
 
 **Checkpoint:** Has a Pull Request been opened, reviewed, and approved?
