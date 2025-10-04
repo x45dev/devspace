@@ -157,9 +157,7 @@ This project follows a formal process for making and recording significant archi
 
 ## **SECTION 6: TECHNICAL STACK AND CODING STANDARDS**
 
-* ---
-
-  **Primary Language(s):** n/a - this project is a flexible template
+* **Primary Language(s):** n/a - this project is a flexible template
 * **Framework(s):** n/a - this project is a flexible template
 * **Database(s):** n/a - this project is a flexible template
 * **Key Libraries:** Mise for toolchain and environment variables management (including secrets, via SOPS + AGE)
