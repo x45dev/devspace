@@ -2,6 +2,10 @@
 
 Welcome to the central hub for this project's documentation. This document is the starting point for understanding the project's methodology, workflow, and standards.
 
+## Start Here
+
+Start at the root README.md for entry paths. Then return here and proceed through the documentation in order. Always apply the Standards and execute the Universal Gates at each phase.
+
 ## The System Overview
 
 The diagram below illustrates the relationships between the core governing documents and the artifacts produced during the issue-driven workflow.

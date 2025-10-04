@@ -6,14 +6,15 @@ This document is the comprehensive, day-to-day manual for developers using this 
 
 ## **Table of Contents**
 
-1. [Core Concepts](https://www.google.com/search?q=%23core-concepts)  
-2. [First-Time Setup: The AGE Key](https://www.google.com/search?q=%23first-time-setup-the-age-key)  
-3. [Day-to-Day Workflow](https://www.google.com/search?q=%23day-to-day-workflow)  
-   * [Managing Secrets](https://www.google.com/search?q=%23managing-secrets)  
-   * [Managing Tools](https://www.google.com/search?q=%23managing-tools)  
-   * [Running Tasks](https://www.google.com/search?q=%23running-tasks)  
-4. [Automated Quality Control](https://www.google.com/search?q=%23automated-quality-control)  
-5. [The Devcontainer Lifecycle](https://www.google.com/search?q=%23the-devcontainer-lifecycle)
+1. [Core Concepts](#core-concepts)  
+2. [First-Time Setup: The AGE Key](#first-time-setup-the-age-key)  
+3. [Day-to-Day Workflow](#day-to-day-workflow)  
+   * [Managing Environment](#managing-environment)  
+   * [Managing Secrets](#managing-secrets)  
+   * [Managing Tools](#managing-tools)  
+   * [Running Tasks](#running-tasks)  
+4. [Automated Quality Control](#automated-quality-control)  
+5. [The Devcontainer Lifecycle](#the-devcontainer-lifecycle)
 
 ## **Core Concepts**
 
@@ -56,7 +57,7 @@ If you choose not to create a per-project key, the system will fall back to look
 
 ## **Day-to-Day Workflow**
 
-### **Managing Environment **
+### Managing Environment
 
 A critical design principle of this template is the strict separation between **Devcontainer Configuration** and **Application Configuration**.
 

@@ -14,7 +14,7 @@ references:
 ### Variables
 
 - **Quoting**: Quote all variable expansions when used independently of other strings (e.g., `"$my_variable"`).
-- **Braces**: Use braces to delimit variable names when concatenated with strongs (e.g., `"/path/to/${directory_name}`).
+- **Braces**: Use braces to delimit variable names when concatenated with strings (e.g., `"/path/to/${directory_name}"`).
 - **Local variables**: Use `local` to declare variables in functions.
 
 ### Tests
@@ -34,8 +34,8 @@ references:
 
 ### Modularity and Reusability
 
-- **Helpers Module:** All common or shared functionality, such as logging, MUST be placed in the `dotfiles/scripts/helpers.sh` module.
-- **Sourcing:** Scripts SHOULD source the `helpers.sh` module for consistent logging and utility functions.
+- **Shared Utilities:** Prefer using shared functions in `.devcontainer/scripts/common.sh` when available; otherwise include a small local logging wrapper.
+- **Sourcing:** Scripts SHOULD source `.devcontainer/scripts/common.sh` for consistent logging and utility functions when present.
 
 ### Idempotency
 
@@ -49,4 +49,4 @@ references:
 
 ### Logging
 
-- All scripts MUST use the logging functions (`info`, `warn`, `error`) provided in the `helpers.sh` module for all output.
+- Scripts SHOULD use logging functions (`info`, `warn`, `error`) from `.devcontainer/scripts/common.sh` or a project-local equivalent.

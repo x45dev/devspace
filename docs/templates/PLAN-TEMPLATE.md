@@ -44,6 +44,12 @@ sequenceDiagram
 
 *Describe any specific algorithms or complex logic that are core to the implementation.*
 
+## Self-Check
+
+- Standards applied (docs/standards/): [list]
+- DRY & Links validated
+- Gates executed (see workflows/checkpoints-and-gates.md)
+
 ## 3. Rationale & Trade-offs
 
 *Explain why this particular technical design was chosen. Discuss any alternatives that were considered and why they were rejected. Highlight any trade-offs (e.g., performance vs. complexity, security vs. usability).*

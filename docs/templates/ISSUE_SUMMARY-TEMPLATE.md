@@ -21,8 +21,8 @@
 
 *   **Decision:** ...
 
-## 3. Link to Full Discussion
+## 4. Self-Check
 
-For the complete, unabridged discussion and history of this feature, please refer to the original GitHub Issue:
-
-*   **GitHub Issue:** [Link to the full GitHub Issue]
+- Standards applied (docs/standards/): [list]
+- DRY & Links validated
+- Gates executed (see workflows/checkpoints-and-gates.md)

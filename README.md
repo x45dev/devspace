@@ -10,9 +10,10 @@ This template is built on a core philosophy: **design before you build**. The wo
 
 To understand the full methodology and how to use this template, you **MUST** begin by reading the documentation suite.
 
-## Getting Started
+## Start Here
 
-This template provides a comprehensive workflow for software development. Your starting point depends on what stage you are at. **All paths eventually lead to having a PRD - this is non-negotiable.**
+Always begin at the Docs Index: [docs/README.md](docs/README.md). Follow links from there and apply Standards and Universal Gates at every phase.
+
 
 ### 🚀 Scenario 1: Starting with No PRD (Ideas/Concepts Only)
 

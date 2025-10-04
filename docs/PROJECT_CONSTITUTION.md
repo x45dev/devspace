@@ -59,6 +59,8 @@ The official, step-by-step development workflow for all contributors (human and 
 
 5.  **Documentation as the Source of Truth:** The documentation is not separate from the code; it *is* the primary source of truth. If the code and the documentation are in conflict, the documentation is what must be corrected first.
 
+6.  **Standards Adherence:** You MUST review and apply all documents under `docs/standards/` at all times. These standards are mandatory and govern naming, code style, commenting, bash, and specification writing.
+
 
 
 ---
@@ -141,6 +143,7 @@ Your work is defined by the tasks within a `TASK_DECOMPOSITION.md` document, whi
 This project follows a formal process for making and recording significant architectural decisions. The full, step-by-step process is defined in the [**Decision Making and Management Workflow**](workflows/decision-making.md).
 
 ### 5.1 ADR Creation Process
+See [standards/adr-writing-guide.md](standards/adr-writing-guide.md).
 1. **Identify Need:** During project initiation, SPEC creation, implementation, or planning
 2. **Create ADR:** Use [ADR template](templates/ADR-TEMPLATE.md) with status `PROPOSED`
 3. **Follow Workflow:** Execute [Decision Making Workflow](workflows/decision-making.md)
@@ -148,6 +151,7 @@ This project follows a formal process for making and recording significant archi
 5. **Reference in SPECs:** Update all affected SPEC documents to reference the new ADR
 
 ### 5.2 ADR Modification Process
+See [standards/adr-writing-guide.md](standards/adr-writing-guide.md).
 1. **Create New ADR:** Draft new ADR with status `SUPERSEDES [ADR-number]`
 2. **Update Original:** Change original ADR status to `SUPERSEDED`
 3. **Update SPECs:** Modify all affected SPECs to reference the new ADR
@@ -162,7 +166,7 @@ This project follows a formal process for making and recording significant archi
 * **Database(s):** n/a - this project is a flexible template
 * **Key Libraries:** Mise for toolchain and environment variables management (including secrets, via SOPS + AGE)
 * **Style Guide / Linter:** See [docs/standards](standards) for style guides. Linters: hadolint; shellcheck; shfmt.
-* **Code Documentation:** See 
+* **Code Documentation:** See [standards/general/commenting.md](standards/general/commenting.md)
 
 ---
 

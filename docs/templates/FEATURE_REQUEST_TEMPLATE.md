@@ -4,6 +4,14 @@ about: Propose a new feature or enhancement.
 labels: enhancement
 ---
 
+### PRD Section(s) Implemented
+
+[Link to relevant sections in docs/PRD.md]
+
+### Gates
+
+[Confirm you will use the Standard Checkpoints & Feature Gates checklist during this work (see docs/workflows/checkpoints-and-gates.md).]
+
 ### 1. What specific problem does this feature solve for users?
 
 [A clear and concise description of the problem.]

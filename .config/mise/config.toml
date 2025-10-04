@@ -26,13 +26,13 @@
 #
 MISE_SOPS_AGE_KEY_FILE="{{config_root}}/.devcontainer/runtime/age.key"
 
-_.file = [ 
-    "{{config_root}}/.config/env/.env", 
+_.file = [
+    "{{config_root}}/.config/env/.env",
     { path = "{{config_root}}/.config/env/.env.sops.yaml", redact = true }
 ]
 
 # Optionally add additional directories to $PATH
-_.path = [ 
+_.path = [
     "{{config_root}}/scripts"
 ]
 
@@ -65,6 +65,7 @@ includes = [
 age = "latest"
 bats = "latest"
 hadolint = "latest"
+helix = "latest"
 jq = "latest"
 lefthook = "latest"
 node = "22"
@@ -74,3 +75,4 @@ shfmt = "latest"
 sops = "latest"
 uv = "latest"
 yq = "latest"
+

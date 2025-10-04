@@ -55,6 +55,19 @@ description = "Run automated test suite (BATS)."
 run = "bats .devcontainer/tests/"
 alias = "t"
 
+[link-check]
+description = "Check markdown links across the repo (optional)"
+raw = true
+run = """
+#!/usr/bin/env -S bash -euo pipefail
+mapfile -t files < <(git ls-files '*.md')
+fail=0
+for f in "${files[@]}"; do
+  npx -y markdown-link-check -q "$f" || fail=1
+done
+exit $fail
+"""
+
 [sops-test-config]
 description = "SOPS/AGE: Test configuration."
 env = { SOPS_AGE_KEY_FILE="{{env.MISE_SOPS_AGE_KEY_FILE}}" }

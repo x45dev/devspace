@@ -4,7 +4,9 @@ This document defines the official **issue-driven development workflow** for thi
 
 **PRD-First Requirement:** Before following this workflow, ensure that a `PRD.md` exists in the project root. If no PRD exists, you **MUST** create one first using the [PRD template](templates/PRD-TEMPLATE.md) or the [AI-assisted PRD generation guide](how-to/generating-a-prd-with-ai.md). No development work may proceed without a PRD.
 
-This workflow is the practical application of the **Design-First Development** methodology, whose principles are defined in the [**Project Constitution**](PROJECT_CONSTITUTION.md).
+## Start Here
+
+Start at the root README.md, then follow docs/README.md. At every phase, apply all docs/standards/ and execute the Universal Gate Checklist.
 
 ## Our Philosophy: Why We Work This Way
 

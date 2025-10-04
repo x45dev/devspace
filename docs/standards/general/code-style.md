@@ -7,8 +7,8 @@ description: General principles for code style and readability.
 
 ### Quality
 - **Feature complete and integrated**: Plan and write feature-complete solutions that fully integrate with other project components.
-- **Industry best practises**: Apply industry best practises approaches in code style, design patterns, and library/dependencies choices.
-- **Idemoptency**: Scripts should ensure idempotency at all times.
+- **Industry best practices**: Apply industry best practices approaches in code style, design patterns, and library/dependencies choices.
+- **Idempotency**: Scripts should ensure idempotency at all times.
 
 ### Readability and Conciseness
 

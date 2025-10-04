@@ -23,7 +23,7 @@ Start from the root README.md, then follow CONTRIBUTING.md. Apply these gates at
   - Each atomic task contains a complete Context Package and cites SPEC/PLAN sections
 - DRY & Links Gate
   - No duplication across documents; prefer hyperlinks to authoritative sources
-  - All intra-repo links resolve; broken links fixed
+  - All intra-repo links resolve; broken links fixed (recommended: run `mise run link-check`)
 - Verification Gate
   - Code satisfies SPEC acceptance criteria
   - mise run lint and mise run test succeed locally and in CI

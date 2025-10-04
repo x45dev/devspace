@@ -38,3 +38,11 @@
     *   **Outputs:** ...
     *   **Implementation Details:** ...
     *   **Verification Steps:** ...
+
+---
+
+## Self-Check
+
+- Standards applied (docs/standards/): [list]
+- DRY & Links validated
+- Gates executed (see workflows/checkpoints-and-gates.md)

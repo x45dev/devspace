@@ -20,6 +20,12 @@
 
 [List any questions or ambiguities that need to be resolved before planning can proceed.]
 
+### 1.5. Self-Check
+
+- Standards applied (docs/standards/): [list]
+- DRY & Links validated
+- Gates executed (see workflows/checkpoints-and-gates.md)
+
 ---
 
 ## 2. Functional Requirements

@@ -5,20 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## Summary
 
-### Added
-- Standard Checkpoints and Feature Gates workflow (docs/workflows/checkpoints-and-gates.md)
-- Code Discovery workflow (docs/workflows/code-discovery.md)
-- Implementation vs Documentation Gap Analysis (docs/workflows/implementation-vs-documentation-gap-analysis.md)
-- Technical Feasibility Analysis (docs/workflows/technical-feasibility-analysis.md)
-- PRD Next workflow (docs/workflows/prd-next.md) to optionally recommend the next task from a single PRD
-
-### Changed
-- CONTRIBUTING: reference Specification & Planning Documents standard; enforce universal gates and DRY/link checks; direct contributors to apply all standards at all times
-- Decision-Making: reference ADR writing guide and integrate gates
-- docs/README: index updated to include new workflows and Universal Gate Checklist
-
+- Iteration 1: Added universal gates and auxiliary workflows; strengthened standards links; normalized constitution formatting.
+- Iteration 2: Constitution mandates standards; ADR guide references added; fixed incomplete Code Documentation bullet; updated standards/specification-writing-guide paths to work/[issue-id]; updated templates to include self-checks and gates; root README points to docs index and gates; bash/style-guide generalized helpers and fixed typos; USAGE anchors fixed; PRD Next marked optional and linked to Project Initiation.
 
 ### Added
 - **Enhanced Getting Started Guidance:** Expanded README.md with comprehensive scenario-based entry points covering all starting conditions (no PRD, completed PRD, roadmap-only, joining existing). Added decision tree for clear navigation.
