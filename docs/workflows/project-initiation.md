@@ -21,7 +21,7 @@ An agent tasked with initiating a project **MUST** follow these steps:
 3.  **Create an Issue for Each Feature:** For **each** feature identified in the previous step, you **MUST** create a corresponding GitHub Issue. To do this, you will follow **Phase 0: Concept & Issue Creation** from the main [**Contributor Workflow**](../CONTRIBUTING.md).
 
     *   Use the `gh issue create` command.
-    *   Use the `feature_request.md` template.
+    *   Use the `FEATURE_REQUEST_TEMPLATE.md` template.
     *   The title of the issue should be the name of the feature (e.g., "Implement User Authentication").
     *   The body of the issue should be filled out with the relevant details extracted from the `PRD.md`.
 

@@ -201,7 +201,7 @@ As an AI agent, you **MUST** use the GitHub CLI (`gh`) to interact with GitHub I
 
 ### 8.1 Creating an Issue
 
-When creating an issue, use the `feature_request.md` template. You can pre-fill the fields from the command line.
+When creating an issue, use the `FEATURE_REQUEST_TEMPLATE.md` template. You can pre-fill the fields from the command line.
 
 **Example:**
 ```sh

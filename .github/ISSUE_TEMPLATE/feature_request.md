@@ -1,0 +1,1 @@
+../../docs/templates/FEATURE_REQUEST_TEMPLATE.md

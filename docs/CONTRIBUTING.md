@@ -34,6 +34,11 @@ Every change begins with a GitHub Issue and follows a flexible, multi-phase life
 1.  **Discuss the Concept:** Validate the need for the change.
 2.  **Create a GitHub Issue:** Use the `gh` CLI and the [**Feature Request template**](../templates/FEATURE_REQUEST_TEMPLATE.md) to create a new issue.
 
+**Example:**
+```sh
+gh issue create --title "Implement User Authentication" --body-file docs/templates/FEATURE_REQUEST_TEMPLATE.md
+```
+
 **Checkpoint:** Has a clear and detailed GitHub Issue been created?
 
 ---
