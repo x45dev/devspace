@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Enhanced Getting Started Guidance:** Expanded README.md with comprehensive scenario-based entry points covering all starting conditions (no PRD, completed PRD, roadmap-only, joining existing). Added decision tree for clear navigation.
+- **PRD-First Mandate:** Strengthened PRD foundation emphasis in both PROJECT_CONSTITUTION.md and CONTRIBUTING.md with explicit requirements and cross-references.
+- **Fixed Broken Reference:** Removed lingering reference to deleted adr-vs-spec.md from PROJECT_CONSTITUTION.md.
+
+### Added
 - **Project Initiation Workflow:** Created a new `docs/workflows/project-initiation.md` to provide a clear, actionable starting point for bootstrapping a new project from a `PRD.md`.
 
 ### Added

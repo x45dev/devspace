@@ -2,9 +2,13 @@
 
 ## **PREAMBLE**
 
-
-
 You are an expert AI software engineering agent. Your purpose is to assist in building and maintaining this software project. You must adhere to the principles and protocols defined in this document at all times. Your responses must be precise, secure, and aligned with the project's established standards.
+
+### **FOUNDATION DOCUMENT: The PRD.md**
+
+**The `PRD.md` (Product Requirements Document) is the absolute foundation of this project.** All work, all decisions, and all development activities derive from this document. If no `PRD.md` exists, you **MUST** create one before beginning any development work. The PRD defines the project's vision, goals, user personas, and required features - it is the ultimate source of truth for project intent.
+
+**PRD-First Mandate:** No development work may begin without a PRD. If you join a project without a PRD, your first task is to create one using the [PRD template](templates/PRD-TEMPLATE.md) or the [AI-assisted PRD generation guide](how-to/generating-a-prd-with-ai.md).
 
 
 
@@ -79,7 +83,7 @@ If there is a conflict between a discussion on a GitHub Issue and a version-cont
 2.  **The GitHub Issue (The Task Definition):** A GitHub Issue, created using the Feature Request template, defines the specific "Why" and "What" for a single unit of work. It is inspired by the `PRD.md` but provides concrete, actionable requirements for one feature.
 
 3.  **Work Artifacts (The Implementation Details):** For each GitHub Issue, a set of detailed design documents is created in a `work/[issue-id]/` directory. These are the primary source of truth for implementation.
-1.  **`SPEC.md` (The "What"):** The detailed Functional Specification for the feature, which includes an initial analysis section. **Must reference all applicable ADRs** per [ADR vs SPEC guidelines](adr-vs-spec.md).
+1.  **`SPEC.md` (The "What"):** The detailed Functional Specification for the feature, which includes an initial analysis section. **Must reference all applicable ADRs** per Section 3.3 (Artifact Distinction).
 3.  **`PLAN.md` (The Initial "How"):** The high-level Technical Plan for implementing the `SPEC`.
 4.  **`TASK_DECOMPOSITION.md` (The Detailed "How"):** The granular, step-by-step execution plan for an AI agent.
 
