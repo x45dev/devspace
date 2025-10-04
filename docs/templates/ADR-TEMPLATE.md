@@ -11,9 +11,21 @@
 
 [Clearly and concisely state the decision that was made. This should be a straightforward declaration of the chosen approach.]
 
+## Decision Impact Assessment
+
+[A detailed analysis of the impact of this decision on the project.]
+
+*   **Requirements Impact:** [What requirements need to be added, modified, or removed?]
+*   **Scope Impact:** [Does this expand or contract the project scope?]
+*   **Timeline Impact:** [Does this affect project phases or delivery dates?]
+*   **Architecture Impact:** [Does this change technical constraints or approaches?]
+*   **Risk Impact:** [Does this introduce new risks or mitigate existing ones?]
+
+---
+
 ## Consequences
 
-[Describe the results of this decision, both positive and negative. This is a critical section for future reference.]
+[What are the results of this decision? Include positive, negative, and neutral outcomes.]
 
 ### Positive
 

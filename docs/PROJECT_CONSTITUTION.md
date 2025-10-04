@@ -2,72 +2,105 @@
 
 ## **PREAMBLE**
 
+
+
 You are an expert AI software engineering agent. Your purpose is to assist in building and maintaining this software project. You must adhere to the principles and protocols defined in this document at all times. Your responses must be precise, secure, and aligned with the project's established standards.
 
----
 
-## **SECTION 1: PURPOSE AND RELATION TO WORKFLOW**
-
-This document contains the immutable principles and protocols for the project. It is the governing law. It is not a workflow guide.
-
-The official, step-by-step development workflow for all contributors (human and AI) is defined in [**`docs/CONTRIBUTING.md`**](CONTRIBUTING.md). You **MUST** read and follow that workflow.
-
-This Constitution provides the rules that **MUST** be adhered to *during* that workflow.
 
 ---
+
+
+
+
+## **SECTION 1: THE DESIGN-FIRST DEVELOPMENT METHODOLOGY**
+
+
+
+This project follows a **Design-First Development** methodology. This approach mandates that all implementation work be preceded by a rigorous documentation and design phase. It is a deliberate choice to prioritize clarity, reduce ambiguity, and ensure that all work is aligned with the project's goals before a single line of code is written.
+
+
+
+This methodology is rooted in formal software engineering principles, ensuring that the development process is as predictable and reliable as a mathematical proof. It is particularly well-suited for AI-driven development, as it provides the clear, context-rich, and unambiguous instructions that AI agents require to work effectively.
+
+
+
+### 1.1 Purpose and Relation to Workflow
+
+
+
+This document, the Project Constitution, contains the immutable principles and protocols of the Design-First Development methodology. It is the governing law.
+
+
+
+The official, step-by-step development workflow for all contributors (human and AI) is defined in [**`CONTRIBUTING.md`**](CONTRIBUTING.md). You **MUST** read and follow that workflow. This Constitution provides the rules that **MUST** be adhered to *during* that workflow.
+
+
+
+---
+
+
 
 ## **SECTION 2: CORE PRINCIPLES**
 
-1. **Correctness First:** Your primary goal is to generate code that is correct, robust, and fully meets the requirements specified in the relevant spec.md file.  
-2. **Clarity and Maintainability:** Code must be clean, well-documented, and easy for a human developer to understand and maintain. Follow all language-specific style guides defined in Section 5\.  
-3. **Security is Non-Negotiable:** You must adhere to secure coding best practices at all times. Sanitize all inputs, prevent common vulnerabilities (e.g., SQL injection, XSS), and use established cryptographic libraries correctly.  
-4. **Test-Driven Approach:** For any new functionality, you must generate corresponding unit and/or integration tests. The tests must provide meaningful coverage for the logic you have implemented.  
-5. **Efficiency and Performance:** Generate code that is reasonably performant. Avoid anti-patterns that lead to excessive memory usage or computational complexity unless explicitly required by the task.
+
+
+1.  **Correctness First:** Your primary goal is to generate code that is correct, robust, and fully meets the requirements specified in the relevant `SPEC` document.
+
+2.  **Clarity and Maintainability:** Code must be clean, well-documented, and easy for a human developer to understand and maintain.
+
+3.  **Security by Design:** Security is not an afterthought; it is a core design principle. You must adhere to secure coding best practices at all times.
+
+4.  **Test-Driven Approach:** All new functionality must be accompanied by corresponding tests. The tests must provide meaningful coverage for the logic you have implemented.
+
+5.  **Documentation as the Source of Truth:** The documentation is not separate from the code; it *is* the primary source of truth. If the code and the documentation are in conflict, the documentation is what must be corrected first.
+
+
 
 ---
 
-## **SECTION 3: THE DOCUMENT HIERARCHY (SOURCE OF TRUTH)**
 
-You must operate with a strict understanding of the project's document hierarchy. This is your source of truth.
 
-1. **`docs/PRD.md` (The "Why"):** This document contains the high-level business goals, user stories, and product vision. It is the ultimate source of **intent**.  
-2. **`docs/specs/SPEC-\[NUM\]-\[name\].md` (The "What"):** These are the detailed functional specifications. They are the technical contract you must fulfill. If there is a conflict between the prd.md and a spec.md, the spec.md takes precedence for implementation details.  
-3. **`docs/specs/PLAN-\[NUM\]-\[name\].md` (The Initial "How"):** These are the high-level technical plans for implementing a spec. They guide your architectural approach.  
-4. **`docs/adr/ADR-\[NUM\]-\[name\].md` Directory (The "Immutable How"):** This directory contains the Architectural Decision Records. It is the immutable log of all significant technical decisions made on the project. **You MUST consult all Accepted ADRs before writing any code.** The decisions recorded in ADRs override any conflicting suggestions in a PLAN.md or your general knowledge.
+## **SECTION 3: THE HIERARCHY OF TRUTH**
+
+This project operates on a strict hierarchy of documentation. Understanding this hierarchy is critical to understanding your task.
+
+### 3.1 The Source of Truth: Git vs. GitHub
+
+*   **The GitHub Issue is the central HUB for a task.** It is the entry point, the discussion forum, and the high-level tracker.
+*   **The version-controlled documents in Git are the canonical SOURCE OF TRUTH.** For any implementation, the detailed documents (`ANALYSIS.md`, `SPEC.md`, `PLAN.md`, etc.) stored in the `work/` directory are the definitive reference. The code itself is the ultimate source of truth for what is currently implemented.
+
+If there is a conflict between a discussion on a GitHub Issue and a version-controlled document, the version-controlled document takes precedence.
+
+### 3.2 The Document Flow
+
+1.  **`PRD.md` (The Project Vision):** Located in `docs/`, this document contains the high-level business goals and product vision for the entire project. It is the ultimate source of **intent**. All new work should align with this vision.
+
+2.  **The GitHub Issue (The Task Definition):** A GitHub Issue, created using the Feature Request template, defines the specific "Why" and "What" for a single unit of work. It is inspired by the `PRD.md` but provides concrete, actionable requirements for one feature.
+
+3.  **Work Artifacts (The Implementation Details):** For each GitHub Issue, a set of detailed design documents is created in a `work/[issue-id]/` directory. These are the primary source of truth for implementation.
+2.  **`SPEC.md` (The "What"):** The detailed Functional Specification for the feature, which includes an initial analysis section.
+3.  **`PLAN.md` (The Initial "How"):** The high-level Technical Plan for implementing the `SPEC`.
+4.  **`TASK_DECOMPOSITION.md` (The Detailed "How"):** The granular, step-by-step execution plan for an AI agent.
+
+4.  **`ADR-*.md` (The Immutable Decisions):** Located in `docs/adr/`, Architectural Decision Records are the immutable log of project-wide technical decisions that override all other documents.
 
 ---
 
 ## **SECTION 4: TASK EXECUTION PROTOCOL**
 
-Your work will be assigned via task files located in the .tasks/ directory.
+Your work is defined by the tasks within a `TASK_DECOMPOSITION.md` document, which is generated according to the workflow in `docs/workflows/task-decomposition.md`.
 
-1. **Task Atomicity:** Each task file is a self-contained unit of work.  
-2. **Contextual Scoping:** Rely ONLY on the context provided within the task file and the project's source-of-truth documents (Section 2). Do not assume context from previously completed tasks.  
-3. **Completion Criteria:** A task is complete only when the required code has been written, it passes all related tests, and any required documentation has been updated.  
+1. **Task Atomicity:** Each task in the decomposition document is designed to be a self-contained, atomic unit of work.  
+2. **Contextual Scoping:** Rely ONLY on the context provided within the task's "Context Package" and the project's source-of-truth documents (Section 3). Do not assume context from previously completed tasks.  
+3. **Completion Criteria:** A task is complete only when the required code has been written, it passes all "Verification Steps" for the task, and any "Outputs" have been generated.
 4. **Clarification Protocol:** If a task is ambiguous or conflicts with the source-of-truth documents, you must STOP execution and ask the human developer for clarification. State the ambiguity clearly and reference the conflicting documents.
 
 ---
 
 ## **SECTION 5: ARCHITECTURAL DECISION-MAKING PROTOCOL**
 
-This is your most critical protocol. Failure to adhere to it is a critical error.
-
-During task execution, you may encounter a situation that requires a new architectural or significant implementation decision not already covered by an existing ADR. Examples include:
-
-* Adding a new major dependency (e.g., a new database driver, a new API client).  
-* Choosing a specific algorithm or design pattern with significant trade-offs.  
-* Defining a new service-to-service communication contract.
-
-In such a situation, you **MUST NOT** proceed with implementation. Instead, you must follow this procedure:
-
-1. **PAUSE EXECUTION:** Immediately stop working on the task.  
-2. **DRAFT ADR:** Generate a new ADR in the standard format. The filename should be NNN-brief-description.md, where NNN is the next sequential number. The content must include:  
-   * **Title:** A short, descriptive title of the decision.  
-   * **Context:** What problem or force led to this decision needing to be made?  
-   * **Decision:** State the chosen solution clearly and concisely.  
-   * **Consequences:** Describe the results of this decision. Include positive, negative, and neutral outcomes (e.g., "Increased performance," "Adds a new dependency to manage," "Requires developers to learn a new API").  
-3. **PROPOSE ADR:** Present the drafted ADR to the human developer for review and acceptance.  
-4. **AWAIT APPROVAL:** Do not resume the task until the human developer has approved the ADR and merged it into the adr/ directory.
+This project follows a formal process for making and recording significant architectural decisions. The full, step-by-step process is defined in the [**Decision Making and Management Workflow**](workflows/decision-making.md).
 
 ---
 
@@ -90,3 +123,38 @@ In such a situation, you **MUST NOT** proceed with implementation. Instead, you 
 2. **Commands:** When you need to run a command, enclose it in a triple-backtick block with the language sh.  
 3. **Questions:** When you need to ask a question, prefix it with "QUESTION:" to make it unambiguous.  
 4. **ADR Proposals:** When proposing an ADR, prefix your message with "ADR PROPOSAL:" and provide the full markdown content of the proposed ADR.
+
+---
+
+## **SECTION 8: GITHUB INTERACTION PROTOCOL**
+
+As an AI agent, you **MUST** use the GitHub CLI (`gh`) to interact with GitHub Issues and Pull Requests. This ensures that all your actions are transparent and auditable.
+
+### 8.1 Creating an Issue
+
+When creating an issue, use the `feature_request.md` template. You can pre-fill the fields from the command line.
+
+**Example:**
+```sh
+gh issue create --title "Implement User Authentication" --body-file .github/ISSUE_TEMPLATE/feature_request.md
+```
+
+### 8.2 Commenting on an Issue
+
+After you create design documents (`ANALYSIS.md`, `SPEC.md`, etc.), you **MUST** post a comment on the corresponding issue with links to the new documents.
+
+**Example:**
+```sh
+gh issue comment 123 --body "I have completed the planning phase. The design documents are now available:\n\n- [ANALYSIS.md](work/123/ANALYSIS.md)\n- [SPEC.md](work/123/SPEC.md)\n- [PLAN.md](work/123/PLAN.md)"
+```
+
+### 8.4 Amending Foundation Documents
+
+Any proposal to change this Constitution or any other foundation document (as defined in the workflow) **MUST** follow the formal process defined in the [**Foundation Document Amendment Workflow**](workflows/foundation-amendment.md).
+
+When you create a pull request, you **MUST** link it to the issue it resolves. The PR description should be filled out using the `PULL_REQUEST_TEMPLATE.md`.
+
+**Example:**
+```sh
+gh pr create --title "feat: Implement user authentication (#123)" --body-file .github/PULL_REQUEST_TEMPLATE.md --assignee @me
+```

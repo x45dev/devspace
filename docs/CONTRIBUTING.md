@@ -1,59 +1,94 @@
-# How to Contribute to This Template
+# Contributor Workflow
 
-First, thank you for considering contributing. This project is a highly-structured template, and as such, it has a highly-structured contribution process. Adhering to this process is mandatory for all contributors, human and AI alike.
+This document defines the official **issue-driven development workflow** for this project. Adhering to this process is mandatory for all contributors.
 
-This document defines the **development workflow**. The immutable principles and protocols that govern this project are defined in the [**Project Constitution**](PROJECT_CONSTITUTION.md), which you **MUST** read and understand before proceeding.
+This workflow is the practical application of the **Design-First Development** methodology, whose principles are defined in the [**Project Constitution**](PROJECT_CONSTITUTION.md).
 
-## The Development Workflow
+## Our Philosophy: Why We Work This Way
 
-Every change in this project, from a simple bugfix to a new feature, follows a consistent, documentation-first lifecycle. This ensures that every change is well-planned, deliberate, and maintains the project's high standards.
+This project follows a rigorous, documentation-centric workflow to ensure quality, clarity, and effective AI collaboration. By designing before implementing, we catch issues early and provide the unambiguous context that AI agents need to succeed.
 
-### **Phase 1: Understand**
+## Handling Changes During a Cycle
 
-Before writing any code or documentation, you must understand the project's goals and current state.
+Change is a normal part of development. If you discover that a design document needs to be modified after it has been created, you **MUST** follow the process defined in the [**Change Management Workflow**](workflows/change-management.md).
 
-1.  **Consult the `PRD`:** Read the [**Product Requirements Document (PRD.md)**](PRD.md) to understand the high-level vision and user stories.
-2.  **Review the `ROADMAP`:** Read the [**Roadmap (ROADMAP.md)**](ROADMAP.md) to see the currently planned features and priorities.
-3.  **Explore Existing Docs:** Use `glob` and `read_many_files` to review existing `SPEC`, `PLAN`, and `ADR` documents relevant to your proposed change. Understanding the history and context is critical.
+## The Development Lifecycle
 
-***Phase Gate:*** *Before proceeding, confirm: Have all relevant `PRD`, `ROADMAP`, `SPEC`, `PLAN`, and `ADR` documents been reviewed? Is the full context of the task and its relation to the existing system understood?*
+*   [Phase 1: Concept & Issue Creation](#phase-1-concept--issue-creation)
+*   [Phase 2: Plan & Design](#phase-2-plan--design)
+*   [Phase 3: Task Decomposition](#phase-3-task-decomposition)
+*   [Phase 4: Implement & Verify](#phase-4-implement--verify)
+*   [Phase 5: Commit & PR](#phase-5-commit--pr)
+*   [Phase 6: Release](#phase-6-release)
 
-### **Phase 2: Plan (Documentation First)**
+---
 
-All implementation work **MUST** be preceded by documentation.
+Every change begins with a GitHub Issue and follows a flexible, multi-phase lifecycle.
 
-1.  **Identify Required Documents:** Based on your understanding, determine what new documents are needed.
-    *   Is this a new feature? You will need a new `SPEC` and `PLAN`.
-    *   Does this require a significant architectural choice (e.g., adding a new core technology)? You **MUST** follow the ADR Protocol defined in the [Project Constitution](PROJECT_CONSTITUTION.md) and draft an `ADR`.
-2.  **Draft the Documents:** Use the templates provided in `docs/specs/` and `docs/adr/`. Follow the writing guides located in `docs/standards/`.
-3.  **Seek Approval:** For any new `ADR`, you must pause and wait for human approval before proceeding with implementation.
+---
 
-***Phase Gate:*** *Before proceeding, confirm: Are all necessary `SPEC`, `PLAN`, and/or `ADR` documents created or updated? Do they align with the `PROJECT_CONSTITUTION`? If an `ADR` was required, has it been approved?*
+### **Phase 1: Concept & Issue Creation**
 
-### **Phase 3: Implement**
+**Goal:** To clearly define a new piece of work.
 
-Only after the necessary planning documents are in place should you begin writing code.
+1.  **Discuss the Concept:** Validate the need for the change.
+2.  **Create a GitHub Issue:** Use the `gh` CLI and the [**Feature Request template**](../.github/ISSUE_TEMPLATE/feature_request.md) to create a new issue.
 
-1.  **Write Code:** Implement the changes as described in your `PLAN` document.
-2.  **Adhere to Standards:** All code **MUST** adhere to the style guides defined in `docs/standards/`.
-3.  **Write Tests:** All new functionality **MUST** be accompanied by corresponding tests in the `.devcontainer/tests/` directory.
+**Checkpoint:** Has a clear and detailed GitHub Issue been created?
 
-***Phase Gate:*** *Before proceeding, confirm: Does the implemented code fully satisfy the requirements of the corresponding `SPEC` document? Are there complete and passing tests for the new functionality?*
+---
 
-### **Phase 4: Verify**
+### **Phase 2: Plan & Design**
 
-Before committing, you must verify your changes against the project's quality gates.
+**Goal:** To produce the necessary design documents before implementation.
 
-1.  **Run Linters:** Execute the linting suite by running `mise run lint`.
-2.  **Run Tests:** Execute the automated test suite by running `mise run test`.
-3.  **Fix Issues:** If any checks fail, you must fix them before proceeding.
+1.  **Create Work Directory:** Create a `work/[issue-id]/` directory.
+2.  **Assess Complexity:**
+    *   For **large or complex features**, you **MUST** create a `SPEC.md` (using the [new template](templates/SPEC-TEMPLATE.md)) and a `PLAN.md`.
+    *   For **small, self-explanatory tasks** (e.g., fixing a typo, minor refactoring), you may skip the `SPEC.md` and `PLAN.md` and proceed directly to Phase 4.
+3.  **Follow ADR Process:** If a significant architectural decision is required, follow the [**Decision Making and Management Workflow**](workflows/decision-making.md).
+4.  **Update GitHub Issue:** Post a comment on the issue with links to the design documents (if created).
 
-***Phase Gate:*** *Before proceeding, confirm: Do all `lint` and `test` tasks pass without errors? Have all issues been resolved?*
+**Checkpoint:** Have all necessary design documents (`SPEC`, `PLAN`, `ADR`) been created and linked in the issue?
 
-### **Phase 5: Document and Commit**
+---
 
-1.  **Update the Changelog:** Append a summary of your changes to the `[Unreleased]` section of the [**Changelog (CHANGELOG.md)**](CHANGELOG.md).
-2.  **Write a Clear Commit Message:** Follow the established conventions in the commit history. A good commit message explains the "why" as much as the "what".
-3.  **Commit Your Changes:** Stage the relevant files and commit.
+### **Phase 3: Task Decomposition**
 
-***Phase Gate:*** *Before committing, confirm: Has the `CHANGELOG.md` been updated? Is the commit message clear, concise, and descriptive of the changes and their rationale?*
+**Goal:** To translate the `PLAN.md` into a granular, step-by-step execution plan.
+
+1.  **Generate the Decomposition:** Within `work/[issue-id]/`, create a `TASK_DECOMPOSITION.md` by following the [**Task Decomposition Workflow**](workflows/task-decomposition.md).
+
+**Checkpoint:** Has a `TASK_DECOMPOSITION.md` been created and reviewed?
+
+---
+
+### **Phase 4: Implement & Verify**
+
+**Goal:** To write and verify high-quality code.
+
+1.  **Implement:** Write the code as described in the design documents.
+2.  **Test:** Write corresponding unit/integration tests.
+3.  **Verify:** Run all local quality checks (`mise run lint`, `mise run test`).
+
+**Checkpoint:** Does the code satisfy the design, and do all tests and linters pass?
+
+---
+
+### **Phase 5: Commit & PR**
+
+**Goal:** To integrate the changes into the main branch after a formal review.
+
+1.  **Commit:** Commit your changes with a clear message referencing the issue number (e.g., `feat: Implement user auth (#123)`).
+2.  **Open a Pull Request:** Use the `gh` CLI and the [**Pull Request Template**](../.github/PULL_REQUEST_TEMPLATE.md) to open a PR.
+3.  **Update Changelog:** Add a summary of your changes to the `CHANGELOG.md`.
+
+**Checkpoint:** Has a Pull Request been opened, reviewed, and approved?
+
+---
+
+### **Phase 6: Release**
+
+**Goal:** To create a new, versioned release of the project.
+
+**Checkpoint:** Has the new version tag been pushed?

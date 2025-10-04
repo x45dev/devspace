@@ -1,62 +1,27 @@
-# **Production-Ready Devcontainer Template**
+# AI-First Development Environment
 
-<!-- Version: 2025-09-28 -->
+This repository is a highly structured template for building software in a collaborative environment of humans and AI agents. It combines a fully automated, containerized development environment with a rigorous, issue-driven, Design-First workflow.
 
-This repository provides a feature-complete, production-ready template for creating secure, reproducible, and portable development environments using VS Code Dev Containers.
+**The goal of this project is to provide a production-ready foundation for building high-quality software with maximum clarity and efficiency.**
 
-## **Core Philosophy**
+## The Methodology
 
-The goal of this project is to provide a seamless **"clone-and-run"** developer experience. It automates the entire environment setup, from system dependencies and toolchain installation to secure secret management, allowing developers to start coding in minutes on a standardized, error-free platform.
+This template is built on a core philosophy: **design before you build**. The workflow is designed to ensure that every piece of work is thoroughly planned and documented before implementation begins. This is crucial for effective collaboration with AI agents, who require clear, context-rich instructions.
 
-It is designed to be a **perfectly modular system** representing industry best practices in devcontainer usage, declarative environment management, and automated secrets handling.
+To understand the full methodology and how to use this template, you **MUST** begin by reading the documentation suite.
 
-## **Key Features**
+## Getting Started
 
-* **Isolated & Reproducible Environment**: Built on Docker for perfect consistency.  
-* **Dynamic User Mapping**: Automatically matches the container user's UID/GID to the host user, eliminating all file permission issues.
-* **Declarative Toolchain Management**: Uses **Mise** to manage project-specific tool versions (e.g., Python, Node.js) declaratively.  
-* **Automated & Secure Secret Management**: Integrates **SOPS** and **AGE** for powerful, transparent, end-to-end encrypted secrets.  
-* **Centralized Task Runner**: Defines all linting and utility commands as **Mise Tasks**, creating a single source of truth for CI and local development.  
-* **Automated Quality Gates**: Uses **Lefthook** to run pre-commit checks, ensuring code quality before it's even committed.
+This template provides a comprehensive workflow for software development. Your starting point depends on what stage you are at.
 
-## **Prerequisites**
+### Starting a New Project
 
-Before you begin, ensure you have the following installed on your host machine:
+If you have a completed Product Requirements Document (`PRD.md`) and want to begin a new project, your first step is to follow the [**Project Initiation Workflow**](docs/workflows/project-initiation.md). This will guide you through decomposing your PRD into a backlog of actionable work items.
 
-1. **Docker Desktop** (or Docker Engine + Docker Compose). 
-   - NB!! For runtime bind-mounted project directories to be owned by the host user UID and GID, the `docker` context **cannot** be run in `docker-rootless` mode, otherwise the mounted directories will be owned by root.  
-2. **Visual Studio Code**  
-3. The official [**Dev Containers extension**](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) for VS Code.  
-4. The `age` CLI (for creating an encrypted per-project key).
+### Contributing to an Existing Project
 
-## **Quick Start**
+If you are a developer joining an existing project, your starting point is the main [**Contributor Workflow**](docs/CONTRIBUTING.md). This will guide you through the process of picking up an issue and developing a feature.
 
-1.  **Clone the Repository**:  
-    `git clone <repository-url>`  
-    `cd <repository-name>`
+## License
 
-2.  **Run the Bootstrap Script**:  
-    This is a **mandatory one-time setup** to provision your project's encryption key.
-    ```bash
-    bash .devcontainer/scripts/bootstrap.sh
-    ```
-    (You can also run `mise run bootstrap:setup-project` if you have `mise` installed on your host).
-
-3.  **Add Secrets (Optional but Recommended)**:  
-    After setting up your key, add your secrets to the encrypted environment file by running:
-    ```bash
-    mise run secrets:edit
-    ```
-
-4.  **Open in VS Code & Reopen in Container**:  
-    Now, open the project folder in VS Code and click the "Reopen in Container" notification when it appears.
-
-That's it. The devcontainer will now build and start with your keys and secrets correctly configured.
-
-## **How to Use and Contribute**
-
-This repository serves two purposes: it is a template to be used for new projects, and it is an open-source project in its own right.
-
-*   **To use this template** for your own project, please read the comprehensive [**`docs/USAGE.md`**](docs/USAGE.md) file.
-
-*   **To contribute to the development of this template**, you **MUST** start by reading the [**`docs/CONTRIBUTING.md`**](docs/CONTRIBUTING.md) file, which outlines the mandatory development workflow.
+This project is licensed under the [MIT License](docs/LICENSE).

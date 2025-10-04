@@ -7,6 +7,87 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Project Initiation Workflow:** Created a new `docs/workflows/project-initiation.md` to provide a clear, actionable starting point for bootstrapping a new project from a `PRD.md`.
+
+### Added
+- **Table of Contents:** Added a table of contents to `CONTRIBUTING.md` to improve navigation and usability.
+
+### Added
+- **Foundation Amendment Workflow:** Created a new `docs/workflows/foundation-amendment.md` to define the formal, rigorous process required to make changes to core governing documents.
+
+### Added
+- **Change Management Workflow:** Created a new `docs/workflows/change-management.md` to formally define the process for amending design documents during a development cycle.
+- **Change History in Templates:** Added a "Change History" section to the `SPEC` and `PLAN` templates to provide a clear audit trail of modifications.
+
+### Changed
+- **Final Polish:** Performed a final review of all core documentation to improve clarity, consistency, and navigation. The root `README.md` and `docs/README.md` have been refined to provide a seamless onboarding experience.
+
+### Changed
+- **Streamlined Workflow:** The development workflow in `CONTRIBUTING.md` has been simplified. The `ANALYSIS.md` artifact has been merged into the `SPEC.md`, and the creation of design documents is now optional for small, self-explanatory tasks.
+
+### Removed
+- **`ANALYSIS-TEMPLATE.md`:** This template has been removed, and its contents merged into the new `SPEC-TEMPLATE.md`.
+
+### Fixed
+- **Corrected Document Hierarchy:** The `PROJECT_CONSTITUTION.md` has been updated to correctly place the `PRD.md` at the top of the hierarchy and to clarify the source-of-truth relationship between GitHub Issues and version-controlled documents.
+
+### Added
+- **GitHub Interaction Protocol:** Added a new section to the `PROJECT_CONSTITUTION.md` with explicit instructions and examples for using the `gh` CLI to interact with GitHub Issues and Pull Requests.
+
+### Changed
+- **Integrated CLI Commands:** The `CONTRIBUTING.md` workflow now includes concrete `gh` CLI command examples for issue creation and commenting.
+
+### Changed
+- **Clarified Document Hierarchy:** Refined the `PROJECT_CONSTITUTION.md` to make a clear distinction between the role of the GitHub Issue (as the "Why" for a specific task) and the root `PRD.md` (as the overall project vision).
+- **Improved Task Decomposition Workflow:** Added guidance on how to optionally handle very large or complex tasks by breaking them into individual sub-documents.
+
+### Added
+- **Decision Making Workflow:** Created a new, comprehensive `docs/workflows/decision-making.md` that formalizes the process for making, assessing, and recording architectural decisions.
+
+### Changed
+- **ADR Template:** The `ADR-TEMPLATE.md` now includes a mandatory "Decision Impact Assessment" section to ensure the full consequences of a decision are analyzed.
+- **Improved Document Lifecycle:** The new decision-making workflow now includes a formal step for updating the `SPEC` and `PLAN` documents after an ADR is approved, ensuring the project's documentation remains consistent.
+
+### Changed
+- **Overhauled Development Workflow:** The entire development process has been re-architected to be **issue-driven**. All work now originates from a GitHub Issue and is tracked in a dedicated `work/[issue-id]/` directory.
+
+### Added
+- **`work/` Directory:** A new top-level directory to contain all in-progress work artifacts, organized by issue number.
+- **GitHub Issue Template:** A new `feature_request.md` template to standardize the creation of new issues.
+- **`docs/examples/` Directory:** A new directory to hold example documents.
+
+### Removed
+- **`docs/specs/` Directory:** This has been removed in favor of storing `SPEC` and `PLAN` documents within the `work/` directory.
+
+### Added
+- **`PULL_REQUEST_TEMPLATE.md`:** A new template in the `.github/` directory to ensure all Pull Requests are well-structured and link to the relevant design documents.
+- **"Our Philosophy" Section:** Added a new section to `CONTRIBUTING.md` to explain the rationale and benefits of the Design-First Development methodology.
+
+### Changed
+- **Root `README.md`:** Overhauled the main `README.md` to better introduce the project as an AI-first development environment and to serve as a clearer entry point to the documentation suite.
+
+### Added
+- **Formal Checkpoints:** Introduced a formal "Checkpoint" system at the end of each phase in the `CONTRIBUTING.md` to provide a clear definition of done for each stage.
+- **`ANALYSIS.md` Artifact:** Added a new `ANALYSIS.md` artifact and corresponding template. This is now a required output of the "Understand" phase to ensure a concrete and reviewable analysis.
+- **ADR Workflow:** Created a dedicated `docs/workflows/adr-process.md` to formalize the process of creating and debating Architectural Decision Records.
+- **Pull Request Phase:** Added a new, final "Pull Request" phase to the `CONTRIBUTING.md` to ensure a formal review and approval process.
+
+### Changed
+- **Improved Clarity and Readability:** Performed a general copy-editing pass on `PROJECT_CONSTITUTION.md` and `CONTRIBUTING.md` to improve clarity and reduce visual noise.
+
+### Added
+- **`docs/README.md`:** A central index for the documentation suite with a Mermaid diagram visualizing document relationships.
+- **"Release" Phase:** Added a new, final phase to the `CONTRIBUTING.md` workflow to govern the release and tagging process.
+- **`PRD-TEMPLATE.md`:** A new template for creating Product Requirements Documents.
+
+### Changed
+- **Formalized Methodology:** Introduced and documented the **Design-First Development** methodology in the `PROJECT_CONSTITUTION.md` and `CONTRIBUTING.md` to provide a clear theoretical foundation for the project's workflow.
+- **Consolidated Templates:** Moved all document templates (`ADR`, `SPEC`, `PLAN`, `TASK_DECOMPOSITION`, `PRD`) into a single `docs/templates/` directory for consistency and ease of use.
+- **Streamlined Workflow:** Significantly refactored `CONTRIBUTING.md` to improve clarity, remove redundancy, and align with the new "Design-First" methodology.
+- **Updated `PRD.md`:** Refactored the project's `PRD.md` to serve as a clearer example of a well-formed Product Requirements Document.
+- **Updated `ROADMAP.md`:** Overhauled the `ROADMAP.md` to reflect the current project status and set a new, forward-looking vision for future development.
+
 ### Changed
 - Improved robustness of `post-create.sh` script by adding a retry mechanism with exponential backoff for the `mise install` command.
 - Updated `PLAN-006-Devcontainer-Provisioning.md` to reflect the new retry logic.

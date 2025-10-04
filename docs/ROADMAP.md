@@ -1,19 +1,36 @@
-# Project Roadmap & TODO
-<!-- Version: 2025-09-11 23:33:00 AEST -->
+# Project Roadmap
 
-This document tracks planned features, potential improvements, and ideas for future versions of this template.
+This document outlines the future direction and planned improvements for the **AI-Powered Dev Environment Template**.
 
-### High Priority
+## Vision
 
-- [ ] **Add Automated Tests**: Develop a test suite (e.g., using `bats` or a similar framework) to automatically validate the behavior of the devcontainer lifecycle scripts.
+The long-term vision is to create a fully autonomous, self-improving software development system. This template is the foundational environment for that system. Future work will focus on enhancing the AI's ability to manage the entire lifecycle, from planning and coding to testing and release, with minimal human intervention.
 
-### Medium Priority
+## Near-Term (Next 1-3 Months)
 
-- [ ] **Support for Optional Services**: Add commented-out examples in `docker-compose.yml` for easily enabling common development services like PostgreSQL or Redis.
-- [ ] **Explore Alternative Secrets Backends**: Document or provide scripts for sourcing the AGE key from other providers, such as HashiCorp Vault or cloud provider secret managers.
-- [ ] **Add More Tool Examples**: Include more commented-out tool examples in `.mise.toml` to showcase how to add tools for different ecosystems (e.g., Go, Rust, Java).
+*   **[ ] Enhance AI Agent Integration:**
+    *   Develop a dedicated "agent entrypoint" script that can take a task ID and automatically execute the full Plan -> Decompose -> Implement -> Verify workflow.
+    *   Explore using a vector database or a more advanced context management system to provide even richer context to the AI agents during task execution.
 
-### Low Priority
+*   **[ ] Improve Project Scaffolding:**
+    *   Create a `mise run new-project` task that interactively scaffolds a new project (e.g., Python, Node.js, Rust) within the devcontainer, setting up the initial directory structure, dependencies, and configuration.
 
-- [ ] **Create Project Scaffolding Feature**: Develop a script that can be run after `post-create` to scaffold a new project (e.g., `python -m venv .venv`, `npm init`).
-- [ ] **Add Theming and Customization**: Document how users can customize the shell prompt, theme, and VS Code settings for a more personalized experience.
+*   **[ ] Strengthen Verification and Testing:**
+    *   Expand the BATS test suite to cover a wider range of devcontainer functionality.
+    *   Integrate automated code coverage reporting into the test workflow.
+
+## Mid-Term (Next 3-6 Months)
+
+*   **[ ] Explore Alternative Secrets Backends:**
+    *   Document and provide scripts for sourcing the AGE key from other providers, such as HashiCorp Vault or cloud provider secret managers (e.g., AWS Secrets Manager, Google Secret Manager).
+
+*   **[ ] Add More Tool Examples:**
+    *   Include more commented-out tool examples in `.mise.toml` to showcase how to add tools for different ecosystems (e.g., Go, Rust, Java).
+
+## Long-Term (Future Ideas)
+
+*   **[ ] Self-Healing Environment:**
+    *   Investigate ways for the devcontainer to automatically detect and correct configuration drift or errors.
+
+*   **[ ] Multi-Agent Collaboration:**
+    *   Design a system where multiple specialized AI agents (e.g., a "Planner" agent, a "Coder" agent, a "Tester" agent) can collaborate on a single project.

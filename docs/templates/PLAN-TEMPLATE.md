@@ -48,6 +48,9 @@ sequenceDiagram
 
 *Explain why this particular technical design was chosen. Discuss any alternatives that were considered and why they were rejected. Highlight any trade-offs (e.g., performance vs. complexity, security vs. usability).*
 
-## 4. Future Considerations
+## 5. Change History
 
-*Note any parts of the design that may need to be revisited or extended in the future. For example, "This initial design uses file-based storage; a future version may require a database."*
+| Version | Date | Author | Change Description |
+|---|---|---|---|
+| 1.0 | YYYY-MM-DD | [Author] | Initial Draft |
+| 1.1 | YYYY-MM-DD | [Author] | [Description of change] |*
