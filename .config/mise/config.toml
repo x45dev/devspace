@@ -56,23 +56,22 @@ includes = [
 
 # --- Tools ---
 #
-# WHY: Defining tool versions here ensures every developer uses the exact same dependencies,
-# eliminating "it works on my machine" problems. `mise install` will automatically
-# provision these versions. Pinning to specific versions is critical for a stable,
-# production-ready environment.
+# WHY: Defining tool versions here ensures every developer uses the exact same dependencies.
+# Run `mise install` will automatically provision these versions. Pinning to specific versions
+# is critical for a stable, production-ready environment. Run `mise ls-remote <tool>` to get latest.
 #
-[tools]
-age = "1.2.0"
-bats = "1.11.0"
-hadolint = "2.12.0"
-jq = "1.7.1"
-lefthook = "1.6.11"
-node = "22.20.0"
+[tools]  # latest as-at 2025.10.06
+age = "1.2.1"
+bats = "1.12.0"
+hadolint = "2.14.0"
+jq = "1.8.1"
+lefthook = "1.13.6"
+node = "22.20.0"  # LTS
 "npm:markdown-link-check" = "3.13.7"
 python = "3.13.7"
-shellcheck = "0.10.0"
-shfmt = "3.8.0"
-sops = "3.8.1"
+shellcheck = "0.11.0"
+shfmt = "3.12.0"
+sops = "3.11.0"
 "ubi:zyedidia/micro" = "2.0.14"
-uv = "0.1.45"
-yq = "4.44.2"
+uv = "0.8.23"
+yq = "4.47.2"
