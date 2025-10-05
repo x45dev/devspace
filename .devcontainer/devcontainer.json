@@ -1,108 +1,52 @@
 {
-  "name": "Secure Devcontainer Bootstrap (Final)",
+  "name": "AI-First Development Environment",
   "dockerComposeFile": "docker-compose.yml",
   "service": "trixie",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
-  // "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces,type=bind,consistency=delegated",
-  // "workspaceFolder": "/workspaces",
-  
-  // "mounts": [
-  //   "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename:-devspace},type=bind,consistency=delegated"
-  // ],
-
-  // "mounts": [
-  //     "source=${localEnv:HOME}${localEnv:USERPROFILE},target=/host-home-folder,type=bind,consistency=cached"
-  // ],
-
-  // "containerEnv": {
-  //   "UID": "${localEnv:UID}",
-  //   "GID": "${localEnv:GID}"
-  // },
-
-  // "remoteEnv": {
-  //     "PATH": "${containerEnv:PATH}:/usr/local/cuda/bin"
-  // },
-
-  // "containerUser" → the user the container process actually runs as; equivalent to a USER instruction in a Dockerfile.
-  // Overrides the runtime user inside the container without having to modify your Dockerfile or docker-compose.yml.
-  // Specify a `"username"` or `"UID:GID"` to match the host environment.
-  // "containerUser": "${localEnv:USERNAME}",
-  // "containerUser": "1000:1000",
-
-  // "remoteUser" → the user VS Code connects as via SSH/exec; equivalent to `docker exec -u name-or-UID`.
-  // Specify the non-root user created in the Dockerfile.
+  // This sets the user that VS Code will connect as. This should match the
+  // non-root user created in the Dockerfile.
   "remoteUser": "${localEnv:USERNAME}",
 
-  // "runArgs": ["--gpus", "all"],
-
-  // "updateRemoteUserUID" →  Update the UID/GID of 'remoteUser' is to match the host user.
-  //    This is the default on Linux but is set explicitly for clarity.
-  // "updateRemoteUserUID": true,
-  
-  // --- Quality-of-life settings ---
-
-  // WHY: This section is required to provide a consistent and productive
-  // out-of-the-box experience. It automatically installs necessary VS Code
-  // extensions and applies project-specific settings (like formatting and
-  // linting rules), ensuring that every developer has the same standardized
-  // environment without manual setup.
-  
+  // This section provides a consistent and productive out-of-the-box experience
+  // by automatically installing necessary VS Code extensions and applying
+  // project-specific settings.
   "customizations": {
     "vscode": {
       "extensions": [
         "charliermarsh.ruff",
         "EditorConfig.EditorConfig",
-        "ms-azuretools.vscode-docker", 
+        "ms-azuretools.vscode-docker",
         "timonwong.shellcheck"
       ],
       "settings": {
         "editor.tabSize": 4,
-        "editor.autoIndent": "advanced",
-        "editor.formatOnPaste": true,
         "editor.formatOnSave": true,
         "files.eol": "\n",
-        "[python]": {
-            "editor.codeActionsOnSave": {
-                "source.fixAll": "always",
-                "source.organizeImports": "always"
-            },
-            "editor.defaultFormatter": "charliermarsh.ruff"
-        },
+        "terminal.integrated.defaultProfile.linux": "bash",
         "python.terminal.activateEnvInCurrentTerminal": true,
-        "python.terminal.activateEnvironment": true,
-        "pythonTestExplorer.testFramework": "pytest",
-        "python.analysis.extraPaths": [
-            "${workspaceFolder}"
-        ],
-        "ruff.enable": true,
-        "ruff.lint.enable": true,
-        "terminal.integrated.defaultProfile.linux": "bash"
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.codeActionsOnSave": {
+            "source.fixAll": "always",
+            "source.organizeImports": "always"
+          }
+        }
       }
     }
   },
 
+  // These features add pre-configured tools to the dev container.
   "features": {
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {"moby":false},
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers-extra/features/mise:1": {}
   },
 
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // This can be used to network with other containers or with the host.
-  // "forwardPorts": [
-  //   3000,
-  //   "serviceb:3000"
-  // ],
-  // "portsAttributes": {
-  //   "3000": {
-  //     "label": "Service A (Main)"
-  //   },
-  //   "serviceb:3000": {
-  //     "label": "Service B"
-  //   }
-  // },
-
+  // These commands run at different points in the container lifecycle.
   "postCreateCommand": "/workspaces/${localWorkspaceFolderBasename}/.devcontainer/scripts/post-create.sh",
+  "postAttachCommand": "/workspaces/${localWorkspaceFolderBasename}/.devcontainer/scripts/post-attach.sh",
+  "postStartCommand": "/workspaces/${localWorkspaceFolderBasename}/.devcontainer/scripts/post-start.sh",
+
   "shutdownAction": "stopCompose"
 }

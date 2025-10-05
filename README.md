@@ -4,60 +4,55 @@ This repository is a highly structured template for building software in a colla
 
 **The goal of this project is to provide a production-ready foundation for building high-quality software with maximum clarity and efficiency.**
 
-## The Methodology
+---
+
+## 1. The Methodology
 
 This template is built on a core philosophy: **design before you build**. The workflow is designed to ensure that every piece of work is thoroughly planned and documented before implementation begins. This is crucial for effective collaboration with AI agents, who require clear, context-rich instructions.
 
-To understand the full methodology and how to use this template, you **MUST** begin by reading the documentation suite.
+The project's governing principles are defined in the [**Project Constitution**](docs/00_PROJECT_CONSTITUTION.md), and the mandatory, step-by-step process for all contributors is detailed in the [**Contributor Guide**](docs/01_CONTRIBUTOR_GUIDE.md).
 
-## Start Here
+## 2. How to Start
 
-Always begin at the Docs Index: [docs/README.md](docs/README.md). Follow links from there and apply Standards and Universal Gates at every phase.
-
-
-### 🚀 Scenario 1: Starting with No PRD (Ideas/Concepts Only)
-
-**If you have only ideas, concepts, or business requirements:**
-1. **Create a PRD first** using the [PRD template](docs/templates/PRD-TEMPLATE.md)
-2. **For AI assistance:** Use the [AI-assisted PRD generation guide](docs/how-to/generating-a-prd-with-ai.md)
-3. **Proceed to Scenario 2** once your PRD is complete
-
-### 📋 Scenario 2: Starting with a Completed PRD
-
-**If you have a completed Product Requirements Document (`PRD.md`):**
-1. **Follow the [Project Initiation Workflow](docs/workflows/project-initiation.md)**
-2. This will guide you through decomposing your PRD into a backlog of actionable GitHub Issues
-3. Each issue will then follow the standard Contributor Workflow
-
-### 🔧 Scenario 3: Starting with Roadmap/Tasks Only
-
-**If you have only a roadmap, task list, or TODO items:**
-1. **Generate a PRD** from your existing tasks using the [PRD template](docs/templates/PRD-TEMPLATE.md)
-2. **Ensure the PRD captures the vision and goals** behind your tasks
-3. **Proceed to Scenario 2** for proper project initiation
-
-### 👥 Scenario 4: Contributing to an Existing Project
-
-**If you are a developer joining an existing project:**
-1. **Verify a PRD exists** in the project root (`docs/PRD.md`)
-2. **Follow the main [Contributor Workflow](docs/CONTRIBUTING.md)**
-3. This will guide you through picking up an issue and developing a feature
-
-### 📝 Decision Tree
+All work in this repository is issue-driven and starts with a Product Requirements Document (`PRD.md`). Use the following decision tree to determine your entry point into the workflow.
 
 ```mermaid
 graph TD
     A[What do you have?] -->|Ideas/Concepts| B[Create PRD First]
-    A -->|Completed PRD| C[Project Initiation]
+    A -->|Completed PRD| C[Follow Project Initiation Workflow]
     A -->|Roadmap/Tasks| D[Generate PRD from Tasks]
-    A -->|Joining Existing| E[Verify PRD Exists]
+    A -->|Joining Existing Project| E[Verify PRD Exists]
     B --> C
     D --> C
-    E --> F[Follow Contributor Workflow]
+    E --> F[Follow Contributor Guide]
     C --> G[Create GitHub Issues]
     G --> F
 ```
 
-## License
+| Scenario | Starting Point | Next Step |
+| :--- | :--- | :--- |
+| **1. Ideas Only** | You have concepts or business requirements. | **Create a PRD** using the [PRD template](docs/templates/PRD-TEMPLATE.md). For AI assistance, see the [AI-assisted PRD guide](docs/how-to/generating-a-prd-with-ai.md). Then, proceed to Scenario 2. |
+| **2. Completed PRD** | You have a complete `PRD.md`. | Follow the [**Project Initiation Workflow**](docs/workflows/01-project-initiation.md) to create a backlog of GitHub Issues. |
+| **3. Tasks Only** | You have a roadmap or a list of tasks. | **Generate a PRD** from your tasks using the [PRD template](docs/templates/PRD-TEMPLATE.md) to capture the underlying vision. Then, proceed to Scenario 2. |
+| **4. Contributor** | You are joining an existing project. | Verify a `PRD.md` exists, then follow the main [**Contributor Guide**](docs/01_CONTRIBUTOR_GUIDE.md) to pick up an issue. |
+
+---
+
+## 3. The Documentation System
+
+The documentation is structured to support the Design-First workflow and is organized as follows:
+
+- **`/docs`**: The root directory for all project documentation.
+  - [**`00_PROJECT_CONSTITUTION.md`**](docs/00_PROJECT_CONSTITUTION.md): The immutable principles and hierarchy of truth. **All contributors must read this first.**
+  - [**`01_CONTRIBUTOR_GUIDE.md`**](docs/01_CONTRIBUTOR_GUIDE.md): The step-by-step, issue-driven development workflow. **All contributors must follow this.**
+  - **`/adr`**: Project-wide Architectural Decision Records (ADRs).
+  - **`/issues/[issue-id]`**: Work artifacts (SPEC, PLAN, etc.) for each GitHub Issue.
+  - **`/standards`**: Mandatory standards for code, comments, and documentation.
+  - **`/templates`**: All document templates (SPEC, PLAN, ADR, etc.).
+  - **`/workflows`**: Reusable process guides for tasks like change management and task decomposition.
+
+---
+
+## 4. License
 
 This project is licensed under the [MIT License](docs/LICENSE).

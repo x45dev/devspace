@@ -21,4 +21,4 @@ set -Eeuo pipefail
 # we no longer need to source a custom profile script here. Mise's shell activation
 # hook handles the secret loading automatically.
 #
-bash "$(dirname "${BASH_SOURCE[0]}")/bootstrap-age-key.sh" || true
+bash "$(dirname "${BASH_SOURCE[0]}")/bootstrap-age-key.sh"

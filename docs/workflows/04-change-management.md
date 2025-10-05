@@ -1,16 +1,18 @@
-# Workflow: Change Management
+# **04. Workflow: Change Management**
 
-This document outlines the process for managing changes to design artifacts (`SPEC-NNN-Short-Description.md`, `PLAN-NNN-Short-Description.md`, etc.) after they have been created.
+This workflow defines the mandatory process for managing changes to design artifacts (`SPEC`, `PLAN`, etc.) after they have been created and approved. Adhering to this process ensures that all changes are transparent, traceable, and formally agreed upon.
 
-Change is an expected and normal part of the development process. This workflow ensures that changes are handled in a structured, transparent, and traceable manner.
+---
 
-## When to Use This Process
+## **When to Use This Process**
 
 This process **MUST** be followed if you are in the middle of a development cycle (i.e., an issue is in progress) and you discover that a previously created design document needs to be modified.
 
-## The Change Management Process
+---
 
-1.  **Pause Current Work:** Stop your current activity (e.g., stop writing the `PLAN-NNN-Short-Description.md` if you found an issue with the `SPEC-NNN-Short-Description.md`).
+## **The Change Management Process**
+
+1.  **Pause Current Work:** Stop your current activity (e.g., stop writing a `PLAN` if you found an issue with the `SPEC`).
 
 2.  **Propose the Change on GitHub:** Post a comment on the main GitHub Issue for the task. The comment should clearly describe:
     *   The proposed change.
@@ -19,7 +21,7 @@ This process **MUST** be followed if you are in the middle of a development cycl
 
 3.  **Discuss and Approve:** The proposed change is discussed in the GitHub Issue by all relevant stakeholders. The change must be explicitly approved before proceeding.
 
-4.  **Update the Document:** Once approved, update the target document (e.g., edit the `SPEC-NNN-Short-Description.md`).
+4.  **Update the Document:** Once approved, edit the target design document.
 
 5.  **Log the Change:** Go to the "Change History" section at the bottom of the updated document and add a new entry describing the change, the date, and a link to the GitHub comment where it was approved.
 

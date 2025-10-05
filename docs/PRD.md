@@ -38,9 +38,8 @@ The primary goal of this project is to accelerate the initial phases of software
 
 *   **User Story:** As an AI Agent, I want a clear document hierarchy and a step-by-step workflow to follow, so that I can understand my tasks and execute them without ambiguity.
 *   **Requirements:**
-    *   The project MUST have a `PROJECT_CONSTITUTION.md` defining the core principles.
-    *   The project MUST have a `CONTRIBUTING.md` defining the development workflow.
-    *   The project MUST provide templates for all key documents (`PRD`, `SPEC`, `PLAN`, `ADR`, `TASK_DECOMPOSITION`).
+    *   The project MUST have a `00_PROJECT_CONSTITUTION.md` defining the core principles.
+    *   The project MUST have a `01_CONTRIBUTOR_GUIDE.md` defining the development workflow.    *   The project MUST provide templates for all key documents (`PRD`, `SPEC`, `PLAN`, `ADR`, `TASK_DECOMPOSITION`).
 
 ### 4.3 Feature 3: Integrated Quality Gates
 

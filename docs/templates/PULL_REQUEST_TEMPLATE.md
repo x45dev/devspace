@@ -14,7 +14,7 @@ This PR implements the designs and plans laid out in the following documents:
 
 ## Universal Gate Checklist
 
-Copy the checklist from docs/workflows/checkpoints-and-gates.md and complete it in this PR description.
+Copy the checklist from `docs/workflows/99-universal-gates.md` and complete it in this PR description.
 
 ## Changes Made
 
@@ -28,13 +28,3 @@ How can the reviewer verify that your changes work correctly?
 1.  Run `mise run test`
 2.  (Recommended) Run `mise run link-check` for DRY & Links Gate
 3.  ...
-
-- [ ] Entry Gate (PRD-first, root README followed)
-- [ ] Standards Gate (docs/standards applied): [list]
-- [ ] ADR Gate (created/updated, referenced)
-- [ ] SPEC/PLAN Gate (templates + guide used)
-- [ ] Decomposition Gate (complete Context Packages)
-- [ ] DRY & Links Gate (no duplication, links valid)
-- [ ] Verification Gate (tests + linters pass)
-- [ ] Documentation Synthesis Gate (post-merge)
-- [ ] I have included and completed the Universal Gate checklist in this PR.

@@ -58,20 +58,21 @@ includes = [
 #
 # WHY: Defining tool versions here ensures every developer uses the exact same dependencies,
 # eliminating "it works on my machine" problems. `mise install` will automatically
-# provision these versions. Using "latest" is suitable for this template, but for
-# production projects, pinning to specific versions (e.g., python = "3.13.0") is recommended.
+# provision these versions. Pinning to specific versions is critical for a stable,
+# production-ready environment.
 #
 [tools]
-age = "latest"
-bats = "latest"
-hadolint = "latest"
-jq = "latest"
-lefthook = "latest"
-node = "22"
-python = "3.13"
-shellcheck = "latest"
-shfmt = "latest"
-sops = "latest"
-uv = "latest"
-yq = "latest"
-
+age = "1.2.0"
+bats = "1.11.0"
+hadolint = "2.12.0"
+jq = "1.7.1"
+lefthook = "1.6.11"
+node = "22.20.0"
+"npm:markdown-link-check" = "3.13.7"
+python = "3.13.7"
+shellcheck = "0.10.0"
+shfmt = "3.8.0"
+sops = "3.8.1"
+"ubi:zyedidia/micro" = "2.0.14"
+uv = "0.1.45"
+yq = "4.44.2"

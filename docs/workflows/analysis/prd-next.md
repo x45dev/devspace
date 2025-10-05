@@ -20,6 +20,6 @@ This workflow is optional in this repository (single PRD.md). Use it to pick the
 
 ## Checkpoints
 
-- [Project Initiation](project-initiation.md)
+- [Project Initiation](../01-project-initiation.md)
 - [ ] Gaps and dependencies analyzed
 - [ ] Single next task proposed with clear rationale

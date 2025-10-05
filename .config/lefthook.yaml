@@ -29,7 +29,8 @@ pre-commit:
 #
 # DESCRIPTION:
 # This hook runs a full build of the devcontainer image to ensure no breaking
-# changes are pushed to the repository.
+# changes are pushed to the repository. NOTE: This can be a slow operation,
+# but it provides a strong guarantee that the development environment remains stable.
 #
 pre-push:
   parallel: true

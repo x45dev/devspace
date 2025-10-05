@@ -12,59 +12,32 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       args:
-        #
         # These variables are automatically read from `.env` and passed into the
-        # Dockerfile build process. An alternative env file can be specified via:
-        #   `docker compose --env-file=foo.env build`
+        # Dockerfile build process.
         DOCKER_USER: ${DOCKER_USER:-vscode}
         DOCKER_GROUP: ${DOCKER_GROUP:-vscode}
         PUID: ${PUID:-1000}
         PGID: ${PGID:-1000}
 
     container_name: '${COMPOSE_PROJECT_NAME}'
-
-    # Specify the runtime .env file. Does NOT affect build.args substitution.
     env_file: .env
 
-    # WHY: This instructs Docker to disable user namespace remapping for this
-    # container. It makes the container's user namespace the same as the host's,
-    # which is the definitive solution to the permission errors caused by
-    # a userns-remap-enabled Docker daemon on a native Linux host.
-    # userns_mode: host
-    # userns_mode: keep-id
-
-    # networks:
-    #   - my_project-net
-
-    # The `user` directive is intentionally commented out. While it can set the
-    # runtime user, it can conflict with the `remoteUser` setting in
-    # `devcontainer.json`. The standard practice is to define the default user in
-    # the Dockerfile and let `devcontainer.json` specify the user for the VS Code
-    # session, ensuring a single source of truth for the remote session's user.
+    # The `user` directive sets the default runtime user for the container.
+    # This works in concert with the user creation logic in the Dockerfile and
+    # the `remoteUser` setting in `devcontainer.json` to ensure a seamless
+    # and permission-error-free experience.
     user: ${PUID:-1000}:${PGID:-1000}
 
     volumes:
-      # WHY: This is the primary bind mount for the project workspace. It maps the
-      # parent directory on the host (`..`) to `/workspaces/<folder-name>` inside
-      # the container. This provides seamless access to all project files for
-      # editing and execution. The `:cached` suffix (optional) can improve
-      # performance on macOS and Windows by allowing the host and container to
-      # have slightly out-of-sync views of the filesystem.
-      - ..:/workspaces/${localWorkspaceFolderBasename:-devspace}
-      # - ..:/workspaces #:delegated
+      # Mount the entire project directory into the container.
+      - ..:/workspaces/${localWorkspaceFolderBasename:-devspace}:cached
 
-      # WHY: This mounts the Docker daemon's socket from the host into the
-      # container. It's the standard, secure method for enabling
-      # "Docker-out-of-Docker", allowing you to run Docker commands (build, run,
-      # etc.) from within the devcontainer to manage sibling containers on the
-      # same host daemon.
+      # Mount the Docker socket to enable Docker-out-of-Docker.
       - /var/run/docker.sock:/var/run/docker.sock
-      # - my_project-data:/data
 
   # --- Optional Services ---
-  #
-  # WHY: The following services are commented out by default but can be easily
-  # enabled to add common development dependencies like a database or cache.
+  # The following services are commented out but can be enabled for projects
+  # requiring a database or cache.
 
   # postgres:
   #   image: postgres:16
@@ -74,17 +47,10 @@ services:
   #   environment:
   #     - POSTGRES_USER=postgres
   #     - POSTGRES_PASSWORD=postgres
-  #   networks:
-  #     - devspace-net
 
   # redis:
   #   image: redis:7
   #   restart: unless-stopped
-  #   networks:
-  #     - devspace-net
-
-networks:
-  devspace-net:
 
 volumes:
   postgres-data:

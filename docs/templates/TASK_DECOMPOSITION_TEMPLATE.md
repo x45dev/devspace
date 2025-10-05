@@ -45,4 +45,4 @@
 
 - Standards applied (docs/standards/): [list]
 - DRY & Links validated
-- Gates executed (see workflows/checkpoints-and-gates.md)
+- Gates executed (see workflows/99-universal-gates.md)

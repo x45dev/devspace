@@ -63,7 +63,7 @@ run = """
 mapfile -t files < <(git ls-files '*.md')
 fail=0
 for f in "${files[@]}"; do
-  npx -y markdown-link-check -q "$f" || fail=1
+  markdown-link-check -q "$f" || fail=1
 done
 exit $fail
 """

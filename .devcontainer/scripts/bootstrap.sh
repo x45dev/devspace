@@ -1,11 +1,17 @@
-#!/bin/sh
-
+#!/usr/bin/env sh
+#
+# SCRIPT: bootstrap.sh
+#
+# DESCRIPTION:
 # A script to guide the user through initial project setup, specifically for key generation.
-# This script is designed to be run on the host machine before the devcontainer is started.
+# This script is designed to be run on the HOST machine before the devcontainer is started.
+#
+# RATIONALE: Uses `sh` and `set -e` for maximum portability, as the host environment
+# cannot be guaranteed to have bash or support stricter `set` options.
 
 set -e
 
-# --- Helper Functions (could be sourced from a common_helpers.sh) ---
+# --- Helper Functions ---
 
 # ANSI color codes
 C_BLUE="\033[34m"
