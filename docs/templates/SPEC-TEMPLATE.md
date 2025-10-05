@@ -1,6 +1,15 @@
-# Functional Specification: [Feature Name]
+# SPEC-NNN-Short-Description.md: [Feature Name]
 
-**Issue:** #[Issue ID]
+*   **Status:** [Draft | In Review | Approved | Deprecated]
+*   **Author:** [Author Name]
+*   **Created:** [YYYY-MM-DD]
+*   **Last Updated:** [YYYY-MM-DD]
+*   **Issue:** #[Issue ID]
+*   **Related PRD:** *<PRD sections. eg "Section 5.1 (Functional Requirements), Section 6.1 (Non-Functional Requirements)">*
+*   **Related PLAN:** *<hyperlinks>*
+*   **Related ADRs:** *<hyperlinks>*
+
+---
 
 ## 1. Analysis
 
@@ -24,7 +33,7 @@
 
 - Standards applied (docs/standards/): [list]
 - DRY & Links validated
-- Gates executed (see workflows/checkpoints-and-gates.md)
+- Gates executed (see `workflows/checkpoints-and-gates.md`)
 
 ---
 

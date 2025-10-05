@@ -3,6 +3,8 @@
 **Issue:** #[Issue ID]
 **Status:** Complete
 
+---
+
 ## 1. Final Requirements Summary
 
 [Provide a brief, bulleted summary of the final, agreed-upon requirements for the feature as it was implemented. This serves as a quick reference for the feature's purpose.]

@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Summary
 
-- Iteration 1: Added universal gates and auxiliary workflows; strengthened standards links; normalized constitution formatting.
-- Iteration 2: Constitution mandates standards; ADR guide references added; fixed incomplete Code Documentation bullet; updated standards/specification-writing-guide paths to work/[issue-id]; updated templates to include self-checks and gates; root README points to docs index and gates; bash/style-guide generalized helpers and fixed typos; USAGE anchors fixed; PRD Next marked optional and linked to Project Initiation.
+- Iteration 3: Final Governance Refinement. Restructured documentation to place all work artifacts under `/docs`. Moved legacy `SPEC` and `PLAN` documents to `docs/specs-and-plans/` and relocated the `work/` directory to `docs/work/`. Updated all governing documents to reflect the new, consolidated structure and clarify the location of historical vs. active work.
+- Docs: Refined internal references, paths, and `initializeCommand` (`devcontainer.json`). Consolidated specs/plans and ADRs. Updated templates, workflows, and documentation (`CONTRIBUTING.md`, `PROJECT_CONSTITUTION.md`, `README.md`, `specification-writing-guide.md`).
 
 ### Added
 - **Enhanced Getting Started Guidance:** Expanded README.md with comprehensive scenario-based entry points covering all starting conditions (no PRD, completed PRD, roadmap-only, joining existing). Added decision tree for clear navigation.

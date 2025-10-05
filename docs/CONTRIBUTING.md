@@ -36,7 +36,7 @@ Every change begins with a GitHub Issue and follows a flexible, multi-phase life
 **Goal:** To clearly define a new piece of work.
 
 1.  **Discuss the Concept:** Validate the need for the change.
-2.  **Create a GitHub Issue:** Use the `gh` CLI and the [**Feature Request template**](../templates/FEATURE_REQUEST_TEMPLATE.md) to create a new issue.
+2.  **Create a GitHub Issue:** Use the `gh` CLI and the [**Feature Request template**](templates/FEATURE_REQUEST_TEMPLATE.md) to create a new issue.
 
 **Example:**
 ```sh
@@ -51,10 +51,10 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 
 **Goal:** To produce the necessary design documents before implementation.
 
-1.  **Create Work Directory:** Create a `work/[issue-id]/` directory.
+1.  **Create Work Directory:** Create a `docs/issues/[issue-id]/` directory.
 2.  **Assess Complexity:**
-    *   For **large or complex features**, you **MUST** create a `SPEC.md` (using the [new template](templates/SPEC-TEMPLATE.md)) and a `PLAN.md`, and you **MUST** follow the [Specification & Planning Documents standard](standards/specification-writing-guide.md).
-    *   For **small, self-explanatory tasks** (e.g., fixing a typo, minor refactoring), you may skip the `SPEC.md` and `PLAN.md` and proceed directly to Phase 4.
+    *   For **large or complex features**, you **MUST** create a SPEC (`docs/issues/[issue-id]/SPEC-NNN-Short-Description.md`) (using the [new template](templates/SPEC-TEMPLATE.md)) and a PLAN (`docs/issues/[issue-id]/PLAN-NNN-Short-Description.md`), and you **MUST** follow the [Specification & Planning Documents standard](standards/specification-writing-guide.md).
+    *   For **small, self-explanatory tasks** (e.g., fixing a typo, minor refactoring), you may skip the SPEC and PLAN and proceed directly to Phase 4.
     *   **ADR Consideration:** If the feature requires project-wide technical decisions, follow [PROJECT_CONSTITUTION Section 5](PROJECT_CONSTITUTION.md#section-5-architectural-decision-making-protocol) before creating the SPEC.
     *   **Standards:** Review and apply all documents in [docs/standards/](standards/) to this work.
     *   **Optional Analyses:** Consider running [Code Discovery](workflows/code-discovery.md), [Technical Feasibility Analysis](workflows/technical-feasibility-analysis.md), and [Implementation vs Documentation Gap Analysis](workflows/implementation-vs-documentation-gap-analysis.md).
@@ -78,9 +78,9 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 - TASK_DECOMPOSITION.md covers all tasks with dependencies, context packages, and verification steps
 - Each atomic task cites SPEC sections and PLAN steps it implements
 
-**Goal:** To translate the `PLAN.md` into a granular, step-by-step execution plan.
+**Goal:** To translate the `PLAN-NNN-Short-Description.md` into a granular, step-by-step execution plan.
 
-1.  **Generate the Decomposition:** Within `work/[issue-id]/`, create a `TASK_DECOMPOSITION.md` by following the [**Task Decomposition Workflow**](workflows/task-decomposition.md).
+1.  **Generate the Decomposition:** Within `docs/issues/[issue-id]/`, create a `TASK_DECOMPOSITION.md` by following the [**Task Decomposition Workflow**](workflows/task-decomposition.md).
 
 **Checkpoint:** Has a `TASK_DECOMPOSITION.md` been created and reviewed?
 
@@ -114,7 +114,7 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 **Goal:** To integrate the changes into the main branch after a formal review.
 
 1.  **Commit:** Commit your changes with a clear message referencing the issue number (e.g., `feat: Implement user auth (#123)`).
-2.  **Open a Pull Request:** Use the `gh` CLI and the [**Pull Request Template**](../templates/PULL_REQUEST_TEMPLATE.md) to open a PR.
+2.  **Open a Pull Request:** Use the `gh` CLI and the [**Pull Request Template**](templates/PULL_REQUEST_TEMPLATE.md) to open a PR.
 3.  **Update Changelog:** Add a summary of your changes to the `CHANGELOG.md`.
 
 **Checkpoint:** Has a Pull Request been opened, reviewed, and approved?

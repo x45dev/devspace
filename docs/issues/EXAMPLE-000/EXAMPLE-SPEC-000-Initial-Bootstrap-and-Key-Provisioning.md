@@ -1,4 +1,4 @@
-# SPEC-001: Guided Manual Bootstrap and Key Provisioning
+# SPEC-000 (EXAMPLE): Guided Manual Bootstrap and Key Provisioning
 
 *   **Status:** Draft
 *   **Author:** Gemini
@@ -6,7 +6,7 @@
 *   **Last Updated:** 2025-09-28
 *   **Related PRD:** Section 4.1 (User Stories / Initial Setup)
 *   **Related PLAN:** [PLAN-001-Guided-Manual-Bootstrap-and-Key-Provisioning.md](./PLAN-001-Guided-Manual-Bootstrap-and-Key-Provisioning.md)
-*   **Related ADRs:** [003-script-first-bootstrap.md](../adr/003-script-first-bootstrap.md)
+*   **Related ADRs:** [ADR-003-Use-Manual-Script-for-Interactive-Bootstrap.md](../adr/ADR-003-Use-Manual-Script-for-Interactive-Bootstrap.md)
 
 ---
 

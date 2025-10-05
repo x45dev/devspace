@@ -3,6 +3,8 @@
 **Version:** 1.0
 **Status:** Draft
 
+---
+
 ## 1. Introduction
 
 [Provide a brief, high-level overview of the product. What is it? Who is it for? What problem does it solve?]

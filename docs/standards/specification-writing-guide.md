@@ -15,9 +15,9 @@ As defined in the Project Constitution, there is a strict document hierarchy:
 
 *   **Purpose:** A `SPEC` is a detailed document that describes the exact functional behavior of a feature. It translates `PRD` goals into concrete, testable requirements. It is the source of truth for **what** a feature does.
 *   **When to Create:** Before any significant implementation work begins on a new feature.
-*   **Process:**
-    1.  A new feature is proposed in the `PRD`.
-    2.  A `SPEC` is drafted in `work/[issue-id]/SPEC.md` using the template at `docs/templates/SPEC-TEMPLATE.md`.
+*   **Process overview (see [Contributor Workflow, Phase 2](../CONTRIBUTING.md) for details):**
+    1.  A new feature is proposed based on the goals/vision of the `PRD`. A Github Issue is created, as well as a corresponding `docs/issues/[issue-id]/` directory.
+    2.  A `SPEC` is drafted in `issues/[issue-id]/SPEC-NNN-short-description.md` using the template at `docs/templates/SPEC-TEMPLATE.md`.
     3.  The `SPEC` is reviewed and approved. It now serves as the contract for the feature's functionality.
 
 ## 3. Technical Plans (`PLAN`)
@@ -25,7 +25,7 @@ As defined in the Project Constitution, there is a strict document hierarchy:
 *   **Purpose:** A `PLAN` describes the high-level technical approach for implementing a corresponding `SPEC`. It is the "Initial How," guiding an engineer on the intended architecture and design before coding begins.
 *   **When to Create:** After a `SPEC` has been approved, but before implementation. Every `SPEC` should have a corresponding `PLAN`.
 *   **Process:**
-    1.  Once a `SPEC` is approved, a `PLAN` is drafted in `work/[issue-id]/PLAN-*.md` using the template at `docs/templates/PLAN-TEMPLATE.md`.
+    1.  Once a `SPEC` is approved, a `PLAN` is drafted in `issues/[issue-id]/PLAN-NNN-short-description.md` using the template at `docs/templates/PLAN-TEMPLATE.md`.
     2.  The `PLAN` is reviewed by the engineering team for feasibility and alignment with existing architecture.
     3.  Once approved, it becomes the guiding technical document for implementation.
 

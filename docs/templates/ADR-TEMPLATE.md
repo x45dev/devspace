@@ -3,6 +3,8 @@
 *   **Status:** [Proposed | Accepted | Deprecated | Superseded by ADR-XXX]
 *   **Date:** [YYYY-MM-DD]
 
+---
+
 ## Context
 
 [Describe the context and problem statement that led to this decision. What were the driving forces? What user story or requirement is this related to? This section should be detailed enough for someone in the future to understand the state of the project at the time of the decision.]

@@ -6,6 +6,6 @@ Your master instructions for interacting with this project are not in this file.
 
 Your process is as follows:
 
-1.  Start by reading the [**`README.md`**](../README.md) to get a high-level overview of the project.
-2.  Your complete development workflow is defined in [**`docs/CONTRIBUTING.md`**](../docs/CONTRIBUTING.md). You **MUST** follow this workflow for every task.
-3.  The immutable principles and protocols you must follow during the workflow are defined in the [**`docs/PROJECT_CONSTITUTION.md`**](../docs/PROJECT_CONSTITUTION.md).
+1.  Start by reading the [**`README.md`**](../../README.md) to get a high-level overview of the project.
+2.  Your complete development workflow is defined in [**`docs/CONTRIBUTING.md`**](../../docs/CONTRIBUTING.md). You **MUST** follow this workflow for every task.
+3.  The immutable principles and protocols you must follow during the workflow are defined in the [**`docs/PROJECT_CONSTITUTION.md`**](../../docs/PROJECT_CONSTITUTION.md).

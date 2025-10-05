@@ -19,9 +19,9 @@ To propose a change to a foundation document, you **MUST** follow the project's 
 
 2.  **Create a Work Directory:** Create a `work/[issue-id]/` directory for this documentation change.
 
-3.  **Create a `SPEC.md`:** In the work directory, create a `SPEC.md` that formally specifies the proposed changes to the foundation document.
+3.  **Create a `SPEC-NNN-Short-Description.md`:** In the work directory, create a `SPEC-NNN-Short-Description.md` that formally specifies the proposed changes to the foundation document.
 
-4.  **Create a `PLAN.md`:** Create a `PLAN.md` that outlines how the changes will be implemented and what other documents may be affected.
+4.  **Create a `PLAN-NNN-Short-Description.md`:** Create a `PLAN-NNN-Short-Description.md` that outlines how the changes will be implemented and what other documents may be affected.
 
 5.  **Submit a Pull Request:** Make the changes to the target foundation document(s) and open a Pull Request.
 

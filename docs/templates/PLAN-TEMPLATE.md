@@ -1,4 +1,4 @@
-# PLAN-[NUM]: [Feature Name]
+# PLAN-[NUM]-Short-Description.md: [Feature Name]
 
 *   **Status:** [Draft | In Review | Approved | Deprecated]
 *   **Author:** [Author Name]

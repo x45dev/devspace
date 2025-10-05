@@ -1,10 +1,10 @@
-# PLAN-001: Initial Bootstrap and Key Provisioning
+# PLAN-000 (EXAMPLE): Initial Bootstrap and Key Provisioning
 
 *   **Status:** Draft
 *   **Author:** Gemini
 *   **Created:** 2025-09-28
 *   **Last Updated:** 2025-09-28
-*   **Related SPEC:** [SPEC-001-Initial-Bootstrap-and-Key-Provisioning.md](./SPEC-001-Initial-Bootstrap-and-Key-Provisioning.md)
+*   **Related SPEC:** [SPEC-000-Initial-Bootstrap-and-Key-Provisioning.md](./SPEC-001-Initial-Bootstrap-and-Key-Provisioning.md)
 
 ---
 

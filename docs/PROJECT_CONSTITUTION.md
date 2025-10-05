@@ -4,7 +4,7 @@
 
 You are an expert AI software engineering agent. Your purpose is to assist in building and maintaining this software project. You must adhere to the principles and protocols defined in this document at all times. Your responses must be precise, secure, and aligned with the project's established standards.
 
-### **FOUNDATION DOCUMENT: The PRD.md**
+### **FOUNDATION DOCUMENT: `PRD.md`**
 
 **The `PRD.md` (Product Requirements Document) is the absolute foundation of this project.** All work, all decisions, and all development activities derive from this document. If no `PRD.md` exists, you **MUST** create one before beginning any development work. The PRD defines the project's vision, goals, user personas, and required features - it is the ultimate source of truth for project intent.
 
@@ -74,7 +74,7 @@ This project operates on a strict hierarchy of documentation. Understanding this
 ### 3.1 The Source of Truth: Git vs. GitHub
 
 *   **The GitHub Issue is the central HUB for a task.** It is the entry point, the discussion forum, and the high-level tracker.
-*   **The version-controlled documents in Git are the canonical SOURCE OF TRUTH.** For any implementation, the detailed documents (`SPEC.md`, `PLAN.md`, etc.) stored in the `work/` directory are the definitive reference. The code itself is the ultimate source of truth for what is currently implemented.
+*   **The version-controlled documents in Git are the canonical SOURCE OF TRUTH.** For any implementation, the detailed documents (`SPEC-NNN-Short-Description.md`, `PLAN-NNN-Short-Description.md`, etc.) stored in the `issues/` directory are the definitive reference. The code itself is the ultimate source of truth for what is currently implemented.
 
 If there is a conflict between a discussion on a GitHub Issue and a version-controlled document, the version-controlled document takes precedence.
 
@@ -84,12 +84,12 @@ If there is a conflict between a discussion on a GitHub Issue and a version-cont
 
 2.  **The GitHub Issue (The Task Definition):** A GitHub Issue, created using the Feature Request template, defines the specific "Why" and "What" for a single unit of work. It is inspired by the `PRD.md` but provides concrete, actionable requirements for one feature.
 
-3.  **Work Artifacts (The Implementation Details):** For each GitHub Issue, a set of detailed design documents is created in a `work/[issue-id]/` directory. These are the primary source of truth for implementation.
-1.  **`SPEC.md` (The "What"):** The detailed Functional Specification for the feature, which includes an initial analysis section. **Must reference all applicable ADRs** per Section 3.3 (Artifact Distinction).
-3.  **`PLAN.md` (The Initial "How"):** The high-level Technical Plan for implementing the `SPEC`.
+3.  **Work Artifacts (The Implementation Details):** For each GitHub Issue, a set of detailed design documents is created in a `docs/issues/[issue-id]/` directory. These are the primary source of truth for implementation.
+1.  **`SPEC-NNN-Short-Description.md` (The "What"):** The detailed Functional Specification for the feature, which includes an initial analysis section. **Must reference all applicable ADRs** per Section 3.3 (Artifact Distinction).
+3.  **`PLAN-NNN-Short-Description.md` (The Initial "How"):** The high-level Technical Plan for implementing the `SPEC`.
 4.  **`TASK_DECOMPOSITION.md` (The Detailed "How"):** The granular, step-by-step execution plan for an AI agent.
 
-### 3.5 Persona Coverage and Responsibilities
+### 3.3 Persona Coverage and Responsibilities
 
 - **AI Coding Agent:** Follows TASK_DECOMPOSITION; asks for clarification per Section 4.4; never bypasses PRD-first rule
 - **Human Developer:** Authors/Reviews SPEC/PLAN; ensures gates in CONTRIBUTING.md are met; runs quality checks
@@ -97,7 +97,7 @@ If there is a conflict between a discussion on a GitHub Issue and a version-cont
 - **Product Owner:** Owns PRD; validates that Issues map to PRD sections
 
 
-### 3.3 Artifact Distinction: ADRs vs SPECs
+### 3.4 Artifact Distinction: ADRs vs SPECs
 
 This project uses two distinct types of design documents, each with clear scope and purpose:
 
@@ -194,11 +194,11 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 
 ### 8.2 Commenting on an Issue
 
-After you create design documents (`ANALYSIS.md`, `SPEC.md`, etc.), you **MUST** post a comment on the corresponding issue with links to the new documents.
+After you create design documents (`ANALYSIS.md`, `SPEC-NNN-Short-Description.md`, etc.), you **MUST** post a comment on the corresponding issue with links to the new documents.
 
 **Example:**
 ```sh
-gh issue comment 123 --body "I have completed the planning phase. The design documents are now available:\n\n- [ANALYSIS.md](work/123/ANALYSIS.md)\n- [SPEC.md](work/123/SPEC.md)\n- [PLAN.md](work/123/PLAN.md)"
+gh issue comment 123 --body "I have completed the planning phase. The design documents are now available:\n\n- [ANALYSIS.md](docs/issues/123/ANALYSIS.md)\n- [SPEC](docs/issues/123/SPEC-NNN-Short-Description.md)\n- [PLAN](docs/issues/123/PLAN-NNN-Short-Description.md)"
 ```
 
 ### 8.4 Amending Foundation Documents
