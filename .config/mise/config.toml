@@ -65,7 +65,6 @@ includes = [
 age = "latest"
 bats = "latest"
 hadolint = "latest"
-helix = "latest"
 jq = "latest"
 lefthook = "latest"
 node = "22"
