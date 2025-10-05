@@ -7,9 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Summary
 
-- **Iteration 3: Final Governance Refinement:** Completed a full review and finalization of the project's governance documentation. This ensures uniform terminology, accurate linkin, non-redundancy, and precise persona distinctions (G.1, G.2). The separation between ADR and SPEC guides has been verified (G.3), and the `markdown-link-check` tooling has been validated (G.4).
-- Iteration 3: Final Governance Refinement. Restructured documentation to place all work artifacts under `/docs`. Moved legacy `SPEC` and `PLAN` documents to `docs/specs-and-plans/` and relocated the `work/` directory to `docs/work/`. Updated all governing documents to reflect the new, consolidated structure and clarify the location of historical vs. active work.
-- Docs: Refined internal references, paths, and `initializeCommand` (`devcontainer.json`). Consolidated specs/plans and ADRs. Updated templates, workflows, and documentation (`CONTRIBUTING.md`, `PROJECT_CONSTITUTION.md`, `README.md`, `specification-writing-guide.md`).
+### [Unreleased]
+- **Infrastructure Refinement Phase:** Comprehensive overhaul of devcontainer configuration and documentation workflows to improve developer experience and stability
+  - Devcontainer UX enhancements with simplified configuration and better VS Code integration
+  - Tool version pinning for reproducible environments across all dependencies
+  - Documentation workflow reorganization with numbered system (01-06) and consolidated analysis subdirectory
+  - Bootstrap script improvements for better portability and error handling
+  - Template standardization and consolidation across the project
+
+### Added
+- **Numbered Workflow System:** Reorganized documentation workflows into a numbered sequence (01-06) with clear progression and analysis subdirectory for better navigation
+- **Pinned Tool Versions:** Specific version pinning for all development tools (age, bats, hadolint, jq, lefthook, node, python, shellcheck, shfmt, sops, uv, yq) ensuring reproducible environments
+- **Enhanced Devcontainer Configuration:** Streamlined devcontainer.json with improved VS Code settings, better extension management, and clearer lifecycle hooks
+- **Bootstrap Script Portability:** Updated bootstrap.sh with proper shebang and error handling for improved cross-platform compatibility
+- **Analysis Subdirectory:** Consolidated all analysis workflows under docs/workflows/analysis/ for better organization
+
+### Changed
+- **Devcontainer UX:** Simplified docker-compose.yml configuration, removed redundant comments, and improved user/group mapping clarity
+- **Tool Version Management:** Replaced "latest" versions with specific pinned versions in mise configuration for production stability
+- **Documentation Structure:** Renamed and reorganized workflow files (project-initiation.md → 01-project-initiation.md, etc.) and moved analysis files to subdirectory
+- **Template Standardization:** Updated all documentation templates with improved formatting and consistency
+- **Bootstrap Process:** Enhanced error handling and portability in bootstrap scripts for more reliable key generation
+
+### Removed
+- **Legacy Workflow Files:** Deleted duplicate workflow files (decision-making.md, documentation-synthesis.md, foundation-amendment.md, task-decomposition.md, project-initiation.md) after renumbering
+- **Outdated Standards:** Removed deprecated style guide files after consolidation into numbered system (s1-s4)
+- **Redundant Comments:** Cleaned up excessive configuration comments in devcontainer files to reduce noise
+
+### Fixed
+- **Broken Links:** Resolved internal reference issues after documentation reorganization
+- **Path Consistency:** Updated all internal references to reflect new documentation structure
+- **Script Portability:** Fixed shebang in bootstrap.sh for better cross-platform compatibility
 
 ### Added
 - **Enhanced Getting Started Guidance:** Expanded README.md with comprehensive scenario-based entry points covering all starting conditions (no PRD, completed PRD, roadmap-only, joining existing). Added decision tree for clear navigation.
