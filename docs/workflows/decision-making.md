@@ -27,8 +27,8 @@ You **MUST** create an Architectural Decision Record (ADR) when a decision has a
 
 After an ADR is approved and merged, the project's planning documents **MUST** be updated to reflect the decision. This ensures that the source of truth for the project remains consistent.
 
-1.  **Update the `SPEC-NNN-Short-Description.md`:** Modify the functional and non-functional requirements in the `work/[issue-id]/SPEC-NNN-Short-Description.md` to align with the decision.
-2.  **Update the `PLAN-NNN-Short-Description.md`:** Modify the implementation approach, architecture, and scope in the `work/[issue-id]/PLAN-NNN-Short-Description.md`.
+1.  **Update the `SPEC-NNN-Short-Description.md`:** Modify the functional and non-functional requirements in the `docs/issues/[issue-id]/SPEC-NNN-Short-Description.md` to align with the decision.
+2.  **Update the `PLAN-NNN-Short-Description.md`:** Modify the implementation approach, architecture, and scope in the `docs/issues/[issue-id]/PLAN-NNN-Short-Description.md`.
 3.  **Resume Workflow:** With the decision recorded and the planning documents updated, you can now resume the normal development workflow.
 
 ## Gates

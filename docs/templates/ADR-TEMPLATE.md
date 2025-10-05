@@ -25,6 +25,14 @@
 
 ---
 
+## Self-Check
+
+- Standards applied (docs/standards/): [list]
+- DRY & Links validated
+- Gates executed (see workflows/checkpoints-and-gates.md)
+
+---
+
 ## Consequences
 
 [What are the results of this decision? Include positive, negative, and neutral outcomes.]

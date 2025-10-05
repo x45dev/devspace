@@ -17,7 +17,7 @@ To propose a change to a foundation document, you **MUST** follow the project's 
 
 1.  **Open an Issue:** Create a new GitHub Issue detailing the proposed change, the problem it solves, and the rationale. This begins a new development cycle.
 
-2.  **Create a Work Directory:** Create a `work/[issue-id]/` directory for this documentation change.
+2.  **Create a Work Directory:** Create a `docs/issues/[issue-id]/` directory for this documentation change.
 
 3.  **Create a `SPEC-NNN-Short-Description.md`:** In the work directory, create a `SPEC-NNN-Short-Description.md` that formally specifies the proposed changes to the foundation document.
 

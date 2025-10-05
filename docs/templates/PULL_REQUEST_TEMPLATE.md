@@ -12,7 +12,7 @@ This PR implements the designs and plans laid out in the following documents:
 - **TASK DECOMPOSITION:** [Link to TASK_DECOMPOSITION.md]
 - **ADR(s):** [Link to any relevant ADR-*.md files]
 
-## Standard Checkpoints & Feature Gates
+## Universal Gate Checklist
 
 Copy the checklist from docs/workflows/checkpoints-and-gates.md and complete it in this PR description.
 
@@ -37,4 +37,4 @@ How can the reviewer verify that your changes work correctly?
 - [ ] DRY & Links Gate (no duplication, links valid)
 - [ ] Verification Gate (tests + linters pass)
 - [ ] Documentation Synthesis Gate (post-merge)
-- [ ] I have included and completed the Standard Checkpoints & Feature Gates checklist in this PR.
+- [ ] I have included and completed the Universal Gate checklist in this PR.

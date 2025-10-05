@@ -10,7 +10,7 @@ labels: enhancement
 
 ### Gates
 
-[Confirm you will use the Standard Checkpoints & Feature Gates checklist during this work (see docs/workflows/checkpoints-and-gates.md).]
+[Confirm you will use the Universal Gate Checklist during this work (see docs/workflows/checkpoints-and-gates.md).]
 
 ### 1. What specific problem does this feature solve for users?
 

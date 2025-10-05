@@ -63,7 +63,7 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 - SPEC includes Architectural Decisions section referencing applicable ADRs and adheres to the [Specification & Planning Documents standard](standards/specification-writing-guide.md)
 - PLAN outlines verification strategy and testing approach
 - All applicable [docs/standards/](standards/) have been reviewed and applied
-- [Standard Checkpoints & Feature Gates](workflows/checkpoints-and-gates.md) executed for this phase
+- [Universal Gates](workflows/checkpoints-and-gates.md) executed for this phase
 - Issue links back to PRD section(s)
 - DRY & Links Gate: no duplication; all links resolve
 4.  **Update GitHub Issue:** Post a comment on the issue with links to the design documents (if created).
@@ -109,7 +109,7 @@ gh issue create --title "Implement User Authentication" --body-file docs/templat
 - PR links to Issue and references SPEC/PLAN/TASK_DECOMPOSITION
 - CHANGELOG.md updated
 - PR uses centralized template in docs/templates/
-- [Standard Checkpoints & Feature Gates](workflows/checkpoints-and-gates.md) checklist included and completed
+- [Universal Gates](workflows/checkpoints-and-gates.md) checklist included and completed
 
 **Goal:** To integrate the changes into the main branch after a formal review.
 

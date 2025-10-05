@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Summary
 
+- **Iteration 3: Final Governance Refinement:** Completed a full review and finalization of the project's governance documentation. This ensures uniform terminology, accurate linkin, non-redundancy, and precise persona distinctions (G.1, G.2). The separation between ADR and SPEC guides has been verified (G.3), and the `markdown-link-check` tooling has been validated (G.4).
 - Iteration 3: Final Governance Refinement. Restructured documentation to place all work artifacts under `/docs`. Moved legacy `SPEC` and `PLAN` documents to `docs/specs-and-plans/` and relocated the `work/` directory to `docs/work/`. Updated all governing documents to reflect the new, consolidated structure and clarify the location of historical vs. active work.
 - Docs: Refined internal references, paths, and `initializeCommand` (`devcontainer.json`). Consolidated specs/plans and ADRs. Updated templates, workflows, and documentation (`CONTRIBUTING.md`, `PROJECT_CONSTITUTION.md`, `README.md`, `specification-writing-guide.md`).
 

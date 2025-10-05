@@ -12,19 +12,19 @@
 alias = "codex"
 description = "Tool: Execute the OpenAI Codex CLI via NPX"
 raw = true
-run = "npx @openai/codex"
+run = "npx -y @openai/codex"
 
 [x-gemini]
 alias = "gemini"
 description = "Tool: Execute the Google Gemini CLI via NPX"
 raw = true
-run = "npx https://github.com/google-gemini/gemini-cli --checkpointing"
+run = "npx -y https://github.com/google-gemini/gemini-cli --checkpointing"
 
 [x-crush]
 alias = "crush"
 description = "Tool: Execute the Charmbracelet Crush CLI via NPX"
 raw = true
-run = "npx @charmland/crush $@"
+run = "npx -y @charmland/crush $@"
 
 # --- LINTING TASKS ---
 

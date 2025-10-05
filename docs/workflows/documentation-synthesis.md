@@ -4,7 +4,7 @@ This document outlines the final phase of the development lifecycle: synthesizin
 
 ## Goal
 
-The goal of this workflow is to solve the "split brain" problem and ensure that the `work/[issue-id]/` directory becomes a complete and self-contained archive of a feature's entire lifecycle. It creates a permanent record of the key discussions and decisions that occurred on GitHub.
+The goal of this workflow is to solve the "split brain" problem and ensure that the `docs/issues/[issue-id]/` directory becomes a complete and self-contained archive of a feature's entire lifecycle. It creates a permanent record of the key discussions and decisions that occurred on GitHub.
 
 ## The Synthesis Process
 
@@ -12,7 +12,7 @@ This process occurs **after** the Pull Request for an issue has been successfull
 
 1.  **Review the GitHub Issue:** Read through the entire GitHub Issue, including the initial description and all subsequent comments.
 
-2.  **Create the Issue Summary:** In the `work/[issue-id]/` directory, create a new document named `ISSUE_SUMMARY.md` using the [**`ISSUE_SUMMARY-TEMPLATE.md`**](../templates/ISSUE_SUMMARY-TEMPLATE.md).
+2.  **Create the Issue Summary:** In the `docs/issues/[issue-id]/` directory, create a new document named `ISSUE_SUMMARY.md` using the [**`ISSUE_SUMMARY-TEMPLATE.md`**](../templates/ISSUE_SUMMARY-TEMPLATE.md).
 
 3.  **Synthesize the Information:** Populate the `ISSUE_SUMMARY.md` with the following information:
     *   A summary of the final, agreed-upon requirements for the feature.

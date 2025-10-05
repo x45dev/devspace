@@ -1,4 +1,4 @@
-# Workflow: Standard Checkpoints and Feature Gates
+# Workflow: Universal Gates
 
 This workflow defines reusable checkpoints ("gates") that MUST be applied at the end of every phase of work. It exists to repeatedly enforce correct use of the methodology, standards, tools, actions, and artifacts.
 
@@ -30,7 +30,7 @@ Start from the root README.md, then follow CONTRIBUTING.md. Apply these gates at
 - Documentation Synthesis Gate
   - ISSUE_SUMMARY.md created per workflows/documentation-synthesis.md after merge
 
-## Reusable Gate Checklist
+## Universal Gate Checklist
 
 Copy this block into issues/PRs as a living checklist.
 
