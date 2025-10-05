@@ -15,7 +15,7 @@ This document is a reference checklist, not a sequential workflow. It defines th
     -   ADRs created or updated per the [Architectural Decision-Making Workflow](02-decision-making.md).
     -   `SPEC` documents reference all applicable ADRs.
 -   **SPEC/PLAN Gate**
-    -   `SPEC` and `PLAN` authored per the [Specification Writing Guide](../standards/specification-writing-guide.md) using project templates.
+    -   `SPEC` and `PLAN` authored per the [Specification Writing Guide](../standards/s2-specification-writing-guide.md) using project templates.
     -   The `PLAN` includes a verification strategy and test approach.
 -   **Decomposition Gate**
     -   `TASK_DECOMPOSITION.md` created per the [Task Decomposition Workflow](03-task-decomposition.md).

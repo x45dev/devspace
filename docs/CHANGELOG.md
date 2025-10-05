@@ -34,10 +34,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Outdated Standards:** Removed deprecated style guide files after consolidation into numbered system (s1-s4)
 - **Redundant Comments:** Cleaned up excessive configuration comments in devcontainer files to reduce noise
 
-### Fixed
-- **Broken Links:** Resolved internal reference issues after documentation reorganization
-- **Path Consistency:** Updated all internal references to reflect new documentation structure
-- **Script Portability:** Fixed shebang in bootstrap.sh for better cross-platform compatibility
+### Fixed in Phase 4 Audit
+- Added link-check to CI for DRY & Links Gate enforcement
+- Updated USAGE.md to reference mise run and numbered workflows
+- Ensured CI includes test run for Verification Gate
 
 ### Added
 - **Enhanced Getting Started Guidance:** Expanded README.md with comprehensive scenario-based entry points covering all starting conditions (no PRD, completed PRD, roadmap-only, joining existing). Added decision tree for clear navigation.

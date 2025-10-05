@@ -19,7 +19,7 @@ This directory contains the configuration and scripts necessary to define and ma
     *   **`scripts/initialize.sh`**: Executed by the devcontainer `initializeCommand` hook on the host. Its primary role is to ensure the `.devcontainer/.env` file is correctly configured with host `UID`/`GID` for the devcontainer build process.
     *   **`scripts/test-permissions.sh`**: A script executed inside the container (by `entrypoint.sh`) to validate user, UID/GID, and file permissions within the mounted workspace.
     *   **`scripts/bootstrap-age-key.sh`**: Handles the provisioning of the AGE key for SOPS secret decryption within the container.
-    *   *(Other scripts like `post-create.sh`, `post-start.sh`, `post-attach.sh` were previously here but have been deprecated in favor of a leaner Dockerfile and Dev Container Features.)*
+    *   *(Other scripts like `post-create.sh`, `post-start.sh`, `post-attach.sh` are now handled by Dev Container Features for better management and versioning.)*
 
 ## How it Works
 

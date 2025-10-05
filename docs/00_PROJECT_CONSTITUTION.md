@@ -58,7 +58,7 @@ This Constitution contains the immutable principles of this methodology. The off
 -   **ADRs (Architectural Decision Records):** Document project-wide or cross-cutting technical decisions (*how* to build). They affect multiple features and are stored in `docs/adr/`.
 -   **SPECs (Functional Specifications):** Describe feature-specific requirements and behavior (*what* to build). They affect only a single feature and are stored in `docs/issues/[issue-id]/`.
 
-### 5.2. Architectural Decision-Making
+### 5.2 Architectural Decision-Making
 
 This project follows a formal process for making and recording significant architectural decisions, as defined in the [**Decision Making Workflow**](workflows/02-decision-making.md). All ADRs must be created and approved following this workflow.
 

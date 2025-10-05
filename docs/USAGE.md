@@ -86,7 +86,7 @@ The project's toolchain is defined in `.config/mise/config.toml`. To add a new t
 
 Common project commands are defined as **Mise Tasks** in `.config/mise/tasks.toml`.
 
-* To see all available tasks: mise tasks  
+* To see all available tasks: mise run  
 * To run a task: `mise run <task_name>` (e.g., `mise run lint`)
 
 ## **Automated Quality Control**

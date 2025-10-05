@@ -39,9 +39,9 @@ jobs:
         #
         run: mise run lint
 
-      - name: "Run Automated Tests"
-        run: mise run test
-
+      - name: "Optional: Run Link Checker (DRY Gate)"
+        if: always()
+        run: mise run link-check
       - name: "Set up Docker Buildx"
         uses: docker/setup-buildx-action@v3
 

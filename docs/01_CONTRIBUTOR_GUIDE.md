@@ -56,9 +56,9 @@ Every change begins with a GitHub Issue and follows this multi-phase lifecycle. 
 
 1.  **Create Work Directory:** Create a `docs/issues/[issue-id]/` directory.
 2.  **Assess Complexity:**
-    *   For **large or complex features**, you **MUST** create a `SPEC` and a `PLAN` by following the [Specification Writing Guide](standards/specification-writing-guide.md).
+    *   For **large or complex features**, you **MUST** create a `SPEC` and a `PLAN` by following the [Specification Writing Guide](standards/s2-specification-writing-guide.md).
     *   For **small, self-explanatory tasks**, you may skip the `SPEC` and `PLAN`.
-    *   If the feature requires project-wide technical decisions, follow the [Architectural Decision-Making Protocol](00_PROJECT_CONSTITUTION.md#section-5-architectural-decision-making-protocol) to create an `ADR`.
+    *   If the feature requires project-wide technical decisions, follow the [Architectural Decision-Making Protocol](00_PROJECT_CONSTITUTION.md#52-architectural-decision-making) to create an `ADR`.
 3.  **Update GitHub Issue:** Post a comment on the issue with links to the design documents.
 4.  **Checkpoint:** Have all necessary design documents (`SPEC`, `PLAN`, `ADR`) been created and linked in the issue?
 
