@@ -5,8 +5,8 @@
 *   **Created:** 2025-09-28
 *   **Last Updated:** 2025-09-28
 *   **Related PRD:** Section 4.1 (User Stories / Initial Setup)
-*   **Related PLAN:** [PLAN-001-Guided-Manual-Bootstrap-and-Key-Provisioning.md](./PLAN-001-Guided-Manual-Bootstrap-and-Key-Provisioning.md)
-*   **Related ADRs:** [ADR-003-Use-Manual-Script-for-Interactive-Bootstrap.md](../adr/ADR-003-Use-Manual-Script-for-Interactive-Bootstrap.md)
+*   **Related PLAN:** [PLAN-001-Guided-Manual-Bootstrap-and-Key-Provisioning.md]()
+*   **Related ADRs:** [ADR-003-Use-Manual-Script-for-Interactive-Bootstrap.md]()
 
 ---
 
