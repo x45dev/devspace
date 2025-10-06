@@ -1,38 +1,36 @@
-# Five Whys Analysis
+# Workflow A4 · Root Cause Analysis (Five Whys)
 
-This workflow guides the AI agent in performing a "Five Whys" root cause analysis to deeply understand the underlying reasons for a problem, rather than just addressing its symptoms.
+## Purpose
+Diagnose underlying process or system failures using an evidence-based Five Whys technique.
 
-## Process:
+## Master Prompt
+```
+You are an expert AI Problem Analyst executing Workflow A4 · Root Cause Analysis.
+Input: a clearly defined incident, defect, or failure.
+Goal: trace the issue to its actionable root cause and recommend preventive measures.
+Rules:
+1. Formally state the observed problem with scope, impact, and evidence.
+2. Iteratively ask "Why?" up to five times, ensuring each answer is evidence-backed.
+3. Branch analyses if multiple causal paths emerge.
+4. Validate that the identified root cause, once addressed, will prevent recurrence.
+5. Propose corrective and preventive actions aligned with project governance.
+6. Keep the analysis blameless and process-focused.
+```
 
-### 1. Define the Problem
-*   **Action**: Clearly and concisely state the issue or symptom that needs to be analyzed. This should be the starting point of the causal chain.
-    *   **Example**: "The application crashes when processing large files."
+## Execution Steps
+1. Collect incident details: what happened, when, affected components, severity, and detection method.
+2. Define the problem statement with measurable symptoms and context.
+3. Conduct the Five Whys sequence, documenting each question-answer pair; create branches for divergent causes.
+4. Evaluate whether each causal leap is supported by data or requires further investigation.
+5. Identify the root cause(s) and confirm they are actionable within project constraints.
+6. Recommend remediation steps, preventing measures, and governance updates (e.g., standards, workflows) if warranted.
+7. Summarize findings, including causal chain, evidence references, remediation owners, and timelines.
 
-### 2. Ask "Why?" Iteratively (Up to Five Times)
-*   **Action**: For each identified problem or cause, ask "Why did this happen?" or "What caused this?" Record the answer as the next link in the causal chain.
-*   **Action**: Continue asking "Why?" for each subsequent answer until a root cause is identified. Aim for approximately five iterations, but stop when a fundamental, actionable cause is reached.
-
-    *   **Example Iteration:**
-        1.  **Problem**: Application crashes when processing large files.
-        2.  **Why?** → It runs out of memory.
-        3.  **Why?** → It loads the entire file into memory at once.
-        4.  **Why?** → The file parser was not designed for streaming.
-        5.  **Why?** → Initial requirements only specified small files, and future growth was not considered during design.
-
-### 3. Validate the Root Cause
-*   **Action**: Review the entire causal chain from the initial problem to the identified root cause.
-*   **Action**: Verify the logical connection between each step. Ask: "If we address this root cause, will it prevent the initial problem from recurring?"
-*   **Action**: Consider if there might be multiple independent root causes contributing to the problem. If so, perform separate Five Whys analyses for each.
-
-### 4. Develop Solutions
-*   **Action**: Formulate solutions that directly address the identified root cause(s), rather than just the symptoms.
-*   **Action**: Propose preventive measures to ensure the problem does not recur.
-*   **Action**: Consider systemic improvements to processes, design, or development practices that emerged from the analysis.
-*   **Action**: Present the findings and proposed solutions to the user.
-
-## Best Practices for Agents:
-*   **Focus on Process, Not People**: The analysis should identify flaws in processes or systems, not assign blame to individuals.
-*   **Be Objective**: Stick to facts and observable evidence.
-*   **Drill Down**: Avoid superficial answers. Keep asking "Why?" until a fundamental cause is reached.
-*   **Document Thoroughly**: Record each step of the analysis, including the problem, each "why" question, and its corresponding answer.
-*   **Actionable Root Cause**: Ensure the identified root cause is something that can be addressed through a concrete action or change.
+## Checklist
+```
+- [ ] Problem statement validated with evidence
+- [ ] Five Whys documented with supporting data
+- [ ] Root cause(s) confirmed as actionable
+- [ ] Corrective and preventive actions proposed
+- [ ] Governance impacts or follow-ups identified
+```

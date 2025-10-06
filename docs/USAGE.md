@@ -1,109 +1,79 @@
-# **Developer Guide**
-
-\<\!-- Version: 2025-09-15 16:50:00 AEST \--\>
+# USAGE.md
 
 This document is the comprehensive, day-to-day manual for developers using this project template.
 
-## **Table of Contents**
+## Quick Start
 
-1. [Core Concepts](#core-concepts)  
-2. [First-Time Setup: The AGE Key](#first-time-setup-the-age-key)  
-3. [Day-to-Day Workflow](#day-to-day-workflow)  
-   * [Managing Environment](#managing-environment)  
-   * [Managing Secrets](#managing-secrets)  
-   * [Managing Tools](#managing-tools)  
-   * [Running Tasks](#running-tasks)  
-4. [Automated Quality Control](#automated-quality-control)  
-5. [The Devcontainer Lifecycle](#the-devcontainer-lifecycle)
+1.  **Clone the repository.**
+2.  **Run the bootstrap script:** `./.devcontainer/scripts/bootstrap.sh`. This will guide you through creating an `age` key if you don't have one.
+3.  **Open the project in a devcontainer.** This will automatically install all the necessary tools and dependencies.
+4.  **Start coding!**
 
-## **Core Concepts**
+## Core Concepts
 
 This template is built on four key technologies that work together to create a seamless experience:
 
-* **Dev Containers**: The core technology that uses Docker to create a consistent, isolated, and fully-provisioned Linux development environment.  
-* **Mise**: A powerful tool manager that declaratively manages the project's toolchain (Python, Node, etc.) and application-level environment variables via `.config/mise/config.toml`.  
-* **SOPS + AGE**: The security layer - Secrets Operator (SOPS) and Actually Good Encryption (AGE). SOPS is used to encrypt secret files using an age key pair, allowing you to safely commit sensitive information (like API keys) to your Git repository.  
-* **Lefthook**: The quality gate. It automatically runs linters and other checks before you commit your code, preventing errors from ever reaching the main branch.
+*   **Dev Containers**: The core technology that uses Docker to create a consistent, isolated, and fully-provisioned Linux development environment.
+*   **Mise**: A powerful tool manager that declaratively manages the project's toolchain (Python, Node, etc.) and application-level environment variables via `.config/mise/config.toml`.
+*   **SOPS + Age**: The security layer. SOPS (Secrets OPerationS) and Age (Actually Good Encryption) are used to encrypt secret files, allowing you to safely commit sensitive information (like API keys) to your Git repository.
+*   **Lefthook**: The quality gate. It automatically runs linters and other checks before you commit your code, preventing errors from ever reaching the main branch.
 
-## **First-Time Setup: The AGE Key**
+## First-Time Setup: The AGE Key
 
-The entire secrets management system depends on an **AGE key**. The first time you start the devcontainer, the initialize.sh script will help you set one up using one of two methods.
+The entire secrets management system depends on an **Age key**. The `bootstrap.sh` script, which you run once before starting the devcontainer, handles the key generation process.
 
-### **Method 1: Per-Project Key (Recommended)**
+*   **If you don't have an `age` key:** The script will prompt you to create a new, password-protected key for the project.
+*   **If you have a global `age` key:** The script will detect it and use it.
+*   **If you have a project-specific `age` key:** The script will detect it and use it.
 
-This is the most secure and portable method for managing a unique key for each project. It is useful for projects not on GitHub or for offline work.
-
-1. **Create an Encrypted Key**: Use the age CLI on your host machine to create a password-protected key:  
-   ```
-   # Make a directory for the key within the project  
-   mkdir -p .config/age
-
-   # Generate a new key pair  
-   age-keygen -o .config/age/keys.txt
-
-   # Encrypt the private key with a password (you will be prompted to create one)  
-   age --encrypt --passphrase -o .config/age/keys.txt.age .config/age/keys.txt
-
-   # Securely delete the plaintext private key  
-   rm .config/age/keys.txt
-   ```
-
-2. **Commit the Encrypted Key**: Add `.config/age/keys.txt.age` to Git. It is safe to commit this file as it is strongly encrypted.  
-3. **Bootstrap**: When the devcontainer starts for the first time, `initialize.sh` will detect this file and prompt you in the terminal for the password to decrypt it into the container's runtime environment.
-
-### **Method 2: Global Key (Fallback)**
-
-If you choose not to create a per-project key, the system will fall back to looking for a globally-installed key at `~/.config/sops/age/keys.txt`. This is less secure as the key is shared across all your projects.
-
-## **Day-to-Day Workflow**
+## Day-to-Day Workflow
 
 ### Managing Environment
 
 A critical design principle of this template is the strict separation between **Devcontainer Configuration** and **Application Configuration**.
 
-* **Devcontainer Configuration (.devcontainer/devcontainer.env)**: These variables are used *only* to build and configure the devcontainer itself (e.g., UID, GID). **You should rarely need to touch this file.**  
-* **Application Configuration (.config/)**: This is where you manage variables and secrets for your application (e.g., API keys, database URLs).
+*   **Devcontainer Configuration (`.devcontainer/.env`)**: These variables are used *only* to build and configure the devcontainer itself (e.g., `PUID`, `PGID`). **You should rarely need to touch this file.**
+*   **Application Configuration (`.config/env/`)**: This is where you manage variables and secrets for your application (e.g., API keys, database URLs).
 
-### **Managing Secrets**
+### Managing Secrets
 
-All application secrets (API keys, tokens, etc.) are stored in the encrypted `.config/env/.env.sops.yaml` file. To add a new secret or edit an existing one, use the dedicated Mise task (defined in `.config/mise/tasks.toml`):
+All application secrets (API keys, tokens, etc.) are stored in the encrypted `.config/env/.env.sops.yaml` file. To add a new secret or edit an existing one, use the `sops` command:
+
+```sh
+sops .config/env/.env.sops.yaml
 ```
-mise run secrets
-```
-This command runs a smart script that will:
 
-* **If secrets exist**: Decrypt them, open them in your editor for changes, and automatically re-encrypt them when you're done.  
-* **If no secrets exist**: Copy a template for you to fill out and then encrypt it.
+This command will decrypt the file in-memory, open it in your default editor, and automatically re-encrypt it when you save.
 
-### **Managing Tools**
+### Managing Tools
 
 The project's toolchain is defined in `.config/mise/config.toml`. To add a new tool:
 
-1. Add the tool to the `[tools]` section (e.g., `go = "latest"`).  
-2. Run mise install from the container terminal.
+1.  Add the tool to the `[tools]` section (e.g., `go = "latest"`).
+2.  Run `mise install` from the container terminal.
 
-### **Running Tasks**
+### Running Tasks
 
 Common project commands are defined as **Mise Tasks** in `.config/mise/tasks.toml`.
 
-* To see all available tasks: mise run  
-* To run a task: `mise run <task_name>` (e.g., `mise run lint`)
+*   To see all available tasks: `mise run`
+*   To run a task: `mise run <task_name>` (e.g., `mise run lint`)
 
-## **Automated Quality Control**
+## Automated Quality Control
 
-The project has a two-layered, automated quality control system powered by the centralized Mise tasks.
+The project has a two-layered, automated quality control system powered by the centralized `mise` tasks.
 
-1. **Local (Lefthook)**: When you run git commit, Lefthook automatically runs the mise run lint task on your staged files. This provides immediate feedback.  
-2. **Remote (CI Pipeline)**: When you push your code, the GitHub Actions CI pipeline also runs mise run lint. This is the ultimate source of truth and ensures no failing code can be merged.
+1.  **Local (Lefthook)**: When you run `git commit`, Lefthook automatically runs the `mise run lint` task on your staged files. This provides immediate feedback.
+2.  **Remote (CI Pipeline)**: When you push your code, the GitHub Actions CI pipeline also runs `mise run lint`. This is the ultimate source of truth and ensures no failing code can be merged.
 
-## **The Devcontainer Lifecycle**
+## The Devcontainer Lifecycle
 
 For advanced users and debugging, it's helpful to understand the automated script lifecycle.
 
 | Script | Context | Purpose |
-| :---- | :---- | :---- |
+| :--- | :--- | :--- |
 | `.devcontainer/Dockerfile` | Build | Defines the base image and creates the non-root user. |
-| `.devcontainer/docker-compose.yml` | Build | Defines the build and runtime environment for the devcontainer. |
-| `.devcontainer/scripts/initialize.sh` | Host | **Before Build**: Configures user mapping and provisions the AGE key. |
-| `.devcontainer/scripts/post-create.sh` | One-Time | **After Build**: Validates the environment, installs Mise tools, and activates Lefthook. |
-| `.devcontainer/scripts/post-start.sh` | Start | **Every Start**: Performs lightweight checks like AGE key validation. |
+| `.devcontainer/docker-compose.yml`| Build | Defines the build and runtime environment for the devcontainer. |
+| `.devcontainer/scripts/bootstrap.sh` | Host | **Before Build**: Guides the user through `age` key provisioning. |
+| `.devcontainer/scripts/post-create.sh`| One-Time | **After Build**: Validates the environment, installs `mise` tools, and activates Lefthook. |
+| `.devcontainer/scripts/post-start.sh` | Start | **Every Start**: Performs lightweight checks like `age` key validation and Docker daemon communication. |

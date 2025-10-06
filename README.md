@@ -53,6 +53,21 @@ The documentation is structured to support the Design-First workflow and is orga
 
 ---
 
-## 4. License
+## 4. Repository Layout
+
+```
+/docs              Documentation system
+  ├── PRD.md       Product vision
+  ├── workflows    Executable process guides
+  ├── standards    Mandatory conventions
+  └── templates    Ready-to-use document scaffolds
+/.config           Tooling configuration (mise, sops, etc.)
+/.devcontainer     Development environment automation
+/.github           CI/CD and GitHub templates
+```
+
+---
+
+## 5. License
 
 This project is licensed under the [MIT License](docs/LICENSE).

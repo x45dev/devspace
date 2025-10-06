@@ -4,7 +4,7 @@
 
 ---
 
-## Task 1: [Name of Task 1]
+## 1. [Name of Task 1]
 
 *   **Description:** [A clear and concise description of the task.]
 *   **Dependencies:** [List of task numbers, e.g., "None", "Task 1.1"]
@@ -15,7 +15,7 @@
     *   **Implementation Details:** [Specific instructions, code snippets, library choices, or other details from the `PLAN` that are relevant to this task.]
     *   **Verification Steps:** [Clear instructions on how to verify that the task has been completed successfully (e.g., "run `npm test`", "verify that the `/login` endpoint returns a JWT token").]
 
-### Sub-task 1.1: [Name of Sub-task 1.1]
+### 1.1 [Name of Sub-task 1.1] (optional)
 
 *   **Description:** [A clear and concise description of the sub-task.]
 *   **Dependencies:** [List of task numbers, e.g., "Task 1"]
@@ -28,7 +28,7 @@
 
 ---
 
-## Task 2: [Name of Task 2]
+## 2. [Name of Task 2]
 
 *   **Description:** ...
 *   **Dependencies:** ...
@@ -43,6 +43,6 @@
 
 ## Self-Check
 
-- Standards applied (docs/standards/): [list]
-- DRY & Links validated
-- Gates executed (see workflows/99-universal-gates.md)
+-   Standards applied (`docs/standards/`): [list]
+-   DRY & Links validated: [true/false]
+-   Gates executed (`docs/workflows/99-universal-gates.md`): [true/false]

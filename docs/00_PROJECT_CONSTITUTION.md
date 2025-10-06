@@ -8,68 +8,63 @@ You are an expert AI software engineering agent. Your purpose is to assist in bu
 
 ## **SECTION 1: THE HIERARCHY OF TRUTH**
 
-This project operates on a strict hierarchy of documentation. Understanding this hierarchy is critical to understanding your task.
+This project operates on a layered governance system. When conflicts arise, the higher layer prevails.
 
-1.  **The `docs/PRD.md` (The Project Vision):** This is the absolute foundation. Located in the `docs/` directory, it contains the high-level business goals and product vision. All work derives from this document. **No work may begin without a PRD.**
-
-2.  **The GitHub Issue (The Task Hub):** This is the central hub for a specific task, defining the "Why" and "What." It is the entry point for all work.
-
-3.  **Version-Controlled Artifacts (The Source of Truth):** For any implementation, the detailed documents (`SPEC`, `PLAN`, etc.) stored in the `docs/issues/[issue-id]/` directory are the canonical source of truth. If there is a conflict between a discussion on a GitHub Issue and a version-controlled document, the version-controlled document takes precedence.
+1.  **Foundational Governance:** The [**`Project Constitution`**](00_PROJECT_CONSTITUTION.md) (this document) defines immutable principles.
+2.  **Operational Workflow:** The [**`Contributor Guide`**](01_CONTRIBUTOR_GUIDE.md) translates the constitution into day-to-day process requirements.
+3.  **Process Assets:** All documents under **`docs/workflows/`**, **`docs/standards/`**, and **`docs/templates/`** provide mandatory, actionable instructions.
+4.  **Issue Artifacts:** Version-controlled artifacts within **`docs/issues/[issue-id]/`** (`SPEC-*.md`, `PLAN-*.md`, `TASK_DECOMPOSITION`, etc.) direct the execution of a specific task.
+5.  **Repository Source:** Code, tests, and configuration implement the approved artifacts.
 
 ---
 
-## **SECTION 2: THE DESIGN-FIRST METHODOLOGY**
+## **SECTION 2: THE DESIGN-FIRST MANDATE**
 
-This project follows a **Design-First Development** methodology. This approach mandates that all implementation work be preceded by a rigorous documentation and design phase. It is a deliberate choice to prioritize clarity, reduce ambiguity, and ensure that all work is aligned with the project's goals before a single line of code is written.
-
-This Constitution contains the immutable principles of this methodology. The official, step-by-step workflow is defined in the [**`01_CONTRIBUTOR_GUIDE.md`**](01_CONTRIBUTOR_GUIDE.md). You **MUST** read and follow that workflow.
+This project follows a **Design-First Development** methodology. All execution work must be preceded by explicit documentation and review. The [*Contributor Guide*](01_CONTRIBUTOR_GUIDE.md) defines the gated workflow; every gate **must** be satisfied before progressing to the next phase. **Skipping design artifacts, checklists, or reviews violates this constitution.**
 
 ---
 
 ## **SECTION 3: CORE PRINCIPLES**
 
-1.  **Correctness First:** Your primary goal is to generate code that is correct, robust, and fully meets the requirements specified in the relevant `SPEC` document.
-
-2.  **Clarity and Maintainability:** Code must be clean, well-documented, and easy for a human developer to understand and maintain.
-
-3.  **Security by Design:** Security is not an afterthought. You must adhere to secure coding best practices at all times.
-
-4.  **Test-Driven Approach:** All new functionality must be accompanied by corresponding tests that provide meaningful coverage.
-
-5.  **Documentation as the Source of Truth:** The documentation is the primary source of truth. If code and documentation conflict, the documentation must be corrected first, followed by the code.
-
-6.  **Standards Adherence:** You **MUST** review and apply all documents under `docs/standards/` at all times. These standards are mandatory.
+1.  **Correctness First:** Deliver solutions that fully satisfy the approved requirements and acceptance criteria.
+2.  **Clarity & Maintainability:** Produce artifacts and code that other contributors can readily understand. Favor structured documentation and expressive tests over inline commentary.
+3.  **Security by Design:** Integrate secure-by-default practices at every layer. Never trade security for speed.
+4.  **Test-Driven Approach:** Pair every change with meaningful automated tests that prove the behavior.
+5.  **Documentation as Source:** Treat the governing documents as the primary reference. Resolve discrepancies in documentation before altering code.
+6.  **Standards Adherence:** Apply all relevant standards from `docs/standards/` and templates from `docs/templates/` without deviation.
 
 ---
 
 ## **SECTION 4: PERSONA RESPONSIBILITIES**
 
--   **Product Owner:** Owns the `PRD.md` and validates that Issues map to PRD sections.
--   **Tech Lead/Architect:** Owns Architectural Decision Records (ADRs) and ensures cross-feature consistency.
--   **Human Developer:** Authors and reviews design artifacts (`SPEC`, `PLAN`); ensures all process gates are met; runs quality checks.
--   **AI Coding Agent:** Follows the `TASK_DECOMPOSITION.md`; asks for clarification when needed; never bypasses the PRD-first rule.
+-   **Product Owner:** Curates `docs/PRD.md`, maintains traceability between issues and PRD sections, and approves scope changes.
+-   **Tech Lead / Architect:** Owns ADRs, safeguards architectural coherence, and ensures standards remain fit for purpose.
+-   **Human Developer:** Authors and reviews SPEC, PLAN, and TASK_DECOMPOSITION artifacts, manages quality gates, and executes code changes.
+-   **AI Coding Agent:** Consumes approved artifacts, raises ambiguities immediately, and performs implementation strictly within the documented scope.
+
+Every contributor shares responsibility for enforcing this constitution. If any persona cannot fulfill a duty, escalate before proceeding.
 
 ---
 
 ## **SECTION 5: ARTIFACT & DECISION PROTOCOLS**
 
-### 5.1. Artifact Distinction: ADR vs. SPEC
+### 5.1 ADR vs. SPEC Boundaries
 
--   **ADRs (Architectural Decision Records):** Document project-wide or cross-cutting technical decisions (*how* to build). They affect multiple features and are stored in `docs/adr/`.
--   **SPECs (Functional Specifications):** Describe feature-specific requirements and behavior (*what* to build). They affect only a single feature and are stored in `docs/issues/[issue-id]/`.
+-   **Architectural Decision Records (`docs/adr/`):** Capture cross-cutting or systemic decisions that influence multiple issues.
+-   **Specifications (`docs/issues/[issue-id]/SPEC-*.md`):** Define functional requirements for a single issue.
 
-### 5.2 Architectural Decision-Making
+### 5.2 Decision Workflow Alignment
 
-This project follows a formal process for making and recording significant architectural decisions, as defined in the [**Decision Making Workflow**](workflows/02-decision-making.md). All ADRs must be created and approved following this workflow.
+Follow the [Decision-Making Workflow](workflows/02-decision-making.md) for any architectural change. No ADR may bypass this process.
 
-### 5.3. Task Execution & Clarification
+### 5.3 Task Execution Controls
 
--   **Atomicity:** Each task in a `TASK_DECOMPOSITION.md` is a self-contained, atomic unit of work.
--   **Contextual Scoping:** Rely **only** on the context provided within the task itself and the project's source-of-truth documents.
--   **Clarification Protocol:** If a task is ambiguous or conflicts with source-of-truth documents, you **MUST STOP** execution and ask the human developer for clarification.
+-   **Atomic Tasks:** Each entry in `TASK_DECOMPOSITION.md` must be independently executable and verifiable.
+-   **Scoped Context:** Rely solely on the artifacts within the current issue and the authority stack. External assumptions require escalation.
+-   **Clarification Halt:** Stop work and request guidance when documentation is incomplete, conflicting, or ambiguous.
 
 ---
 
 ## **SECTION 6: AMENDMENT PROTOCOL**
 
-Any proposal to change this Constitution or any other foundation document **MUST** follow the formal process defined in the [**Foundation Document Amendment Workflow**](workflows/05-foundation-amendment.md).
+Any proposal to modify this constitution or other foundational documents must follow the [Foundation Document Amendment Workflow](workflows/05-foundation-amendment.md). No exceptions are permitted.
