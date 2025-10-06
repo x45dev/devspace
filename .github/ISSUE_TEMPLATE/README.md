@@ -17,6 +17,6 @@ All template content should be edited in `docs/templates/`. The symlinks in this
 
 ## Related Documentation
 
-- [Project Constitution](../../docs/PROJECT_CONSTITUTION.md) - GitHub interaction protocol
-- [Contributor Workflow](../../docs/CONTRIBUTING.md) - Issue creation process
+- [Project Constitution](../../docs/00_PROJECT_CONSTITUTION.md) - GitHub interaction protocol
+- [Contributor Workflow](../../docs/01_CONTRIBUTOR_GUIDE.md) - Issue creation process
 - [Template Directory](../../docs/templates/) - Centralized template location

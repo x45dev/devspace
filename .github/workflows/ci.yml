@@ -48,5 +48,4 @@ jobs:
       - name: "Build Devcontainer Image"
         run: |
           echo "--- Building Devcontainer Image ---"
-          cp .devcontainer/devcontainer.env.example .devcontainer/devcontainer.env
           docker compose -f .devcontainer/docker-compose.yml build

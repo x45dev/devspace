@@ -1,6 +1,6 @@
 # **99. Reference: Universal Gates**
 
-This document is a reference checklist, not a sequential workflow. It defines the reusable checkpoints ("gates") that **MUST** be applied at the end of every phase of the [Contributor Guide](01_CONTRIBUTOR_GUIDE.md). Its purpose is to repeatedly enforce the correct use of the project's methodology, standards, and artifacts.
+This document is a reference checklist, not a sequential workflow. It defines the reusable checkpoints ("gates") that **MUST** be applied at the end of every phase of the [Contributor Guide](../01_CONTRIBUTOR_GUIDE.md). Its purpose is to repeatedly enforce the correct use of the project's methodology, standards, and artifacts.
 
 ---
 
